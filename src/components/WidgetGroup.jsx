@@ -11,7 +11,7 @@ import Widget from "./Widget";
 const WidgetGroup = () => {
   return (
     <div>
-      <div className="grid auto-rows-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+      <div className="grid auto-rows-auto grid-cols-2  lg:grid-cols-4 gap-4 ">
         {/* create product */}
         <Link to="/createProduct">
           <Widget
@@ -59,12 +59,12 @@ const WidgetGroup = () => {
 
         {/* create company awards */}
         <Link to="/createAward">
-          <Widget title="Awards" color="bg-purple-300" icon={<FaAward />} />
+          <Widget title="Awards" color="bg-purple-400" icon={<FaAward />} />
         </Link>
 
         {/* create company contact */}
         <Link to="/createContact">
-          <Widget title="Contacts" color="bg-orange-600" icon={<FiMail />} />
+          <Widget title="Contacts" color="bg-orange-400" icon={<FiMail />} />
         </Link>
       </div>
     </div>

@@ -11,7 +11,7 @@ const PopupImage = ({ setShowImage, image }) => {
         >
           {/* image */}
           <img
-            className="object-fill w-full h-full"
+            className="object-fill w-full h-full "
             src={image}
             alt={image}
           />
