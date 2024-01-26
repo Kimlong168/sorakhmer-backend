@@ -185,7 +185,7 @@ const UpdateProduct = ({ productCategoryList }) => {
   }
 
   // loading until data is fetched
-  if (product.categoryName === null) {
+  if (product.name === null) {
     return (
       <Layout>
         <Loading />
@@ -265,7 +265,7 @@ const UpdateProduct = ({ productCategoryList }) => {
 
             {/* product price input */}
             <div>
-              <label className="font-bold text-xl">Price</label>
+              <label className="font-bold text-xl">Price ($)</label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="number"

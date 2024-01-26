@@ -173,8 +173,8 @@ const UpdateAward = () => {
     <Layout>
       <div className="text-gray-900  border-gray-700 mt-6 rounded">
         {/* title */}
-        <div className="text-center p-4 font-bold text-3xl text-green-400 underline uppercase">
-          Update Company Partner
+        <div className="text-center p-4 font-bold text-3xl text-purple-500 underline uppercase">
+          Update Company Award
         </div>
         <br />
 

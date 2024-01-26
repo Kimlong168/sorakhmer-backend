@@ -7,7 +7,7 @@ const Dashboard = () => {
     <Layout>
       <div>
         <Box />
-        <p className="text-xl font-semibold my-2">Create</p>
+        <p className="text-xl font-semibold my-2">Create new item</p>
         <WidgetGroup />
       </div>
     </Layout>

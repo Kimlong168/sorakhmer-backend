@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { TbCategory2 } from "react-icons/tb";
 const CardGroup = () => {
   return (
-    <div className="pb-4">
+    <div className="pb-4 ">
       <p className="text-xl font-semibold mb-2">Dashboard</p>
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card

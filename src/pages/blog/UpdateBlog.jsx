@@ -9,7 +9,6 @@ import {
   deleteObject,
 } from "firebase/storage";
 import Layout from "../../layouts/Layout";
-import WidgetGroup from "../../components/WidgetGroup";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
@@ -218,9 +217,6 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
   }
   return (
     <Layout>
-      {/* all widget in the dashboard */}
-      <WidgetGroup />
-
       <div className="text-gray-900  border-gray-700 mt-6 rounded">
         {/* title */}
         <div className="text-center p-4 font-bold text-3xl text-violet-600 underline uppercase">
@@ -349,7 +345,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
                   : notify
               }
             >
-              Create Blog
+              Update Blog
             </button>
           </div>
         </div>

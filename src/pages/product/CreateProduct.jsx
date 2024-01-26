@@ -5,7 +5,6 @@ import { db, storage } from "../../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Layout from "../../layouts/Layout";
-import WidgetGroup from "../../components/WidgetGroup";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
@@ -105,12 +104,10 @@ const CreateProduct = ({ productCategoryList }) => {
 
   return (
     <Layout>
-      {/* all widget in the dashboard */}
-      <WidgetGroup />
 
-      <div className="text-gray-900  border-gray-700 mt-6 rounded">
+      <div className="text-gray-900  border-gray-700 rounded">
         {/* title */}
-        <div className="text-center p-4 font-bold text-3xl text-red-600 underline uppercase">
+        <div className="text-center p-4 pt-0 font-bold text-3xl text-red-600 underline uppercase">
           Create Product
         </div>
         <br />
@@ -177,7 +174,7 @@ const CreateProduct = ({ productCategoryList }) => {
 
             {/* product price input */}
             <div>
-              <label className="font-bold text-xl">Price</label>
+              <label className="font-bold text-xl">Price ($)</label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="number"

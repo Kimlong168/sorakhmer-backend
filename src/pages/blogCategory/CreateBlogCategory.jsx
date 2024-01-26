@@ -3,7 +3,6 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../layouts/Layout";
-import WidgetGroup from "../../components/WidgetGroup";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
@@ -42,12 +41,10 @@ const CreateBlogCategory = () => {
 
   return (
     <Layout>
-      {/* all widget in the dashboard */}
-      <WidgetGroup />
-
-      <div className="text-gray-900  border-gray-700 mt-6 rounded">
+   
+      <div className="text-gray-900  border-gray-700 rounded">
         {/* title */}
-        <div className="text-center p-4 font-bold text-3xl text-pink-600 underline uppercase">
+        <div className="text-center p-4 pt-0 font-bold text-3xl text-pink-600 underline uppercase">
           Create Blog Category
         </div>
         <br />

@@ -39,11 +39,11 @@ const DetailProductCard = ({
 
           {/* product information */}
           <div className="p-6 mt-5 overflow-auto">
-            <h6 className="mb-4 block font-sans text-3xl font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
-              Name: {name}
+            <h6 className="mb-4 block font-sans text-3xl font-semibold uppercase leading-relaxed tracking-normal  antialiased">
+              <span className="text-pink-500">{name}</span>
             </h6>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              Category:{" "}
+              <span className="text-pink-500">Category: </span>
               {productCategoryList.map((data) => {
                 if (data.id == categoryId) {
                   return data.categoryName;
@@ -51,13 +51,14 @@ const DetailProductCard = ({
               })}
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              Price: {price}
+              <span className="text-pink-500">Price: </span> {price} $
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              Status: {isActive ? "Enable" : "Disable"}
+              <span className="text-pink-500">Status: </span>
+              {isActive ? "Enable" : "Disable"}
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              Description: {description}
+              <span className="text-pink-500">Description: </span> {description}
             </h4>
           </div>
 
@@ -82,7 +83,7 @@ const DetailProductCard = ({
 
         {/* detail of the product */}
         <div className="rounded-xl mx-auto shadow-xl border w-full font-khmer p-2 md:p-5 pt-0 mt-5 ">
-          <div className="mb-2 block text-xl font-semibold text-blue-gray-900 antialiased bg-pink-400 text-white p-4 py-2 rounded-md">
+          <div className="mb-2 mt-3 sm:mt-0 block text-xl font-semibold text-blue-gray-900 antialiased bg-pink-400 text-white p-4 py-2 rounded-md">
             Detail:
           </div>
 

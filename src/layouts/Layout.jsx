@@ -22,7 +22,7 @@ const Layout = (props) => {
   return (
     <div>
       <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased  text-black">
-        <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
+        <div className="fixed w-full flex items-center justify-between h-14 text-white z-[1000]">
           <div className="flex items-center justify-start md:justify-center gap-5 pl-3 w-14 md:w-64 h-14 bg-gray-800 border-none">
             <div>
               <Link to="/">
@@ -39,7 +39,7 @@ const Layout = (props) => {
           </div>
         </div>
 
-        <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+        <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-[900] sidebar">
           <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
             <ul className="flex flex-col py-4 space-y-1">
               <li className="px-5 hidden md:block">

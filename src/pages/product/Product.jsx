@@ -104,7 +104,7 @@ const Product = ({ productList, productCategoryList }) => {
                           }
                         })}
                     </td>
-                    <td className="px-4 py-3">{product.price}</td>
+                    <td className="px-4 py-3">{product.price} $</td>
                     <td className="px-4 py-3">
                       {product.isActive ? "Enable" : "Disable"}
                     </td>

@@ -4,6 +4,7 @@ import { FiUsers } from "react-icons/fi";
 import { FaAward, FaBlog } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaSteamSymbol } from "react-icons/fa";
+import {FiMail} from "react-icons/fi";
 import Widget from "./Widget";
 
 // all the widgets in the dashboard
@@ -59,6 +60,11 @@ const WidgetGroup = () => {
         {/* create company awards */}
         <Link to="/createAward">
           <Widget title="Awards" color="bg-purple-300" icon={<FaAward />} />
+        </Link>
+
+        {/* create company contact */}
+        <Link to="/createContact">
+          <Widget title="Contacts" color="bg-orange-600" icon={<FiMail />} />
         </Link>
       </div>
     </div>
