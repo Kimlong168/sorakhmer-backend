@@ -1,0 +1,260 @@
+import { useState, useContext } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db, storage } from "../../firebase-config";
+import { useNavigate } from "react-router-dom";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Layout from "../../layouts/Layout";
+import WidgetGroup from "../../components/WidgetGroup";
+import notify from "../../utils/Notify";
+import Toast from "../../utils/Toast";
+import PropTypes from "prop-types";
+import { UpdateContext } from "../../contexts/UpdateContext";
+import CKEditor from "../../components/CKeditor";
+import getCurrentDate from "../../utils/getCurrentDataFunction";
+import formatDate from "../../utils/FomatDatafunction";
+const CreateBlog = ({ blogCategoryList, authorList }) => {
+  //  set default category
+  const category = blogCategoryList.map((data) => data.id)[0];
+
+  // state
+  const [blog, setBlog] = useState({
+    title: null,
+    description: "",
+    content: "",
+    coverImage: "",
+    publicationDate: getCurrentDate(),
+    isActive: "true",
+    categoryId: category,
+    authorId: "default",
+  });
+
+  let navigate = useNavigate();
+  const postCollectionRef = collection(db, "blogs");
+
+  //   update context
+  const { setIsUpdated } = useContext(UpdateContext);
+
+  //   handle onChange event for input
+  const handleOnChange = (e) => {
+    // check if the input is image
+    if (e.target.name === "coverImage") {
+      setBlog({
+        ...blog,
+        [e.target.name]: e.target.files[0],
+      });
+      return;
+    }
+
+    setBlog({
+      ...blog,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  //   hadle onChange event for CKEditor
+  const handleEditorChange = (content) => {
+    setBlog({
+      ...blog,
+      content: content,
+    });
+  };
+
+  //   create blog fucntion
+  const CreateBlog = (imageUrl, imageId) => {
+    addDoc(postCollectionRef, {
+      title: blog.title,
+      description: blog.description,
+      content: blog.content,
+      coverImage: imageUrl,
+      coverImageId: imageId,
+      publicationDate: formatDate(blog.publicationDate),
+      categoryId: blog.categoryId,
+      authorId: blog.authorId,
+      // convert string to boolean because the value we get from the select form is string.
+      isActive:
+        typeof blog.isActive === "string"
+          ? JSON.parse(blog.isActive.toLowerCase())
+          : blog.isActive,
+    });
+
+    console.log("Blog created!", blog.categoryName);
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+  };
+
+  // upload image to firebase storage
+  const uploadImageAndCreateBlog = () => {
+    // navigate to blog page in advance
+    navigate("/blog");
+
+    // Concatenate full name and timestamp to create the ID
+    const blogNameNoSpaces = blog.title.replace(/\s+/g, "");
+    const timestamp = new Date().getTime();
+    const imageId = `${blogNameNoSpaces}_${timestamp}`;
+
+    const imageRef = ref(storage, `blogCoverImages/${imageId}`);
+    uploadBytes(imageRef, blog.coverImage).then(() => {
+      // Get the download URL for the uploaded image
+      getDownloadURL(imageRef)
+        .then((downloadURL) => {
+          console.log("blog cover image URL:", downloadURL);
+          //   store blog and image to firestore database
+          CreateBlog(downloadURL, imageId);
+        })
+        .catch((error) => {
+          console.error("Error getting download URL:", error);
+        });
+
+      console.log("blog image uploaded");
+    });
+  };
+
+  return (
+    <Layout>
+      {/* all widget in the dashboard */}
+      <WidgetGroup />
+
+      <div className="text-gray-900  border-gray-700 mt-6 rounded">
+        {/* title */}
+        <div className="text-center p-4 font-bold text-3xl text-violet-600 underline uppercase">
+          Create Blog Post
+        </div>
+        <br />
+
+        {/* create blog categort form */}
+        <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
+          <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
+            {/* blog title input */}
+            <div className="w-full">
+              <label className="font-bold text-xl">Blog Title:</label>
+              <input
+                className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                type="text"
+                name="title"
+                value={blog.title}
+                onChange={(e) => handleOnChange(e)}
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
+              {/* category input */}
+              <div className="w-full">
+                <label className="font-bold mb-2 text-xl">Category</label>
+                <select
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5 cursor-pointer"
+                  name="categoryId"
+                  value={blog.categoryId}
+                  onChange={(e) => handleOnChange(e)}
+                >
+                  {blogCategoryList.map((data) => (
+                    <>
+                      <option value={data.id}>{data.categoryName}</option>
+                    </>
+                  ))}
+                </select>
+              </div>
+
+              {/* author input*/}
+              <div className="w-full">
+                <label className="font-bold mb-2 text-xl">Author</label>
+                <select
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5 cursor-pointer"
+                  name="authorId"
+                  value={blog.authorId}
+                  onChange={(e) => handleOnChange(e)}
+                >
+                  <option value={`default`}>Admin</option>
+                  {authorList.map((data) => (
+                    <>
+                      <option value={data.id}>{data.fullName}</option>
+                    </>
+                  ))}
+                </select>
+              </div>
+              {/* isActive input */}
+              <div className="w-full">
+                <label className="font-bold mb-2 text-xl">Status</label>
+                <select
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5 cursor-pointer"
+                  name="isActive"
+                  value={blog.isActive}
+                  onChange={(e) => handleOnChange(e)}
+                >
+                  <option value={true}>Enable</option>
+                  <option value={false}>Disable</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
+              {/* blog image url input */}
+              <div className="w-full">
+                <label className="font-bold text-xl">Cover Image:</label>
+                <input
+                  className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
+                  type="file"
+                  name="coverImage"
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </div>
+
+              {/* publish date */}
+              <div className="w-full">
+                <label className="font-bold text-xl ">Publish Date</label>
+                <input
+                  type="date"
+                  name="publicationDate"
+                  className="border border-gray-700  uppercase p-2 rounded w-full outline-none mb-5 cursor-pointer "
+                  value={blog.publicationDate}
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </div>
+            </div>
+
+            {/* description input */}
+            <label className="font-bold text-xl">Description:</label>
+            <textarea
+              placeholder="Write something to describe this blog "
+              rows={3}
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              type="text"
+              name="description"
+              value={blog.description}
+              onChange={(e) => handleOnChange(e)}
+            />
+
+            {/* blog Content or body input */}
+            <label className="font-bold text-xl">Content:</label>
+            <div>
+              <CKEditor handleEditorChange={handleEditorChange} />
+            </div>
+
+            {/*create blog button */}
+            <button
+              className="bg-gray-700 text-white font-bold p-2 mt-2 rounded"
+              onClick={
+                // check if all required input is filled
+                blog.title &&
+                blog.description &&
+                blog.content &&
+                blog.coverImage
+                  ? uploadImageAndCreateBlog
+                  : notify
+              }
+            >
+              Create Blog
+            </button>
+          </div>
+        </div>
+
+        {/* toast alert */}
+        <Toast />
+      </div>
+    </Layout>
+  );
+};
+CreateBlog.propTypes = {
+  blogCategoryList: PropTypes.array.isRequired,
+  authorList: PropTypes.array.isRequired,
+};
+export default CreateBlog;
