@@ -28,6 +28,9 @@ import UpdatePartner from "./pages/partner/UpdatePartner";
 import Award from "./pages/award/Award";
 import CreateAward from "./pages/award/CreateAward";
 import UpdateAward from "./pages/award/UpdateAward";
+import DynamicData from "./pages/dynamicData/DynamicData";
+import CreateDynamicData from "./pages/dynamicData/CreateDynamicData";
+import UpdateDynamicData from "./pages/dynamicData/UpdateDynamicData";
 function App() {
   // state
   const [isUpdated, setIsUpdated] = useState(false);
@@ -85,8 +88,6 @@ function App() {
       // fetch data of award
       const award = await getDocs(awardCollectionRef);
       setAwardList(award.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-
-    
     };
 
     // call fetchAllData function
@@ -247,6 +248,20 @@ function App() {
               <Route path="/createAward" element={<CreateAward />} />
               {/* update company award */}
               <Route path="/updateAward/:id" element={<UpdateAward />} />
+
+              {/* -------------Company Dynamic data route------------- */}
+              {/* dynamic data */}
+              <Route path="/dynamicData" element={<DynamicData />} />
+              {/* create dynamic data */}
+              <Route
+                path="/createDynamicData"
+                element={<CreateDynamicData />}
+              />
+              {/* update dynamic data */}
+              <Route
+                path="/updateDynamicData/:id"
+                element={<UpdateDynamicData />}
+              />
             </Routes>
           </Router>
         </UpdateContext.Provider>

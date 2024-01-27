@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { BiCategoryAlt } from "react-icons/bi";
-import { FiUsers } from "react-icons/fi";
+import { FiUsers, FiDatabase } from "react-icons/fi";
 import { FaAward, FaBlog } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaSteamSymbol } from "react-icons/fa";
-import {FiMail} from "react-icons/fi";
-import Widget from "./Widget";
+import { AiFillPlusCircle } from "react-icons/ai";
 
 // all the widgets in the dashboard
 const WidgetGroup = () => {
@@ -48,6 +48,11 @@ const WidgetGroup = () => {
           <Widget title="Author" color="bg-blue-500" icon={<FiUsers />} />
         </Link>
 
+        {/* create company awards */}
+        <Link to="/createAward">
+          <Widget title="Awards" color="bg-purple-400" icon={<FaAward />} />
+        </Link>
+
         {/* create company partners  */}
         <Link to="/createPartner">
           <Widget
@@ -57,18 +62,34 @@ const WidgetGroup = () => {
           />
         </Link>
 
-        {/* create company awards */}
-        <Link to="/createAward">
-          <Widget title="Awards" color="bg-purple-400" icon={<FaAward />} />
-        </Link>
-
         {/* create company contact */}
-        <Link to="/createContact">
-          <Widget title="Contacts" color="bg-orange-400" icon={<FiMail />} />
+        <Link to="/createDynamicData">
+          <Widget
+            title="Dynamic Data"
+            color="bg-orange-400"
+            icon={<FiDatabase />}
+          />
         </Link>
       </div>
     </div>
   );
 };
+const Widget = ({ title, color, icon }) => {
+  return (
+    <div
+      className={` h-[100px] rounded-r-md p-4 shadow-xl ${color}  text-white font-semibold text-lg cursor-pointer border-l-[10px] border-gray-300 hover:border-gray-900 flex items-center justify-center gap-3 uppercase`}
+    >
+      <AiFillPlusCircle />
+      <div className="flex items-center justify-end gap-2">
+        <span className="hidden lg:block text-center">{title}</span> {icon}
+      </div>
+    </div>
+  );
+};
 
+Widget.propTypes = {
+  title: PropTypes.string.isRequired,
+  color: PropTypes.number,
+  icon: PropTypes.element,
+};
 export default WidgetGroup;

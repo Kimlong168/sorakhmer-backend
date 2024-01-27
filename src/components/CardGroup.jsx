@@ -1,4 +1,10 @@
-import { FiMail, FiShoppingCart, FiUsers, FiAward } from "react-icons/fi";
+import {
+ 
+  FiShoppingCart,
+  FiUsers,
+  FiAward,
+  FiDatabase,
+} from "react-icons/fi";
 import { FaSteamSymbol } from "react-icons/fa";
 import { FaBlog } from "react-icons/fa6";
 import PropTypes from "prop-types";
@@ -47,10 +53,10 @@ const CardGroup = () => {
           Icon={FaSteamSymbol}
         />
         <Card
-          title="Contact"
-          subtitle="Manage contact"
-          href="/contact"
-          Icon={FiMail}
+          title="Dynamic data"
+          subtitle="Manage dynamic data"
+          href="/dynamicData"
+          Icon={FiDatabase}
         />
       </div>
     </div>
