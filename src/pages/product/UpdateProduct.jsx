@@ -326,6 +326,6 @@ const UpdateProduct = ({ productCategoryList }) => {
   );
 };
 UpdateProduct.propTypes = {
-  productCategoryList: PropTypes.array.isRequired,
+  productCategoryList: PropTypes.array,
 };
 export default UpdateProduct;

@@ -28,9 +28,9 @@ import UpdatePartner from "./pages/partner/UpdatePartner";
 import Award from "./pages/award/Award";
 import CreateAward from "./pages/award/CreateAward";
 import UpdateAward from "./pages/award/UpdateAward";
-import DynamicData from "./pages/dynamicData/DynamicData";
-import CreateDynamicData from "./pages/dynamicData/CreateDynamicData";
-import UpdateDynamicData from "./pages/dynamicData/UpdateDynamicData";
+import Contact from "./pages/contact/Contact";
+import UpdateContact from "./pages/contact/UpdateContact";
+import CreateContact from "./pages/contact/CreateContact";
 function App() {
   // state
   const [isUpdated, setIsUpdated] = useState(false);
@@ -41,6 +41,7 @@ function App() {
   const [authorList, setAuthorList] = useState([]);
   const [partnerList, setPartnerList] = useState([]);
   const [awardList, setAwardList] = useState([]);
+  const [contact, setContact] = useState({});
 
   // fetch all data from firebase
   useEffect(() => {
@@ -51,6 +52,7 @@ function App() {
     const authorCollectionRef = collection(db, "authors");
     const partnerCollectionRef = collection(db, "partners");
     const awardCollectionRef = collection(db, "awards");
+    const contactCollectionRef = collection(db, "contact");
 
     const fetchAllData = async () => {
       // fetch data of product
@@ -88,6 +90,10 @@ function App() {
       // fetch data of award
       const award = await getDocs(awardCollectionRef);
       setAwardList(award.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+      //fetch contact data
+      const contact = await getDocs(contactCollectionRef);
+      setContact(contact.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     // call fetchAllData function
@@ -249,19 +255,13 @@ function App() {
               {/* update company award */}
               <Route path="/updateAward/:id" element={<UpdateAward />} />
 
-              {/* -------------Company Dynamic data route------------- */}
-              {/* dynamic data */}
-              <Route path="/dynamicData" element={<DynamicData />} />
-              {/* create dynamic data */}
-              <Route
-                path="/createDynamicData"
-                element={<CreateDynamicData />}
-              />
-              {/* update dynamic data */}
-              <Route
-                path="/updateDynamicData/:id"
-                element={<UpdateDynamicData />}
-              />
+              {/* -------------Company Contact data route------------- */}
+              {/* contact data */}
+              <Route path="/contact" element={<Contact contactList={contact} />} />
+              {/* create contact data */}
+              <Route path="/createContact" element={<CreateContact />} />
+              {/* update contact data */}
+              <Route path="/updateContact/:id" element={<UpdateContact />} />
             </Routes>
           </Router>
         </UpdateContext.Provider>

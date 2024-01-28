@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BiCategoryAlt } from "react-icons/bi";
-import { FiUsers, FiDatabase } from "react-icons/fi";
+import { FiUsers, FiMail } from "react-icons/fi";
 import { FaAward, FaBlog } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaSteamSymbol } from "react-icons/fa";
@@ -63,11 +63,11 @@ const WidgetGroup = () => {
         </Link>
 
         {/* create company contact */}
-        <Link to="/createDynamicData">
+        <Link to="/CreateContact">
           <Widget
-            title="Dynamic Data"
+            title="Contact"
             color="bg-orange-400"
-            icon={<FiDatabase />}
+            icon={<FiMail />}
           />
         </Link>
       </div>
@@ -89,7 +89,7 @@ const Widget = ({ title, color, icon }) => {
 
 Widget.propTypes = {
   title: PropTypes.string.isRequired,
-  color: PropTypes.number,
+  color: PropTypes.string,
   icon: PropTypes.element,
 };
 export default WidgetGroup;
