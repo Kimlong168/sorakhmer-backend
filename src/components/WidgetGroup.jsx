@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BiCategoryAlt } from "react-icons/bi";
-import { FiUsers, FiMail } from "react-icons/fi";
+import { FiUsers } from "react-icons/fi";
 import { FaAward, FaBlog } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaSteamSymbol } from "react-icons/fa";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { PiFactory, PiStorefront } from "react-icons/pi";
 
 // all the widgets in the dashboard
 const WidgetGroup = () => {
@@ -63,12 +64,18 @@ const WidgetGroup = () => {
         </Link>
 
         {/* create company contact */}
-        <Link to="/CreateContact">
-          <Widget
-            title="Contact"
-            color="bg-orange-400"
-            icon={<FiMail />}
-          />
+        {/* <Link to="/createContact">
+          <Widget title="Contact" color="bg-orange-400" icon={<FiMail />} />
+        </Link> */}
+
+        {/* create process of producing */}
+        <Link to="/createProcess">
+          <Widget title="Process" color="bg-blue-900" icon={<PiFactory />} />
+        </Link>
+
+        {/* create place to buy */}
+        <Link to="/createStore">
+          <Widget title="Create Store" color="bg-orange-900" icon={<PiStorefront />} />
         </Link>
       </div>
     </div>

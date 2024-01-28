@@ -31,6 +31,14 @@ import UpdateAward from "./pages/award/UpdateAward";
 import Contact from "./pages/contact/Contact";
 import UpdateContact from "./pages/contact/UpdateContact";
 import CreateContact from "./pages/contact/CreateContact";
+import Error404 from "./pages/Error404";
+import UpdateProcess from "./pages/process/UpdateProcess";
+import CreateProcess from "./pages/process/CreateProcess";
+import Process from "./pages/process/Process";
+import ProcessDetail from "./pages/process/ProcessDetail";
+import Store from "./pages/store/Store";
+import CreateStore from "./pages/store/CreateStore";
+import UpdateStore from "./pages/store/UpdateStore";
 function App() {
   // state
   const [isUpdated, setIsUpdated] = useState(false);
@@ -41,7 +49,8 @@ function App() {
   const [authorList, setAuthorList] = useState([]);
   const [partnerList, setPartnerList] = useState([]);
   const [awardList, setAwardList] = useState([]);
-  const [contact, setContact] = useState({});
+  const [contact, setContact] = useState([]);
+  const [processList, setProcessList] = useState([]);
 
   // fetch all data from firebase
   useEffect(() => {
@@ -53,6 +62,7 @@ function App() {
     const partnerCollectionRef = collection(db, "partners");
     const awardCollectionRef = collection(db, "awards");
     const contactCollectionRef = collection(db, "contact");
+    const processCollectionRef = collection(db, "process");
 
     const fetchAllData = async () => {
       // fetch data of product
@@ -94,6 +104,12 @@ function App() {
       //fetch contact data
       const contact = await getDocs(contactCollectionRef);
       setContact(contact.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+      //fetch process data
+      const process = await getDocs(processCollectionRef);
+      setProcessList(
+        process.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
     };
 
     // call fetchAllData function
@@ -106,8 +122,12 @@ function App() {
         {/* update context */}
         <UpdateContext.Provider value={{ isUpdated, setIsUpdated }}>
           {/* -------------router------------- */}
+
           <Router>
             <Routes>
+              {/* -------------error 404 route------------- */}
+              <Route path="*" element={<Error404 />} />
+
               {/* -------------dashboard route------------- */}
               <Route path="/" element={<Dashboard />} />
 
@@ -257,11 +277,35 @@ function App() {
 
               {/* -------------Company Contact data route------------- */}
               {/* contact data */}
-              <Route path="/contact" element={<Contact contactList={contact} />} />
+              <Route
+                path="/contact"
+                element={<Contact contactList={contact} />}
+              />
               {/* create contact data */}
               <Route path="/createContact" element={<CreateContact />} />
               {/* update contact data */}
               <Route path="/updateContact/:id" element={<UpdateContact />} />
+
+              {/* -------------process of producing route------------- */}
+              {/* process of producing */}
+              <Route
+                path="/process"
+                element={<Process processList={processList} />}
+              />
+              {/* create process of producing */}
+              <Route path="/createProcess" element={<CreateProcess />} />
+              {/* update process of producing */}
+              <Route path="/updateProcess/:id" element={<UpdateProcess />} />
+              {/* process detail */}
+              <Route path="/processDetail/:id" element={<ProcessDetail />} />
+
+              {/* -------------store route------------- */}
+              {/* store */}
+              <Route path="/store" element={<Store />} />
+              {/* create store */}
+              <Route path="/createStore" element={<CreateStore />} />
+              {/* update store */}
+              <Route path="/updateStore/:id" element={<UpdateStore />} />
             </Routes>
           </Router>
         </UpdateContext.Provider>

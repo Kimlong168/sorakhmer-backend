@@ -5,7 +5,11 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import PropTypes from "prop-types";
 import "../App.css";
 import { useEffect, useState } from "react";
-const CKeditor = ({ handleEditorChange, contentToUpdate }) => {
+const CKeditor = ({
+  handleEditorChange,
+  contentToUpdate,
+  imageFolderName = "blogImages",
+}) => {
   const [content, setContent] = useState(contentToUpdate || "");
 
   useEffect(() => {
@@ -20,7 +24,7 @@ const CKeditor = ({ handleEditorChange, contentToUpdate }) => {
           loader.file.then((file) => {
             body.append("file", file);
 
-            const imageRef = ref(storage, `blogImages/${file.name}`);
+            const imageRef = ref(storage, `${imageFolderName}/${file.name}`);
             uploadBytes(imageRef, file).then(() => {
               // Get the download URL for the uploaded image
               getDownloadURL(imageRef)
@@ -79,5 +83,6 @@ const CKeditor = ({ handleEditorChange, contentToUpdate }) => {
 CKeditor.propTypes = {
   handleEditorChange: PropTypes.func.isRequired,
   contentToUpdate: PropTypes.string.isRequired,
+  imageFolderName: PropTypes.string.isRequired,
 };
 export default CKeditor;

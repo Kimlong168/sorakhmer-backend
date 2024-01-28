@@ -332,6 +332,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
               <CKEditor
                 handleEditorChange={handleEditorChange}
                 contentToUpdate={blog.content}
+                imageFolderName="blogImages"
               />
             </div>
 

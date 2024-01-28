@@ -224,7 +224,7 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
             {/* blog Content or body input */}
             <label className="font-bold text-xl">Content:</label>
             <div>
-              <CKEditor handleEditorChange={handleEditorChange} />
+              <CKEditor handleEditorChange={handleEditorChange} imageFolderName="blogImages"/>
             </div>
 
             {/*create blog button */}

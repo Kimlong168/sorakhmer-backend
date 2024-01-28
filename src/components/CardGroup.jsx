@@ -1,15 +1,9 @@
-import {
- 
-  FiShoppingCart,
-  FiUsers,
-  FiAward,
-
-  FiMail,
-} from "react-icons/fi";
+import { FiShoppingCart, FiUsers, FiAward, FiMail } from "react-icons/fi";
 import { FaSteamSymbol } from "react-icons/fa";
 import { FaBlog } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { PiFactory, PiStorefront } from "react-icons/pi";
 import { TbCategory2 } from "react-icons/tb";
 const CardGroup = () => {
   return (
@@ -53,6 +47,21 @@ const CardGroup = () => {
           href="/partner"
           Icon={FaSteamSymbol}
         />
+
+        <Card
+          title="Process"
+          subtitle="Manage process of producing"
+          href="/process"
+          Icon={PiFactory}
+        />
+
+        <Card
+          title="Store"
+          subtitle="Manage store"
+          href="/store"
+          Icon={PiStorefront}
+        />
+
         <Card
           title="Contact"
           subtitle="Manage contact"
@@ -83,10 +92,12 @@ const Card = ({ title, subtitle, Icon, href }) => {
     </Link>
   );
 };
+
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
   Icon: PropTypes.element,
 };
+
 export default CardGroup;

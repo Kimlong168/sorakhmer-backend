@@ -151,7 +151,8 @@ const CreateContact = () => {
               <label className="font-bold text-xl">Phone number:</label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-                type="text"
+                placeholder="example: 012345678"
+                type="tel"
                 name="phoneNumber"
                 value={contact.phoneNumber}
                 onChange={(e) => handleContactChange(e)}

@@ -8,6 +8,7 @@ import { FaSteamSymbol, FaAward } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import logo from "../assets/images/sorakhmer-logo.png";
+import { PiFactoryBold, PiStorefront } from "react-icons/pi";
 // import { auth } from "../firebase-config";
 // import { onAuthStateChanged } from "firebase/auth";
 
@@ -170,7 +171,37 @@ const Layout = (props) => {
                 </Link>
               </li>
 
+              {/* process */}
+              <li>
+                <Link
+                  to="/process"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                >
+                  <span className="inline-flex justify-center items-center ml-4">
+                    <PiFactoryBold />
+                  </span>
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    Process
+                  </span>
+                </Link>
+              </li>
+              {/* store */}
+              <li>
+                <Link
+                  to="/store"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                >
+                  <span className="inline-flex justify-center items-center ml-4">
+                    <PiStorefront />
+                  </span>
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    Store
+                  </span>
+                </Link>
+              </li>
+
               {/* contact data  */}
+
               <li>
                 <Link
                   to="/contact"
