@@ -13,6 +13,7 @@ import Loading from "../../components/Loading";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
+import RedStar from "../../components/RedStar";
 
 const UpdatePartner = () => {
   const { id: partnerParams } = useParams();
@@ -103,7 +104,7 @@ const UpdatePartner = () => {
       // if image is updated
 
       // remove the old image from the storage
-      const storageRef = ref(storage, `partnerImages/${partner.partnerImages}`);
+      const storageRef = ref(storage, `partnerImages/${partner.partnerLogoId}`);
       deleteObject(storageRef)
         .then(() => {
           // File deleted successfully
@@ -118,7 +119,7 @@ const UpdatePartner = () => {
         });
 
       // upload new image to the storage, get the image url and update the data in the firestore
-      const imageRef = ref(storage, `partnerImages/${partner.partnerImages}`);
+      const imageRef = ref(storage, `partnerImages/${partner.partnerLogoId}`);
       uploadBytes(imageRef, partner.partnerLogo).then(() => {
         // Get the download URL for the uploaded image
         getDownloadURL(imageRef)
@@ -179,7 +180,7 @@ const UpdatePartner = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* partner name input */}
-            <label className="font-bold text-xl">Partner Name:</label>
+            <label className="font-bold text-xl">Partner Name<RedStar /></label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -189,7 +190,7 @@ const UpdatePartner = () => {
             />
 
             {/* Logo picture input */}
-            <label className="font-bold text-xl">Logo Picture:</label>
+            <label className="font-bold text-xl">Logo Picture</label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"
@@ -198,7 +199,7 @@ const UpdatePartner = () => {
             />
 
             {/* link input */}
-            <label className="font-bold text-xl">Link:</label>
+            <label className="font-bold text-xl">Link</label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               placeholder="website or social media link (optional)..."
@@ -209,7 +210,7 @@ const UpdatePartner = () => {
             />
 
             {/* bio input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">Description</label>
             <textarea
               placeholder="Write something about the partner (optional)..."
               rows={3}

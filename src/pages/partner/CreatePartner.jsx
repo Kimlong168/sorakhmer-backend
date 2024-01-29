@@ -7,6 +7,7 @@ import Layout from "../../layouts/Layout";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
+import RedStar from "../../components/RedStar";
 
 const CreatePartner = () => {
   const { setIsUpdated } = useContext(UpdateContext);
@@ -91,7 +92,7 @@ const CreatePartner = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* partner name input */}
-            <label className="font-bold text-xl">Partner Name:</label>
+            <label className="font-bold text-xl">Partner Name<RedStar /></label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -101,7 +102,7 @@ const CreatePartner = () => {
             />
 
             {/* Logo picture input */}
-            <label className="font-bold text-xl">Logo Picture:</label>
+            <label className="font-bold text-xl">Logo Picture<RedStar /></label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"
@@ -110,7 +111,7 @@ const CreatePartner = () => {
             />
 
             {/* link input */}
-            <label className="font-bold text-xl">Link:</label>
+            <label className="font-bold text-xl">Link</label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               placeholder="website or social media link (optional)..."
@@ -121,7 +122,7 @@ const CreatePartner = () => {
             />
 
             {/* bio input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">Description</label>
             <textarea
               placeholder="Write something about the partner (optional)..."
               rows={3}

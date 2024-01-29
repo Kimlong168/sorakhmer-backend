@@ -96,7 +96,11 @@ const Partner = ({ partnerList }) => {
                     <td className="px-4 py-3">{index + 1}</td>
                     <td className="px-4 py-3">{item.partnerName}</td>
                     <td className="px-4 py-3">
-                      <img className="w-[100px]" src={item.partnerLogo} />
+                      <img
+                        className="w-[100px]"
+                        src={item.partnerLogo}
+                        loading="lazy"
+                      />
                     </td>
                     <td className="px-4 py-3" title={item.link}>
                       {item.link !== "" ? (

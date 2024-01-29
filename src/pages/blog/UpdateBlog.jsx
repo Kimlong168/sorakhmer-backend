@@ -18,6 +18,7 @@ import getCurrentDate from "../../utils/getCurrentDataFunction";
 import formatDate from "../../utils/FomatDatafunction";
 import Loading from "../../components/Loading";
 import convertDateFormat from "../../utils/ConvertDateFormat";
+import RedStar from "../../components/RedStar";
 const UpdateBlog = ({ blogCategoryList, authorList }) => {
   const { id: blogParams } = useParams();
 
@@ -144,7 +145,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
       // to update the data in the table
       setIsUpdated((prev) => !prev);
     } else {
-      alert("image is updated");
+    
       // if image is updated
 
       // remove the old image from the storage
@@ -229,7 +230,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* blog name input */}
             <div className="w-full">
-              <label className="font-bold text-xl">Blog Title:</label>
+              <label className="font-bold text-xl">Blog Title<RedStar /></label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="text"
@@ -292,7 +293,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
             <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
               {/* blog image url input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Cover Image:</label>
+                <label className="font-bold text-xl">Cover Image</label>
                 <input
                   className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
                   type="file"
@@ -315,7 +316,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
             </div>
 
             {/* description input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">Description<RedStar /></label>
             <textarea
               placeholder="Write something to describe this blog "
               rows={3}
@@ -327,7 +328,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
             />
 
             {/* blog Content or body input */}
-            <label className="font-bold text-xl">Content:</label>
+            <label className="font-bold text-xl">Content<RedStar /></label>
             <div>
               <CKEditor
                 handleEditorChange={handleEditorChange}

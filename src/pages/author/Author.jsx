@@ -106,6 +106,7 @@ const Author = ({ authorList }) => {
                       <img
                         className="w-[40px] h-[40px] rounded-full"
                         src={item.profilePicture}
+                        loading="lazy"
                       />
                     </td>
                     <td className="px-4 py-3">

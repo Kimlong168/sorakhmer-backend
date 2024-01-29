@@ -10,6 +10,7 @@ import { BsTrash } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import validateEmail from "../../utils/ValidateEmailFunction";
 import Loading from "../../components/Loading";
+import RedStar from "../../components/RedStar";
 const UpdateContact = () => {
   const { id: contactParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -140,7 +141,10 @@ const UpdateContact = () => {
                 Update Contact Information
               </legend>
               {/* email name input */}
-              <label className="font-bold text-xl">Phone number:</label>
+              <label className="font-bold text-xl">
+                Phone number
+                <RedStar />
+              </label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 placeholder="example: 012345678"
@@ -150,7 +154,10 @@ const UpdateContact = () => {
                 onChange={(e) => handleContactChange(e)}
               />
               {/* email name input */}
-              <label className="font-bold text-xl">Email:</label>
+              <label className="font-bold text-xl">
+                Email
+                <RedStar />
+              </label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="email"
@@ -159,7 +166,10 @@ const UpdateContact = () => {
                 onChange={(e) => handleContactChange(e)}
               />
               {/* telegram name input */}
-              <label className="font-bold text-xl">Telegram username:</label>
+              <label className="font-bold text-xl">
+                Telegram username
+                <RedStar />
+              </label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="text"
@@ -170,7 +180,10 @@ const UpdateContact = () => {
               />
               {/* social media input */}
               <h2 className="font-bold text-xl flex items-center justify-between mb-2">
-                Social Media
+                <div>
+                  Social Media
+                  <RedStar />
+                </div>
                 <button
                   className="uppercase text-sm text-green-600 flex items-center gap-2"
                   onClick={addLink}

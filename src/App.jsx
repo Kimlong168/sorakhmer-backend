@@ -51,6 +51,7 @@ function App() {
   const [awardList, setAwardList] = useState([]);
   const [contact, setContact] = useState([]);
   const [processList, setProcessList] = useState([]);
+  const [storeList, setStoreList] = useState([]);
 
   // fetch all data from firebase
   useEffect(() => {
@@ -63,6 +64,7 @@ function App() {
     const awardCollectionRef = collection(db, "awards");
     const contactCollectionRef = collection(db, "contact");
     const processCollectionRef = collection(db, "process");
+    const storeCollectionRef = collection(db, "stores");
 
     const fetchAllData = async () => {
       // fetch data of product
@@ -110,6 +112,10 @@ function App() {
       setProcessList(
         process.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
+
+      //fetch store data
+      const store = await getDocs(storeCollectionRef);
+      setStoreList(store.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     // call fetchAllData function
@@ -171,7 +177,7 @@ function App() {
               <Route
                 path="/productCategory"
                 element={
-                  <ProductCategory ProductCategoryList={productCategoryList} />
+                  <ProductCategory productCategoryList={productCategoryList} />
                 }
               />
               {/* create product category */}
@@ -301,7 +307,7 @@ function App() {
 
               {/* -------------store route------------- */}
               {/* store */}
-              <Route path="/store" element={<Store />} />
+              <Route path="/store" element={<Store storeList={storeList} />} />
               {/* create store */}
               <Route path="/createStore" element={<CreateStore />} />
               {/* update store */}

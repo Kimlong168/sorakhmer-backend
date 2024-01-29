@@ -16,6 +16,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
+import RedStar from "../../components/RedStar";
 
 const UpdateProduct = ({ productCategoryList }) => {
   const { id: productParams } = useParams();
@@ -208,7 +209,10 @@ const UpdateProduct = ({ productCategoryList }) => {
             <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
               {/* product name input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Product Name:</label>
+                <label className="font-bold text-xl">
+                  Product Name
+                  <RedStar />
+                </label>
                 <input
                   className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                   type="text"
@@ -220,7 +224,7 @@ const UpdateProduct = ({ productCategoryList }) => {
 
               {/* product image url input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Product Image:</label>
+                <label className="font-bold text-xl">Product Image</label>
                 <input
                   className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
                   type="file"
@@ -265,7 +269,10 @@ const UpdateProduct = ({ productCategoryList }) => {
 
             {/* product price input */}
             <div>
-              <label className="font-bold text-xl">Price ($)</label>
+              <label className="font-bold text-xl">
+                Price ($)
+                <RedStar />
+              </label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="number"
@@ -276,7 +283,10 @@ const UpdateProduct = ({ productCategoryList }) => {
             </div>
 
             {/* description input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">
+              Description
+              <RedStar />
+            </label>
             <textarea
               placeholder="Write something to describe this product "
               rows={3}
@@ -288,7 +298,7 @@ const UpdateProduct = ({ productCategoryList }) => {
             />
 
             {/* product detail input */}
-            <label className="font-bold text-xl">Detail:</label>
+            <label className="font-bold text-xl">Detail</label>
             <div>
               <JoditEditor
                 ref={editor}

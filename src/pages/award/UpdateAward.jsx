@@ -15,6 +15,7 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import formatDate from "../../utils/FomatDatafunction";
 import convertDateFormat from "../../utils/ConvertDateFormat";
+import RedStar from "../../components/RedStar";
 const UpdateAward = () => {
   const { id: awardParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -108,7 +109,7 @@ const UpdateAward = () => {
       // if image is updated
 
       // remove the old image from the storage
-      const storageRef = ref(storage, `awardImages/${award.awardLogo}`);
+      const storageRef = ref(storage, `awardImages/${award.awardLogoId}`);
       deleteObject(storageRef)
         .then(() => {
           // File deleted successfully
@@ -182,7 +183,7 @@ const UpdateAward = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* award name input */}
-            <label className="font-bold text-xl">Award Name:</label>
+            <label className="font-bold text-xl">Award Name<RedStar /></label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -192,7 +193,7 @@ const UpdateAward = () => {
             />
 
             {/* Logo picture input */}
-            <label className="font-bold text-xl">Award Picture:</label>
+            <label className="font-bold text-xl">Award Picture</label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"

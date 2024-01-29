@@ -7,6 +7,7 @@ import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import CKeditor from "../../components/CKeditor";
+import RedStar from "../../components/RedStar";
 
 const CreateProcess = () => {
   const [process, setProcess] = useState({
@@ -61,7 +62,7 @@ const CreateProcess = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* category name input */}
-            <label className="font-bold text-xl">Process Name:</label>
+            <label className="font-bold text-xl">Process Name<RedStar /></label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               placeholder="example: Sora khmer"
@@ -72,7 +73,7 @@ const CreateProcess = () => {
             />
 
             {/* description input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">Description<RedStar /></label>
             <div>
               <CKeditor
                 handleEditorChange={handleEditorChange}

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 
-const ProductCategory = ({ ProductCategoryList }) => {
+const ProductCategory = ({ productCategoryList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
 
   // delete category notify
@@ -49,7 +49,7 @@ const ProductCategory = ({ ProductCategoryList }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-              {ProductCategoryList.length == 0 && (
+              {productCategoryList.length == 0 && (
                 <>
                   <tr className=" text-center">
                     <td className="py-8 text-white font-bold" colSpan={8}>
@@ -58,13 +58,13 @@ const ProductCategory = ({ ProductCategoryList }) => {
                   </tr>
                 </>
               )}
-              {ProductCategoryList.map((item, index) => (
+              {productCategoryList.map((item, index) => (
                 <>
                   <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
                     <td className="px-4 py-3">{index + 1}</td>
 
                     <td className="px-4 py-3">{item.categoryName}</td>
-                    <td className="px-4 py-3 flex gap-2 ">
+                    <td className="px-4 py-3">
                       {item.description}
                     </td>
 
@@ -100,6 +100,6 @@ const ProductCategory = ({ ProductCategoryList }) => {
   );
 };
 ProductCategory.propTypes = {
-  ProductCategoryList: PropTypes.array.isRequired,
+  productCategoryList: PropTypes.array.isRequired,
 };
 export default ProductCategory;

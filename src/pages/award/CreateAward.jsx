@@ -9,6 +9,7 @@ import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import formatDate from "../../utils/FomatDatafunction";
 import notify from "../../utils/Notify";
+import RedStar from "../../components/RedStar";
 
 const CreateAward = () => {
   const { setIsUpdated } = useContext(UpdateContext);
@@ -95,7 +96,7 @@ const CreateAward = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* award name input */}
-            <label className="font-bold text-xl">Award Name:</label>
+            <label className="font-bold text-xl">Award Name<RedStar /></label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -105,7 +106,7 @@ const CreateAward = () => {
             />
 
             {/* Logo picture input */}
-            <label className="font-bold text-xl">Award Picture:</label>
+            <label className="font-bold text-xl">Award Picture<RedStar /></label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"
@@ -114,7 +115,7 @@ const CreateAward = () => {
             />
 
             {/* awardedBy input */}
-            <label className="font-bold text-xl">Awarded By:</label>
+            <label className="font-bold text-xl">Awarded By</label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               placeholder="(optional)"
@@ -138,7 +139,7 @@ const CreateAward = () => {
             </div>
 
             {/* description input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">Description</label>
             <textarea
               placeholder="(optional)"
               rows={3}

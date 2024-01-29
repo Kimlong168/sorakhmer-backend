@@ -109,7 +109,12 @@ const BlogDetail = ({ blogCategoryList, authorList }) => {
               </div>
             </div>
             <div>
-              <img src={blog.coverImage} alt="blog image" title="Cover Image" />
+              <img
+                src={blog.coverImage}
+                alt="blog image"
+                title="Cover Image"
+                loading="lazy"
+              />
             </div>
 
             {/* Use dangerouslySetInnerHTML to render HTML content */}

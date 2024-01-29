@@ -126,6 +126,7 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
                         <img
                           className="min-w-[70px] h-[50px] rounded-sm"
                           src={blog.coverImage}
+                          loading="lazy"
                         />
                       ) : (
                         "No Image"

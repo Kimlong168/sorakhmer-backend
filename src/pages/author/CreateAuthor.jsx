@@ -9,6 +9,7 @@ import { BsTrash } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
+import RedStar from "../../components/RedStar";
 const CreateAuthor = () => {
   const { setIsUpdated } = useContext(UpdateContext);
   const [author, setAuthor] = useState({
@@ -125,7 +126,10 @@ const CreateAuthor = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* fullname input */}
-            <label className="font-bold text-xl">Full Name:</label>
+            <label className="font-bold text-xl">
+              Full Name
+            <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -135,18 +139,20 @@ const CreateAuthor = () => {
             />
 
             {/* position input */}
-            <label className="font-bold text-xl">Position:</label>
+            <label className="font-bold text-xl">Position</label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
               name="position"
-              placeholder="eg(author)"
+              placeholder="example: author"
               value={author.position}
               onChange={(e) => handleOnChange(e)}
             />
 
             {/* profile picture input */}
-            <label className="font-bold text-xl">Profile Picture:</label>
+            <label className="font-bold text-xl">
+              Profile Picture<RedStar />
+            </label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"
@@ -155,7 +161,7 @@ const CreateAuthor = () => {
             />
 
             {/* bio input */}
-            <label className="font-bold text-xl">Bio:</label>
+            <label className="font-bold text-xl">Bio</label>
             <textarea
               placeholder="Write something about the author..."
               rows={3}

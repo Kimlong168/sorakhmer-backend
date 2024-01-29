@@ -9,6 +9,7 @@ import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
+import RedStar from "../../components/RedStar";
 
 const CreateProduct = ({ productCategoryList }) => {
   //  set default category
@@ -118,7 +119,7 @@ const CreateProduct = ({ productCategoryList }) => {
             <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
               {/* product name input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Product Name:</label>
+                <label className="font-bold text-xl">Product Name<RedStar /></label>
                 <input
                   className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                   type="text"
@@ -130,7 +131,7 @@ const CreateProduct = ({ productCategoryList }) => {
 
               {/* product image url input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Product Image:</label>
+                <label className="font-bold text-xl">Product Image<RedStar /></label>
                 <input
                   className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
                   type="file"
@@ -174,7 +175,7 @@ const CreateProduct = ({ productCategoryList }) => {
 
             {/* product price input */}
             <div>
-              <label className="font-bold text-xl">Price ($)</label>
+              <label className="font-bold text-xl">Price ($)<RedStar /></label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="number"
@@ -185,7 +186,7 @@ const CreateProduct = ({ productCategoryList }) => {
             </div>
 
             {/* description input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">Description<RedStar /></label>
             <textarea
               placeholder="Write something to describe this product "
               rows={3}
@@ -197,7 +198,7 @@ const CreateProduct = ({ productCategoryList }) => {
             />
 
             {/* product detail input */}
-            <label className="font-bold text-xl">Detail:</label>
+            <label className="font-bold text-xl">Detail</label>
             <div>
               <JoditEditor
                 ref={editor}

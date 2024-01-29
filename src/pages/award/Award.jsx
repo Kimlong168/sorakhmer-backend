@@ -97,7 +97,11 @@ const Award = ({ awardList }) => {
                     <td className="px-4 py-3">{index + 1}</td>
                     <td className="px-4 py-3">{item.awardName}</td>
                     <td className="px-4 py-3">
-                      <img className="w-[100px]" src={item.awardLogo} />
+                      <img
+                        className="w-[100px]"
+                        src={item.awardLogo}
+                        loading="lazy"
+                      />
                     </td>
                     <td className="px-4 py-3">{item.awardedBy}</td>
                     <td className="px-4 py-3">{item.recieveDate}</td>

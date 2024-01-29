@@ -7,6 +7,7 @@ import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 
 import { UpdateContext } from "../../contexts/UpdateContext";
+import RedStar from "../../components/RedStar";
 const CreateProductCategory = () => {
   const [productCategory, setProductCategory] = useState({
     categoryName: null,
@@ -52,7 +53,7 @@ const CreateProductCategory = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* category name input */}
-            <label className="font-bold text-xl">Category Name:</label>
+            <label className="font-bold text-xl">Category Name<RedStar /></label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -62,7 +63,7 @@ const CreateProductCategory = () => {
             />
 
             {/* description input */}
-            <label className="font-bold text-xl">Description:</label>
+            <label className="font-bold text-xl">Description</label>
             <textarea
               placeholder="Write something to describe this category or don't write any thing (optional)"
               rows={4}

@@ -8,6 +8,7 @@ import Toast from "../../utils/Toast";
 import { useParams } from "react-router-dom";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
+import RedStar from "../../components/RedStar";
 const UpdateBlogCategory = () => {
   const { id: categoryParam } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -91,7 +92,7 @@ const UpdateBlogCategory = () => {
         {/* update form */}
         <section className="pt-0">
           {/* category name */}
-          <label className="font-bold text-xl">Category Name:</label>
+          <label className="font-bold text-xl">Category Name<RedStar /></label>
           <input
             type="text"
             name="categoryName"
@@ -102,7 +103,7 @@ const UpdateBlogCategory = () => {
           />
 
           {/* descriptiom */}
-          <label className="font-bold text-xl">Description:</label>
+          <label className="font-bold text-xl">Description</label>
           <textarea
             name="description"
             placeholder="Write something to describe this category or don't write any thing (optional)"

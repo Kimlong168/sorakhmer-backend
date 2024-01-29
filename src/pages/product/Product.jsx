@@ -113,6 +113,7 @@ const Product = ({ productList, productCategoryList }) => {
                         <img
                           className="min-w-[70px] h-[50px] rounded-sm"
                           src={product.image}
+                          loading="lazy"
                         />
                       ) : (
                         "No Image"

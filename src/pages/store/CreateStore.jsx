@@ -1,117 +1,137 @@
+import { useState, useContext } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase-config";
+import { useNavigate } from "react-router-dom";
+import Layout from "../../layouts/Layout";
+import notify from "../../utils/Notify";
+import Toast from "../../utils/Toast";
+import { UpdateContext } from "../../contexts/UpdateContext";
+import RedStar from "../../components/RedStar";
+
 const CreateStore = () => {
-  return <div>CreateStore</div>;
+  const [store, setStore] = useState({
+    storeName: null,
+    description: "",
+    country: "",
+    city: "",
+    mapLink: "",
+  });
+  let navigate = useNavigate();
+  const postCollectionRef = collection(db, "stores");
+
+  //   update context
+  const { setIsUpdated } = useContext(UpdateContext);
+
+  //   handle onChange event for input
+  const handleOnChange = (e) => {
+    setStore({
+      ...store,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  //   create store fucntion
+  const createStore = () => {
+    addDoc(postCollectionRef, {
+      storeName: store.storeName,
+      country: store.country,
+      city: store.city,
+      description: store.description,
+      mapLink: store.mapLink,
+    });
+
+    console.log(" store created!", store.storeName);
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+    navigate("/store");
+  };
+
+  return (
+    <Layout>
+      <div className="text-gray-900  border-gray-700 rounded">
+        {/* title */}
+        <div className="text-center p-4 pt-0 font-bold text-3xl text-orange-900 underline uppercase">
+          Create Store
+        </div>
+        <br />
+
+        {/* create product categort form */}
+        <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
+          <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
+            {/* store name input */}
+            <label className="font-bold text-xl">Store Name<RedStar /></label>
+            <input
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              placeholder="example: Bayon Market"
+              type="text"
+              name="storeName"
+              value={store.storeName}
+              onChange={(e) => handleOnChange(e)}
+            />
+
+            {/* country */}
+            <label className="font-bold text-xl">Country<RedStar /></label>
+            <input
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              placeholder="example: Japan"
+              type="text"
+              name="country"
+              value={store.country}
+              onChange={(e) => handleOnChange(e)}
+            />
+
+            {/* city */}
+            <label className="font-bold text-xl">City<RedStar /></label>
+            <input
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              placeholder="example: Tokyo"
+              type="text"
+              name="city"
+              value={store.city}
+              onChange={(e) => handleOnChange(e)}
+            />
+
+            {/* map */}
+            <label className="font-bold text-xl">Google Map</label>
+            <input
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              type="url"
+              placeholder="copy link from google map and paste here"
+              name="mapLink"
+              value={store.mapLink}
+              onChange={(e) => handleOnChange(e)}
+            />
+
+            {/* description input */}
+            <label className="font-bold text-xl">Description</label>
+            <textarea
+              placeholder="Write something to describe this store (optional)"
+              rows={4}
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              type="text"
+              name="description"
+              value={store.description}
+              onChange={(e) => handleOnChange(e)}
+            />
+            {/*check if storeName is not filled yet. */}
+            <button
+              className="bg-gray-700 text-white font-bold p-2 mt-2 rounded"
+              onClick={
+                store.storeName && store.city && store.country
+                  ? createStore
+                  : notify
+              }
+            >
+              Create Store
+            </button>
+          </div>
+        </div>
+
+        {/* toast alert */}
+        <Toast />
+      </div>
+    </Layout>
+  );
 };
 
 export default CreateStore;
-
-// import { useState, useContext } from "react";
-// import { addDoc, collection } from "firebase/firestore";
-// import { db } from "../../firebase-config";
-// import { useNavigate } from "react-router-dom";
-// import Layout from "../../layouts/Layout";
-// import notify from "../../utils/Notify";
-// import Toast from "../../utils/Toast";
-// import { UpdateContext } from "../../contexts/UpdateContext";
-// import CKeditor from "../../components/CKeditor";
-
-// const CreateStore = () => {
-//   const [store, setStore] = useState({
-//     storeName: null,
-//     description: "",
-//     address: "",
-//     country: "",
-//     city: "",
-//     mapLink: "",
-//     phone: "",
-//     email: "",
-//     socialMedia: "",
-//   });
-//   let navigate = useNavigate();
-//   const postCollectionRef = collection(db, "process");
-
-//   //   update context
-//   const { setIsUpdated } = useContext(UpdateContext);
-
-//   //   handle onChange event for input
-//   const handleOnChange = (e) => {
-//     setProcess({
-//       ...process,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
-//   //   hadle onChange event for CKEditor
-//   const handleEditorChange = (content) => {
-//     setProcess({
-//       ...process,
-//       description: content,
-//     });
-//   };
-
-//   //   create category fucntion
-//   const createCategory = () => {
-//     addDoc(postCollectionRef, {
-//       processName: process.processName,
-//       description: process.description,
-//     });
-
-//     console.log("process category created!", process.processName);
-//     // to update the data in the table
-//     setIsUpdated((prev) => !prev);
-//     navigate("/process");
-//   };
-
-//   return (
-//     <Layout>
-//       <div className="text-gray-900  border-gray-700 rounded">
-//         {/* title */}
-//         <div className="text-center p-4 pt-0 font-bold text-3xl text-blue-900 underline uppercase">
-//           Create Process
-//         </div>
-//         <br />
-
-//         {/* create product categort form */}
-//         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
-//           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
-//             {/* category name input */}
-//             <label className="font-bold text-xl">Process Name:</label>
-//             <input
-//               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-//               placeholder="example: Sora khmer"
-//               type="text"
-//               name="processName"
-//               value={process.processName}
-//               onChange={(e) => handleOnChange(e)}
-//             />
-
-//             {/* description input */}
-//             <label className="font-bold text-xl">Description:</label>
-//             <div>
-//               <CKeditor
-//                 handleEditorChange={handleEditorChange}
-//                 imageFolderName="processImages"
-//               />
-//             </div>
-
-//             {/*check if categoryName is not filled yet. */}
-//             <button
-//               className="bg-gray-700 text-white font-bold p-2 mt-2 rounded"
-//               onClick={
-//                 process.processName && process.description
-//                   ? createCategory
-//                   : notify
-//               }
-//             >
-//               Create process
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* toast alert */}
-//         <Toast />
-//       </div>
-//     </Layout>
-//   );
-// };
-
-// export default CreateStore;

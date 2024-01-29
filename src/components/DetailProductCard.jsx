@@ -26,11 +26,7 @@ const DetailProductCard = ({
             className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700"
           >
             {/* product image */}
-            <img
-              src={image}
-              alt="image"
-              className="h-full w-full object-cover"
-            />
+            <img src={image} className="h-full w-full object-cover" />
             {/* open button */}
             <div className="absolute top-0 text-white rounded-br-lg cursor-pointer bg-green-600 grid place-content-center w-[30px] h-[30px]">
               <MdOutlineOpenWith />

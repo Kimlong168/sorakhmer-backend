@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import CKeditor from "../../components/CKeditor";
+import RedStar from "../../components/RedStar";
 const UpdateProcess = () => {
   const { id: processParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -99,7 +100,10 @@ const UpdateProcess = () => {
         {/* update form */}
         <section className="pt-0">
           {/* category name */}
-          <label className="font-bold text-xl">Process Name:</label>
+          <label className="font-bold text-xl">
+            Process Name
+            <RedStar />
+          </label>
           <input
             type="text"
             name="processName"
@@ -110,7 +114,10 @@ const UpdateProcess = () => {
           />
 
           {/* description input */}
-          <label className="font-bold text-xl">Description:</label>
+          <label className="font-bold text-xl">
+            Description
+            <RedStar />
+          </label>
           <div>
             <CKeditor
               handleEditorChange={handleEditorChange}
