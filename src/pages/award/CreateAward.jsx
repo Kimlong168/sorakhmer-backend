@@ -10,7 +10,7 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import formatDate from "../../utils/FomatDatafunction";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const CreateAward = () => {
   const { setIsUpdated } = useContext(UpdateContext);
   const [award, setAward] = useState({
@@ -163,6 +163,9 @@ const CreateAward = () => {
 
             {/* toast alert */}
             <Toast />
+            
+            {/* button back */}
+            <ButtonBack link="/award"/>
           </div>
         </div>
       </div>

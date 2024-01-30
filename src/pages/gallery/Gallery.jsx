@@ -12,24 +12,26 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { toastProps } from "../../utils/ToastProps";
-const Award = ({ awardList }) => {
+const Gallery = ({ galleryList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
+
   // delete category notify
-  const notifyDeleting = (id, awardLogoId) => {
+  const notifyDeleting = (id, imageId) => {
     toast.error(
       <>
         <DeletingAlertBox
           deleteItemFucntion={() => {
             // isDeleted = await deleteItemFucntion(id, "partners");
-            deleteItemFucntion(id, "awards")
+            deleteItemFucntion(id, "gallery")
               .then((result) => {
                 // call delete image function
                 if (result) {
-                  deleteImageFromStorage(awardLogoId);
+                  deleteImageFromStorage(imageId);
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
           }}
+          // to update the table after deleting
           setIsUpdated={setIsUpdated}
         />
       </>,
@@ -38,14 +40,14 @@ const Award = ({ awardList }) => {
   };
 
   // delete image from firebase storage
-  const deleteImageFromStorage = (awardLogoId) => {
+  const deleteImageFromStorage = (imageId) => {
     // Create a reference to the image you want to delete
-    const imageRef = ref(storage, `awardImages/${awardLogoId}`);
+    const imageRef = ref(storage, `galleryImages/${imageId}`);
 
     // Delete the old image
     deleteObject(imageRef)
       .then(() => {
-        console.log("award Logo deleted successfully");
+        console.log("gallery image deleted successfully");
       })
       .catch((error) => {
         console.error("Error deleting image:", error);
@@ -55,10 +57,10 @@ const Award = ({ awardList }) => {
   return (
     <Layout>
       <TableHead
-        color="purple"
-        title="Award"
-        border="border-purple-400 text-purple-400"
-        link="/createAward"
+        color="rgb(88,28,135)"
+        title="Gallery"
+        border="border-purple-800 text-purple-900"
+        link="/createGallery"
       />
 
       <div className="w-full overflow-hidden rounded-lg shadow-xs">
@@ -67,17 +69,14 @@ const Award = ({ awardList }) => {
             <thead>
               <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                 <th className="px-4 py-3">No</th>
-                <th className="px-4 py-3">Award Name</th>
+                <th className="px-4 py-3">Image Name</th>
                 <th className="px-4 py-3">Image</th>
-                <th className="px-4 py-3">Awarded By</th>
-                <th className="px-4 py-3">Recieve Date</th>
-                <th className="px-4 py-3">Description</th>
                 <th className="px-4 py-3">Edit</th>
                 <th className="px-4 py-3">Delete</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-              {awardList.length == 0 && (
+              {galleryList.length == 0 && (
                 <>
                   <tr className=" text-center">
                     <td className="py-8 font-bold text-white" colSpan={8}>
@@ -87,31 +86,20 @@ const Award = ({ awardList }) => {
                 </>
               )}
 
-              {awardList.map((item, index) => (
+              {galleryList.map((item, index) => (
                 <>
                   <tr
                     key={index}
                     className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
                   >
                     <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">{item.awardName}</td>
+                    <td className="px-4 py-3">{item.name}</td>
                     <td className="px-4 py-3">
-                      <img
-                        className="w-[100px] cur"
-                        src={item.awardLogo}
-                        loading="lazy"
-                      />
-                    </td>
-                    <td className="px-4 py-3">{item.awardedBy}</td>
-                    <td className="px-4 py-3">{item.recieveDate}</td>
-                    <td className="px-4 py-3">
-                      <div className="line-clamp-1 break-all  hover:line-clamp-none max-w-[300px] cursor-pointer transition-all transition-delay-300">
-                        {item.description}
-                      </div>
+                      <img className="w-[100px]" src={item.url} />
                     </td>
 
                     <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/updateAward/${item.id}`}>
+                      <Link to={`/updateGallery/${item.id}`}>
                         <div className="px-2 py-1.5 rounded bg-green-600 text-white">
                           Edit
                         </div>
@@ -120,9 +108,7 @@ const Award = ({ awardList }) => {
 
                     <td className="px-4 py-3 text-sm text-center cursor-pointer">
                       <div
-                        onClick={() =>
-                          notifyDeleting(item.id, item.awardLogoId)
-                        }
+                        onClick={() => notifyDeleting(item.id, item.imageId)}
                         className="px-2 py-1.5 rounded bg-red-600 text-white"
                       >
                         Delete
@@ -142,7 +128,7 @@ const Award = ({ awardList }) => {
     </Layout>
   );
 };
-Award.propTypes = {
-  awardList: PropTypes.array.isRequired,
+Gallery.propTypes = {
+  galleryList: PropTypes.array.isRequired,
 };
-export default Award;
+export default Gallery;

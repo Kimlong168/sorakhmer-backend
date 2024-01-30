@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../../layouts/Layout";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
-
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const CreateProductCategory = () => {
   const [productCategory, setProductCategory] = useState({
     categoryName: null,
@@ -88,6 +88,9 @@ const CreateProductCategory = () => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/productCategory"/>
       </div>
     </Layout>
   );

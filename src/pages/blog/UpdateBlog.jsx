@@ -19,6 +19,7 @@ import formatDate from "../../utils/FomatDatafunction";
 import Loading from "../../components/Loading";
 import convertDateFormat from "../../utils/ConvertDateFormat";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const UpdateBlog = ({ blogCategoryList, authorList }) => {
   const { id: blogParams } = useParams();
 
@@ -116,7 +117,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
   //   update blog if all required fields are filled
   async function updateBlog() {
     // navigate to blog detail page in advance
-    navigate("/blogDetail/" + blogParams);
+    navigate("/blogDetail/update-" + blogParams);
 
     const docRef = doc(db, "blogs", blogParams);
 
@@ -174,11 +175,11 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
             console.error("Error getting download URL:", error);
           });
 
-        console.log("new product image uploaded");
+        console.log("new blog cover image uploaded");
       });
     }
 
-    console.log("product updated");
+    console.log("blog updated");
   }
 
   // if the image is updated, update the image url in the firestore. this function is called in updateBlog function because we need to get the new image url first
@@ -354,6 +355,9 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/blog"/>
       </div>
     </Layout>
   );

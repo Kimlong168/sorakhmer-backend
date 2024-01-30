@@ -17,7 +17,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const UpdateProduct = ({ productCategoryList }) => {
   const { id: productParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -97,7 +97,7 @@ const UpdateProduct = ({ productCategoryList }) => {
   //   update product if all required fields are filled
   async function updateProduct() {
     // navigate to product detail page in advance
-    navigate("/productDetail/" + productParams);
+    navigate("/productDetail/update-" + productParams);
 
     const docRef = doc(db, "products", productParams);
 
@@ -331,6 +331,9 @@ const UpdateProduct = ({ productCategoryList }) => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/product"/>
       </div>
     </Layout>
   );

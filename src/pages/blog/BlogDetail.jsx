@@ -12,16 +12,26 @@ import Loading from "../../components/Loading";
 import { GrStatusInfo } from "react-icons/gr";
 import PropTypes from "prop-types";
 import ContentDisplay from "../../components/ContentDisplay";
+import GoToTop from "../../components/GoToTop";
 const BlogDetail = ({ blogCategoryList, authorList }) => {
   const { id: blogParams } = useParams();
   const [blog, setblog] = useState(null);
 
+  // check if the blogParams is update-xxxx (after updating)
+  const match = blogParams.match(/update-(.+)/);
+  // Check if there is a match and retrieve the id
+  const newBogParams = match ? match[1] : blogParams;
+
   // fetch blog base on id or blogParams
   useEffect(() => {
-    const docRef = doc(db, "blogs", blogParams);
+    const docRef = doc(db, "blogs", newBogParams);
 
     const fetchblog = async () => {
       try {
+        // if we view the detail after updating we delay 1000 to make sure data is fetched successfully
+        if (match) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const blog = docSnap.data();
@@ -38,7 +48,7 @@ const BlogDetail = ({ blogCategoryList, authorList }) => {
     };
 
     fetchblog();
-  }, [blogParams]);
+  }, [newBogParams, match]);
 
   // loading if blog is null
   if (!blog) {
@@ -122,6 +132,8 @@ const BlogDetail = ({ blogCategoryList, authorList }) => {
           </div>
         </div>
       </div>
+      {/* go to top page */}
+      <GoToTop />
     </Layout>
   );
 };

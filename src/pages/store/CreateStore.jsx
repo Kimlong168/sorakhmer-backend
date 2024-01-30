@@ -7,7 +7,7 @@ import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const CreateStore = () => {
   const [store, setStore] = useState({
     storeName: null,
@@ -129,6 +129,9 @@ const CreateStore = () => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/store"/>
       </div>
     </Layout>
   );

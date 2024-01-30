@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const UpdateProductCategory = () => {
   const { id: categoryParam } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -128,6 +129,9 @@ const UpdateProductCategory = () => {
 
           {/* toast alert */}
           <Toast />
+          
+            {/* button back */}
+            <ButtonBack link="/productCategory"/>
         </section>
       </div>
     </Layout>

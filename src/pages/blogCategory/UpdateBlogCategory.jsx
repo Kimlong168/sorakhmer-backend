@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const UpdateBlogCategory = () => {
   const { id: categoryParam } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -126,6 +127,9 @@ const UpdateBlogCategory = () => {
 
           {/* toast alert */}
           <Toast />
+          
+            {/* button back */}
+            <ButtonBack link="/blogCategory"/>
         </section>
       </div>
     </Layout>

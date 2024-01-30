@@ -8,7 +8,7 @@ import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import CKeditor from "../../components/CKeditor";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const CreateProcess = () => {
   const [process, setProcess] = useState({
     processName: null,
@@ -97,6 +97,9 @@ const CreateProcess = () => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/process"/>
       </div>
     </Layout>
   );

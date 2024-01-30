@@ -10,6 +10,7 @@ import { BsTrash } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import validateEmail from "../../utils/ValidateEmailFunction";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const CreateContact = () => {
   const { setIsUpdated } = useContext(UpdateContext);
   const [contact, setContact] = useState({
@@ -210,6 +211,9 @@ const CreateContact = () => {
 
             {/* toast alert */}
             <Toast />
+            
+            {/* button back */}
+            <ButtonBack link="/contact"/>
           </div>
         </div>
       </div>

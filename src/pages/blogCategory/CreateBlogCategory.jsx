@@ -7,7 +7,7 @@ import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const CreateBlogCategory = () => {
   const [blogCategory, setblogCategory] = useState({
     categoryName: null,
@@ -89,6 +89,9 @@ const CreateBlogCategory = () => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/blogCategory"/>
       </div>
     </Layout>
   );

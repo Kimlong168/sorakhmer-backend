@@ -10,7 +10,7 @@ import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const CreateProduct = ({ productCategoryList }) => {
   //  set default category
   const category = productCategoryList.map((data) => data.id)[0];
@@ -235,6 +235,9 @@ const CreateProduct = ({ productCategoryList }) => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/product"/>
       </div>
     </Layout>
   );

@@ -16,7 +16,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const UpdateAuthor = () => {
   const { id: authorParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -318,6 +318,9 @@ const UpdateAuthor = () => {
 
             {/* toast alert */}
             <Toast />
+            
+            {/* button back */}
+            <ButtonBack link="/author"/>
           </div>
         </div>
       </div>

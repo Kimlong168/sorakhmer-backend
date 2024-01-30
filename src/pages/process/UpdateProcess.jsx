@@ -10,6 +10,7 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import CKeditor from "../../components/CKeditor";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const UpdateProcess = () => {
   const { id: processParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -140,6 +141,9 @@ const UpdateProcess = () => {
 
           {/* toast alert */}
           <Toast />
+          
+            {/* button back */}
+            <ButtonBack link="/process"/>
         </section>
       </div>
     </Layout>

@@ -11,6 +11,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import validateEmail from "../../utils/ValidateEmailFunction";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const UpdateContact = () => {
   const { id: contactParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -131,7 +132,7 @@ const UpdateContact = () => {
 
   return (
     <Layout>
-      <div className="text-gray-900  border-gray-700 rounded">
+      <div className="text-gray-900  border-gray-700 rounded mt-5">
         {/* update contact data form */}
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
@@ -243,6 +244,9 @@ const UpdateContact = () => {
 
             {/* toast alert */}
             <Toast />
+            
+            {/* button back */}
+            <ButtonBack link="/contact"/>
           </div>
         </div>
       </div>

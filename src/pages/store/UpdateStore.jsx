@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack";
 const UpdateStore = () => {
   const { id: storeParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -101,7 +102,10 @@ const UpdateStore = () => {
         {/* update form */}
         <section className="pt-0">
           {/* store name input */}
-          <label className="font-bold text-xl">Store Name<RedStar /></label>
+          <label className="font-bold text-xl">
+            Store Name
+            <RedStar />
+          </label>
           <input
             className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
             placeholder="example: Bayon Market"
@@ -111,7 +115,10 @@ const UpdateStore = () => {
             onChange={(e) => handleOnChange(e)}
           />
           {/* country */}
-          <label className="font-bold text-xl">Country<RedStar /></label>
+          <label className="font-bold text-xl">
+            Country
+            <RedStar />
+          </label>
           <input
             className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
             placeholder="example: Japan"
@@ -121,7 +128,10 @@ const UpdateStore = () => {
             onChange={(e) => handleOnChange(e)}
           />
           {/* city */}
-          <label className="font-bold text-xl">City<RedStar /></label>
+          <label className="font-bold text-xl">
+            City
+            <RedStar />
+          </label>
           <input
             className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
             placeholder="example: Tokyo"
@@ -165,6 +175,9 @@ const UpdateStore = () => {
           </button>
           {/* toast alert */}
           <Toast />
+
+          {/* button back */}
+          <ButtonBack link="/store" />
         </section>
       </div>
     </Layout>

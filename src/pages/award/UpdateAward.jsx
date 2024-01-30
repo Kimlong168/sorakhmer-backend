@@ -16,6 +16,7 @@ import notify from "../../utils/Notify";
 import formatDate from "../../utils/FomatDatafunction";
 import convertDateFormat from "../../utils/ConvertDateFormat";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const UpdateAward = () => {
   const { id: awardParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -248,6 +249,9 @@ const UpdateAward = () => {
 
             {/* toast alert */}
             <Toast />
+            
+            {/* button back */}
+            <ButtonBack link="/award"/>
           </div>
         </div>
       </div>

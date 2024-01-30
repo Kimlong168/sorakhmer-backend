@@ -14,7 +14,7 @@ import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-
+import ButtonBack from "../../components/ButtonBack"
 const UpdatePartner = () => {
   const { id: partnerParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -234,6 +234,9 @@ const UpdatePartner = () => {
 
             {/* toast alert */}
             <Toast />
+            
+            {/* button back */}
+            <ButtonBack link="/partner"/>
           </div>
         </div>
       </div>

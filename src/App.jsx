@@ -39,6 +39,9 @@ import ProcessDetail from "./pages/process/ProcessDetail";
 import Store from "./pages/store/Store";
 import CreateStore from "./pages/store/CreateStore";
 import UpdateStore from "./pages/store/UpdateStore";
+import Gallery from "./pages/gallery/Gallery";
+import CreateGallery from "./pages/gallery/CreateGallery";
+import UpdateGallery from "./pages/gallery/UpdateGallery";
 function App() {
   // state
   const [isUpdated, setIsUpdated] = useState(false);
@@ -52,6 +55,7 @@ function App() {
   const [contact, setContact] = useState([]);
   const [processList, setProcessList] = useState([]);
   const [storeList, setStoreList] = useState([]);
+  const [galleryList, setGalleryList] = useState([]);
 
   // fetch all data from firebase
   useEffect(() => {
@@ -65,6 +69,7 @@ function App() {
     const contactCollectionRef = collection(db, "contact");
     const processCollectionRef = collection(db, "process");
     const storeCollectionRef = collection(db, "stores");
+    const galleryCollectionRef = collection(db, "gallery");
 
     const fetchAllData = async () => {
       // fetch data of product
@@ -116,6 +121,12 @@ function App() {
       //fetch store data
       const store = await getDocs(storeCollectionRef);
       setStoreList(store.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+      //fetch gallery data
+      const gallery = await getDocs(galleryCollectionRef);
+      setGalleryList(
+        gallery.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
     };
 
     // call fetchAllData function
@@ -312,6 +323,17 @@ function App() {
               <Route path="/createStore" element={<CreateStore />} />
               {/* update store */}
               <Route path="/updateStore/:id" element={<UpdateStore />} />
+
+              {/* -------------gallery route------------- */}
+              {/*  gallery*/}
+              <Route
+                path="/gallery"
+                element={<Gallery galleryList={galleryList} />}
+              />
+              {/* create gallery */}
+              <Route path="/createGallery" element={<CreateGallery />} />
+              {/* update gallery */}
+              <Route path="/updateGallery/:id" element={<UpdateGallery />} />
             </Routes>
           </Router>
         </UpdateContext.Provider>

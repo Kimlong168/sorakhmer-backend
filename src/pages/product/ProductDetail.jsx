@@ -9,19 +9,29 @@ import DetailProductCard from "../../components/DetailProductCard";
 
 const ProductDetail = ({ productCategoryList }) => {
   const { id: productParams } = useParams();
-  const [product, setproduct] = useState(null);
+  const [product, setProduct] = useState(null);
+
+  // check if the productParams is update-xxxx (after updating)
+  const match = productParams.match(/update-(.+)/);
+  // Check if there is a match and retrieve the id
+  const newProductParams = match ? match[1] : productParams;
 
   // fetch product base on id or productParams
   useEffect(() => {
-    const docRef = doc(db, "products", productParams);
+    const docRef = doc(db, "products", newProductParams);
 
     const fetchProduct = async () => {
       try {
+        // if we view the detail after updating we delay 1000 to make sure data is fetched successfully
+        if (match) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const product = docSnap.data();
 
-          setproduct(product);
+          setProduct(product);
 
           console.log("product", product);
         } else {
@@ -33,7 +43,7 @@ const ProductDetail = ({ productCategoryList }) => {
     };
 
     fetchProduct();
-  }, [productParams]);
+  }, [newProductParams, match]);
 
   // loading if product is null
   if (!product) {
@@ -52,7 +62,7 @@ const ProductDetail = ({ productCategoryList }) => {
         {/* product detail card component */}
         <DetailProductCard
           {...product}
-          productParams={productParams}
+          productParams={newProductParams}
           productCategoryList={productCategoryList}
         />
       </div>

@@ -6,7 +6,7 @@ import { FaAward, FaBlog } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaSteamSymbol } from "react-icons/fa";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { PiFactory, PiStorefront } from "react-icons/pi";
+import { PiFactory, PiImage, PiStorefront } from "react-icons/pi";
 
 // all the widgets in the dashboard
 const WidgetGroup = () => {
@@ -63,19 +63,27 @@ const WidgetGroup = () => {
           />
         </Link>
 
-        {/* create company contact */}
-        {/* <Link to="/createContact">
-          <Widget title="Contact" color="bg-orange-400" icon={<FiMail />} />
-        </Link> */}
-
         {/* create process of producing */}
         <Link to="/createProcess">
           <Widget title="Process" color="bg-blue-900" icon={<PiFactory />} />
         </Link>
 
-        {/* create place to buy */}
+        {/* create store */}
         <Link to="/createStore">
-          <Widget title="Create Store" color="bg-orange-900" icon={<PiStorefront />} />
+          <Widget
+            title="Create Store"
+            color="bg-orange-900"
+            icon={<PiStorefront />}
+          />
+        </Link>
+
+        {/* create gallery*/}
+        <Link to="/createGallery">
+          <Widget
+            title="Create Gallery"
+            color="bg-purple-900"
+            icon={<PiImage />}
+          />
         </Link>
       </div>
     </div>

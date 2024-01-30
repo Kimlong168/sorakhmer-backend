@@ -13,6 +13,7 @@ import CKEditor from "../../components/CKeditor";
 import getCurrentDate from "../../utils/getCurrentDataFunction";
 import formatDate from "../../utils/FomatDatafunction";
 import RedStar from "../../components/RedStar";
+import ButtonBack from "../../components/ButtonBack"
 const CreateBlog = ({ blogCategoryList, authorList }) => {
   //  set default category
   const category = blogCategoryList.map((data) => data.id)[0];
@@ -248,6 +249,9 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
 
         {/* toast alert */}
         <Toast />
+        
+            {/* button back */}
+            <ButtonBack link="/blog"/>
       </div>
     </Layout>
   );

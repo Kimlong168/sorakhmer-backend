@@ -3,6 +3,8 @@
 
 .ck-editor__editable {
     min-height: 300px;
-    /* background-color: blue !important; */
+}
 
+#sidebar ::-webkit-scrollbar {
+    width: 0;
 }

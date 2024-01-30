@@ -8,7 +8,8 @@ import { FaSteamSymbol, FaAward } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import logo from "../assets/images/sorakhmer-logo.png";
-import { PiFactoryBold, PiStorefront } from "react-icons/pi";
+import { PiFactoryBold, PiImage, PiStorefront } from "react-icons/pi";
+import "../App.css"
 // import { auth } from "../firebase-config";
 // import { onAuthStateChanged } from "firebase/auth";
 
@@ -40,7 +41,7 @@ const Layout = (props) => {
           </div>
         </div>
 
-        <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-[900] sidebar">
+        <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-[900] sidebar" id="sidebar">
           <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
             <ul className="flex flex-col py-4 space-y-1">
               <li className="px-5 hidden md:block">
@@ -151,7 +152,7 @@ const Layout = (props) => {
                     <FaAward />
                   </span>
                   <span className="ml-2 text-sm tracking-wide truncate">
-                    Company awards
+                    Awards
                   </span>
                 </Link>
               </li>
@@ -166,7 +167,7 @@ const Layout = (props) => {
                     <FaSteamSymbol />
                   </span>
                   <span className="ml-2 text-sm tracking-wide truncate">
-                    Company partners
+                    Partners
                   </span>
                 </Link>
               </li>
@@ -200,6 +201,21 @@ const Layout = (props) => {
                 </Link>
               </li>
 
+              {/* gallery */}
+              <li>
+                <Link
+                  to="/gallery"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                >
+                  <span className="inline-flex justify-center items-center ml-4">
+                    <PiImage />
+                  </span>
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    Gallery
+                  </span>
+                </Link>
+              </li>
+
               {/* contact data  */}
 
               <li>
@@ -222,7 +238,7 @@ const Layout = (props) => {
           </div>
         </div>
 
-        <div className="h-full ml-14 mt-14 mb-10 md:ml-64 p-2 md:p-4 lg:p-10 pt-5">
+        <div className="h-full ml-14 mt-14 mb-10 md:ml-64 p-2 md:p-4 lg:p-10 pt-5 relative">
           {props.children}
         </div>
       </div>
