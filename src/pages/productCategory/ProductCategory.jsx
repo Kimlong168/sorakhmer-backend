@@ -9,7 +9,7 @@ import { toastProps } from "../../utils/ToastProps";
 import PropTypes from "prop-types";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
-
+import LoadingInTable from "../../components/LoadingInTable";
 const ProductCategory = ({ productCategoryList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
 
@@ -53,7 +53,7 @@ const ProductCategory = ({ productCategoryList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 text-white font-bold" colSpan={8}>
-                      No Data
+                    <LoadingInTable />
                     </td>
                   </tr>
                 </>

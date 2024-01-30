@@ -12,6 +12,7 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { toastProps } from "../../utils/ToastProps";
+import LoadingInTable from "../../components/LoadingInTable";
 const Award = ({ awardList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
   // delete category notify
@@ -81,7 +82,7 @@ const Award = ({ awardList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 font-bold text-white" colSpan={8}>
-                      No Data
+                    <LoadingInTable />
                     </td>
                   </tr>
                 </>

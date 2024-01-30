@@ -11,7 +11,7 @@ import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "../../firebase-config";
-
+import LoadingInTable from "../../components/LoadingInTable";
 const Blog = ({ blogList, blogCategoryList, authorList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
 
@@ -82,7 +82,7 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 text-white font-bold " colSpan={10}>
-                      No Data
+                    <LoadingInTable />
                     </td>
                   </tr>
                 </>
