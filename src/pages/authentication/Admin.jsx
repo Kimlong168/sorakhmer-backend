@@ -47,6 +47,11 @@ const Admin = ({ adminList }) => {
   };
 
   async function updateUsername(adminID, email, uid, creationTime) {
+    if (newUsername.trim().length < 3) {
+      alert("username must be at least 3 characters");
+      return;
+    }
+
     const docRef = doc(db, "admin", adminID);
     await setDoc(
       docRef,
@@ -176,12 +181,12 @@ const Admin = ({ adminList }) => {
                     <td className="px-4 py-3">{item.creationTime}</td>
 
                     <td className="px-4 py-3 text-sm text-center">
-                      <div
+                      <button
                         onClick={() => handleResetPassword(item.email)}
-                        className="px-2 py-1.5 rounded bg-green-600 text-white"
+                        className="px-4 py-1.5 rounded bg-green-600 text-white"
                       >
                         Reset
-                      </div>
+                      </button>
                     </td>
                   </tr>
                 </>
