@@ -23,17 +23,17 @@ const Admin = ({ adminList }) => {
   });
 
   // continue url after verify email
-  var actionCodeSettings = {
-    url: "https://sorakhmer-backend.netlify.app",
-    handleCodeInApp: true,
-  };
 
   const handleResetPassword = (email) => {
     const confirm = window.confirm(
       "Are you sure you want to reset password for this email"
     );
     if (confirm) {
-      sendPasswordResetEmail(auth, email, actionCodeSettings)
+      // var actionCodeSettings = {
+      //   url: "https://sorakhmer-backend.netlify.app",
+      //   handleCodeInApp: true,
+      // };
+      sendPasswordResetEmail(auth, email)
         .then(() => {
           // Password reset email sent!
           alert("Password reset email sent!");

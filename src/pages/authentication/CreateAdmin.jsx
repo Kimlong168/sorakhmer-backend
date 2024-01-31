@@ -35,10 +35,10 @@ const CreateUser = () => {
   };
 
   // continue url after verify email
-  var actionCodeSettings = {
-    url: "https://sorakhmer-backend.netlify.app",
-    handleCodeInApp: true,
-  };
+  // var actionCodeSettings = {
+  //   url: "https://sorakhmer-backend.netlify.app",
+  //   handleCodeInApp: true,
+  // };
 
   const createNewUser = () => {
     // validate password match
@@ -102,7 +102,7 @@ const CreateUser = () => {
         createAdmin(newUser.uid, newUser.metadata.creationTime);
 
         // Send email verification
-        sendEmailVerification(newUser, actionCodeSettings).then(() => {
+        sendEmailVerification(newUser).then(() => {
           alert("Email verification sent. Check your email to verify.");
         });
 
