@@ -11,7 +11,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth, db } from "../../firebase-config";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import { doc, setDoc } from "firebase/firestore";
-import { FiEdit,FiXSquare } from "react-icons/fi";
+import { FiEdit, FiXSquare } from "react-icons/fi";
 
 const Admin = ({ adminList }) => {
   const { userEmail } = useContext(AuthContext);
@@ -22,12 +22,18 @@ const Admin = ({ adminList }) => {
     id: null,
   });
 
+  // continue url after verify email
+  var actionCodeSettings = {
+    url: "https://sorakhmer-backend.netlify.app",
+    handleCodeInApp: true,
+  };
+
   const handleResetPassword = (email) => {
     const confirm = window.confirm(
       "Are you sure you want to reset password for this email"
     );
     if (confirm) {
-      sendPasswordResetEmail(auth, email)
+      sendPasswordResetEmail(auth, email, actionCodeSettings)
         .then(() => {
           // Password reset email sent!
           alert("Password reset email sent!");
