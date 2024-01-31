@@ -40,6 +40,7 @@ const Admin = ({ adminList }) => {
         })
         .catch((error) => {
           console.log(error);
+          alert("something went wrong");
           // ..
         });
     }

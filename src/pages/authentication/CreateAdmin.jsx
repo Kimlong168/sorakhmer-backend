@@ -102,9 +102,14 @@ const CreateUser = () => {
         createAdmin(newUser.uid, newUser.metadata.creationTime);
 
         // Send email verification
-        sendEmailVerification(newUser).then(() => {
-          alert("Email verification sent. Check your email to verify.");
-        });
+        sendEmailVerification(newUser)
+          .then(() => {
+            alert("Email verification sent. Check your email to verify.");
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Something went wrong.");
+          });
 
         // sign this user out bcoz it auto sign in after create user
         // signOut(auth)
