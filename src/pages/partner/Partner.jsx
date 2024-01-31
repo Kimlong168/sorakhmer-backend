@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Layout from "../../layouts/Layout";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
@@ -13,9 +14,13 @@ import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { toastProps } from "../../utils/ToastProps";
 import LoadingInTable from "../../components/LoadingInTable";
+import PopupImage from "../../components/PopupImage";
 const Partner = ({ partnerList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
-
+  const [showImage, setShowImage] = useState({
+    open: false,
+    image: null,
+  });
   // delete category notify
   const notifyDeleting = (id, partnerLogoId) => {
     toast.error(
@@ -82,7 +87,7 @@ const Partner = ({ partnerList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 font-bold text-white" colSpan={8}>
-                    <LoadingInTable />
+                      <LoadingInTable />
                     </td>
                   </tr>
                 </>
@@ -98,10 +103,32 @@ const Partner = ({ partnerList }) => {
                     <td className="px-4 py-3">{item.partnerName}</td>
                     <td className="px-4 py-3">
                       <img
-                        className="w-[100px]"
+                        onClick={() => {
+                          setShowImage({
+                            image: item.partnerLogo,
+                            open: true,
+                          });
+                        }}
+                        className="w-[100px] cursor-pointer"
                         src={item.partnerLogo}
                         loading="lazy"
                       />
+                      {showImage.open &&
+                        showImage.image == item.partnerLogo && (
+                          <PopupImage
+                            image={item.partnerLogo}
+                            setShowImage={(condition) => {
+                              setShowImage({
+                                image: item.partnerLogo,
+                                open: condition,
+                              });
+                              setShowImage({
+                                image: null,
+                                open: false,
+                              });
+                            }}
+                          />
+                        )}
                     </td>
                     <td className="px-4 py-3" title={item.link}>
                       {item.link !== "" ? (

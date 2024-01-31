@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider} from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import {getStorage} from "firebase/storage"
+import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,7 +16,7 @@ const firebaseConfig = {
   storageBucket: "sorakhmer-project.appspot.com",
   messagingSenderId: "501422803775",
   appId: "1:501422803775:web:278445eacc75221752e18a",
-  measurementId: "G-C60DBF6L97"
+  measurementId: "G-C60DBF6L97",
 };
 
 // Initialize Firebase

@@ -1,5 +1,5 @@
 import Layout from "../../layouts/Layout";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
@@ -12,9 +12,13 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "../../firebase-config";
 import LoadingInTable from "../../components/LoadingInTable";
+import PopupImage from "../../components/PopupImage";
 const Blog = ({ blogList, blogCategoryList, authorList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
-
+  const [showImage, setShowImage] = useState({
+    open: false,
+    image: null,
+  });
   // delete Blog notify
   const notifyDeleting = (id, coverImageId) => {
     toast.error(
@@ -82,7 +86,7 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 text-white font-bold " colSpan={10}>
-                    <LoadingInTable />
+                      <LoadingInTable />
                     </td>
                   </tr>
                 </>
@@ -124,12 +128,34 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
                     <td className="px-4 py-3">
                       {blog.coverImage ? (
                         <img
-                          className="min-w-[70px] h-[50px] rounded-sm"
+                          className="min-w-[70px] h-[50px] rounded-sm cursor-pointer"
                           src={blog.coverImage}
                           loading="lazy"
+                          onClick={() => {
+                            setShowImage({
+                              image: blog.coverImage,
+                              open: true,
+                            });
+                          }}
                         />
                       ) : (
                         "No Image"
+                      )}
+
+                      {showImage.open && showImage.image == blog.coverImage && (
+                        <PopupImage
+                          image={blog.coverImage}
+                          setShowImage={(condition) => {
+                            setShowImage({
+                              image: blog.coverImage,
+                              open: condition,
+                            });
+                            setShowImage({
+                              image: null,
+                              open: false,
+                            });
+                          }}
+                        />
                       )}
                     </td>
                     <td className="px-4 py-3 text-sm text-center cursor-pointer">

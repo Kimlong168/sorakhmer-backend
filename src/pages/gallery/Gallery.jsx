@@ -7,15 +7,19 @@ import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { storage } from "../../firebase-config";
 import { deleteObject, ref } from "firebase/storage";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { toastProps } from "../../utils/ToastProps";
 import LoadingInTable from "../../components/LoadingInTable";
+import PopupImage from "../../components/PopupImage";
 const Gallery = ({ galleryList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
-
+  const [showImage, setShowImage] = useState({
+    open: false,
+    image: null,
+  });
   // delete category notify
   const notifyDeleting = (id, imageId) => {
     toast.error(
@@ -96,7 +100,32 @@ const Gallery = ({ galleryList }) => {
                     <td className="px-4 py-3">{index + 1}</td>
                     <td className="px-4 py-3">{item.name}</td>
                     <td className="px-4 py-3">
-                      <img className="w-[100px]" src={item.url} />
+                      <img
+                        onClick={() => {
+                          setShowImage({
+                            image: item.url,
+                            open: true,
+                          });
+                        }}
+                        className="w-[100px] cursor-pointer"
+                        src={item.url}
+                      />
+                      {showImage.open &&
+                        showImage.image == item.url && (
+                          <PopupImage
+                            image={item.url}
+                            setShowImage={(condition) => {
+                              setShowImage({
+                                image: item.url,
+                                open: condition,
+                              });
+                              setShowImage({
+                                image: null,
+                                open: false,
+                              });
+                            }}
+                          />
+                        )}
                     </td>
 
                     <td className="px-4 py-3 text-sm text-center">

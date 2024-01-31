@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BiCategoryAlt } from "react-icons/bi";
-import { FiUsers } from "react-icons/fi";
+import { FiUser, FiUsers } from "react-icons/fi";
 import { FaAward, FaBlog } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaSteamSymbol } from "react-icons/fa";
@@ -84,6 +84,11 @@ const WidgetGroup = () => {
             color="bg-purple-900"
             icon={<PiImage />}
           />
+        </Link>
+
+        {/* create user*/}
+        <Link to="/createAdmin">
+          <Widget title="Create Admin" color="bg-orange-500" icon={<FiUser />} />
         </Link>
       </div>
     </div>

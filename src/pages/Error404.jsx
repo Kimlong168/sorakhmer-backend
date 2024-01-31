@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Layout from "../layouts/Layout";
+
 const Error404 = () => {
   return (
-    <Layout>
+
       <div className="w-min-screen overflow-hidden">
         <div className="bg-errorPage flex items-center justify-center min-h-screen  bg-fixed bg-cover bg-bottom error-bg">
           <div className="container">
@@ -35,7 +35,7 @@ const Error404 = () => {
           </div>
         </div>
       </div>
-    </Layout>
+ 
   );
 };
 

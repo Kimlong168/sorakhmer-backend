@@ -7,14 +7,19 @@ import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { storage } from "../../firebase-config";
 import { deleteObject, ref } from "firebase/storage";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { toastProps } from "../../utils/ToastProps";
 import LoadingInTable from "../../components/LoadingInTable";
+import PopupImage from "../../components/PopupImage";
 const Award = ({ awardList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
+  const [showImage, setShowImage] = useState({
+    open: false,
+    image: null,
+  });
   // delete category notify
   const notifyDeleting = (id, awardLogoId) => {
     toast.error(
@@ -82,7 +87,7 @@ const Award = ({ awardList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 font-bold text-white" colSpan={8}>
-                    <LoadingInTable />
+                      <LoadingInTable />
                     </td>
                   </tr>
                 </>
@@ -98,10 +103,31 @@ const Award = ({ awardList }) => {
                     <td className="px-4 py-3">{item.awardName}</td>
                     <td className="px-4 py-3">
                       <img
-                        className="w-[100px] cur"
+                        onClick={() => {
+                          setShowImage({
+                            image: item.awardLogo,
+                            open: true,
+                          });
+                        }}
+                        className="w-[100px] cursor-pointer"
                         src={item.awardLogo}
                         loading="lazy"
                       />
+                      {showImage.open && showImage.image == item.awardLogo && (
+                        <PopupImage
+                          image={item.awardLogo}
+                          setShowImage={(condition) => {
+                            setShowImage({
+                              image: item.awardLogo,
+                              open: condition,
+                            });
+                            setShowImage({
+                              image: null,
+                              open: false,
+                            });
+                          }}
+                        />
+                      )}
                     </td>
                     <td className="px-4 py-3">{item.awardedBy}</td>
                     <td className="px-4 py-3">{item.recieveDate}</td>

@@ -1,4 +1,10 @@
-import { FiShoppingCart, FiUsers, FiAward, FiMail } from "react-icons/fi";
+import {
+  FiShoppingCart,
+  FiUsers,
+  FiAward,
+  FiMail,
+  FiUser,
+} from "react-icons/fi";
 import { FaSteamSymbol } from "react-icons/fa";
 import { FaBlog } from "react-icons/fa6";
 import PropTypes from "prop-types";
@@ -68,6 +74,8 @@ const CardGroup = () => {
           href="/gallery"
           Icon={PiImage}
         />
+        
+        <Card title="Admin" subtitle="Manage admin" href="/admin" Icon={FiUser} />
 
         <Card
           title="Contact"

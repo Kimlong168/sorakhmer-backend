@@ -1,5 +1,5 @@
 import Layout from "../../layouts/Layout";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
@@ -12,9 +12,13 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "../../firebase-config";
 import LoadingInTable from "../../components/LoadingInTable";
+import PopupImage from "../../components/PopupImage";
 const Product = ({ productList, productCategoryList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
-
+  const [showImage, setShowImage] = useState({
+    open: false,
+    image: null,
+  });
   // delete product notify
   const notifyDeleting = (id, imageId) => {
     toast.error(
@@ -81,7 +85,7 @@ const Product = ({ productList, productCategoryList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 text-white font-bold " colSpan={10}>
-                    <LoadingInTable />
+                      <LoadingInTable />
                     </td>
                   </tr>
                 </>
@@ -111,12 +115,34 @@ const Product = ({ productList, productCategoryList }) => {
                     <td className="px-4 py-3">
                       {product.image ? (
                         <img
-                          className="min-w-[70px] h-[50px] rounded-sm"
+                          className="min-w-[70px] h-[50px] rounded-sm cursor-pointer"
                           src={product.image}
                           loading="lazy"
+                          onClick={() => {
+                            setShowImage({
+                              image: product.image,
+                              open: true,
+                            });
+                          }}
                         />
                       ) : (
                         "No Image"
+                      )}
+
+                      {showImage.open && showImage.image == product.image && (
+                        <PopupImage
+                          image={product.image}
+                          setShowImage={(condition) => {
+                            setShowImage({
+                              image: product.image,
+                              open: condition,
+                            });
+                            setShowImage({
+                              image: null,
+                              open: false,
+                            });
+                          }}
+                        />
                       )}
                     </td>
                     <td className="px-4 py-3 text-sm text-center cursor-pointer">
