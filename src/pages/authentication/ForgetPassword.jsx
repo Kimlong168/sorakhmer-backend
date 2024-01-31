@@ -8,14 +8,14 @@ const ForgetPassword = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
   //   let navigate = useNavigate();
   // continue url after verify email
-  // var actionCodeSettings = {
-  //   url: "https://sorakhmer-backend.netlify.app/login",
-  //   handleCodeInApp: true,
-  // };
+  var actionCodeSettings = {
+    url: "https://sorakhmer-backend.netlify.app/login",
+    handleCodeInApp: true,
+  };
 
   const handleForgetPassword = (e) => {
     e.preventDefault();
-    sendPasswordResetEmail(auth, email)
+    sendPasswordResetEmail(auth, email, actionCodeSettings)
       .then(() => {
         // Password reset email sent!
         // alert("Password reset email sent! check your email");

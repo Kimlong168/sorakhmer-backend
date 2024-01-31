@@ -29,11 +29,11 @@ const Admin = ({ adminList }) => {
       "Are you sure you want to reset password for this email"
     );
     if (confirm) {
-      // var actionCodeSettings = {
-      //   url: "https://sorakhmer-backend.netlify.app",
-      //   handleCodeInApp: true,
-      // };
-      sendPasswordResetEmail(auth, email)
+      var actionCodeSettings = {
+        url: "https://sorakhmer-backend.netlify.app",
+        handleCodeInApp: true,
+      };
+      sendPasswordResetEmail(auth, email, actionCodeSettings)
         .then(() => {
           // Password reset email sent!
           alert("Password reset email sent!");
