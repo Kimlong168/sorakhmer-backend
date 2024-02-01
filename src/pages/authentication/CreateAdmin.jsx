@@ -24,9 +24,10 @@ const CreateUser = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showCfPassword, setShowCfPassword] = useState(false);
-
   let navigate = useNavigate();
 
+
+  // handle input change
   const handleOnChange = (e) => {
     setUser({
       ...user,
@@ -62,33 +63,6 @@ const CreateUser = () => {
       });
       return;
     }
-
-    // ready to create new user
-    // createUserWithEmailAndPassword(auth, user.email, user.password)
-    //   .then((userCredential) => {
-    //     // Signed up
-    //     navigate("/admin");
-    //     setIsUpdated((prev) => !prev);
-    //     const user = userCredential.user;
-
-    //     // create admin
-    //     createAdmin(user.uid, user.metadata.creationTime);
-    //     // sent email to verify
-    //     sendEmailVerification(auth.currentUser, actionCodeSettings).then(() => {
-    //       alert("email verification sent. check your email to verify");
-    //     });
-
-    //     console.log("user created", user);
-    //   })
-    //   .catch((error) => {
-    //     if (error.code === "auth/email-already-in-use") {
-    //       alert("email already in use. please try another email");
-    //     } else {
-    //       alert(error.message);
-    //     }
-    //   });
-
-    // Set persistence to "none"
 
     // Now perform user creation and sign-in
     createUserWithEmailAndPassword(auth, user.email, user.password)
@@ -263,7 +237,7 @@ const CreateUser = () => {
                   : notify
               }
             >
-              Create User
+              Create Admin
             </button>
 
             {/* toast alert */}

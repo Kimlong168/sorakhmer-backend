@@ -102,11 +102,21 @@ const Product = ({ productList, productCategoryList }) => {
 
                     <td className="px-4 py-3">
                       {productCategoryList &&
-                        productCategoryList.map((data) => {
-                          if (data.id == product.categoryId) {
-                            return data.categoryName;
-                          }
-                        })}
+                      productCategoryList
+                        .map((data) =>
+                          data.id === product.categoryId
+                            ? data.categoryName
+                            : null
+                        )
+                        .filter((category) => category !== null).length > 0 ? (
+                        productCategoryList.map((data) =>
+                          data.id === product.categoryId
+                            ? data.categoryName
+                            : null
+                        )
+                      ) : (
+                        <p className="truncate">No Category ⚠️</p>
+                      )}
                     </td>
                     <td className="px-4 py-3">{product.price} $</td>
                     <td className="px-4 py-3">

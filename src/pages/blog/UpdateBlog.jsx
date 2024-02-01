@@ -19,7 +19,7 @@ import formatDate from "../../utils/FomatDatafunction";
 import Loading from "../../components/Loading";
 import convertDateFormat from "../../utils/ConvertDateFormat";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const UpdateBlog = ({ blogCategoryList, authorList }) => {
   const { id: blogParams } = useParams();
 
@@ -86,13 +86,23 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
             }
           });
 
+          // check if the category no longer exist
+          let categoryId = blogCategoryList.map((data) => data.id)[0]; //set to default id 
+
+          blogCategoryList.forEach((element) => {
+            if (element.id === data.categoryId) {
+              categoryId = data.categoryId;
+              return;
+            }
+          });
+
           setBlog({
             title: data.title,
             description: data.description,
             content: data.content,
             coverImageId: data.coverImageId,
             publicationDate: convertDateFormat(data.publicationDate),
-            categoryId: data.categoryId,
+            categoryId: categoryId,
             authorId: authorId,
             isActive: data.isActive,
             // no need to set cover image, set it as null to check if it is updated or not
@@ -146,7 +156,6 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
       // to update the data in the table
       setIsUpdated((prev) => !prev);
     } else {
-    
       // if image is updated
 
       // remove the old image from the storage
@@ -231,7 +240,10 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* blog name input */}
             <div className="w-full">
-              <label className="font-bold text-xl">Blog Title<RedStar /></label>
+              <label className="font-bold text-xl">
+                Blog Title
+                <RedStar />
+              </label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="text"
@@ -317,7 +329,10 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
             </div>
 
             {/* description input */}
-            <label className="font-bold text-xl">Description<RedStar /></label>
+            <label className="font-bold text-xl">
+              Description
+              <RedStar />
+            </label>
             <textarea
               placeholder="Write something to describe this blog "
               rows={3}
@@ -329,7 +344,10 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
             />
 
             {/* blog Content or body input */}
-            <label className="font-bold text-xl">Content<RedStar /></label>
+            <label className="font-bold text-xl">
+              Content
+              <RedStar />
+            </label>
             <div>
               <CKEditor
                 handleEditorChange={handleEditorChange}
@@ -355,9 +373,9 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
 
         {/* toast alert */}
         <Toast />
-        
-            {/* button back */}
-            <ButtonBack link="/blog"/>
+
+        {/* button back */}
+        <ButtonBack link="/blog" />
       </div>
     </Layout>
   );

@@ -83,7 +83,7 @@ const DetailProductCard = ({
             Detail:
           </div>
 
-          {detail.trim() === "<p><br></p>" ? (
+          {detail.trim() === "<p><br></p>" || detail.trim() === "" ? (
             <div className="text-center font-bold py-5">No detail</div>
           ) : (
             <p className="mb-8 lock leading-relaxed text-gray-700 antialiased prose-img:m-4">

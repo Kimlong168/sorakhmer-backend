@@ -88,20 +88,26 @@ const WidgetGroup = () => {
 
         {/* create user*/}
         <Link to="/createAdmin">
-          <Widget title="Create Admin" color="bg-orange-500" icon={<FiUser />} />
+          <Widget
+            title="Create Admin"
+            color="bg-orange-500"
+            icon={<FiUser />}
+          />
         </Link>
       </div>
     </div>
   );
 };
 const Widget = ({ title, color, icon }) => {
+  // text-purple-600 hover:text-white border hover:border-0 hover:border-l-[10px] hover:bg-violet-500
   return (
     <div
-      className={` h-[100px] rounded-r-md p-4 shadow-xl ${color}  text-white font-semibold text-lg cursor-pointer border-l-[10px] border-gray-300 hover:border-gray-900 flex items-center justify-center gap-3 uppercase`}
+      className={` h-[110px] rounded-r p-4 shadow-xl ${color} text-white font-semibold text-lg cursor-pointer border-l-[10px] border-gray-300 hover:border-gray-700 flex items-center justify-center gap-4 uppercase`}
     >
       <AiFillPlusCircle />
-      <div className="flex items-center justify-end gap-2">
-        <span className="hidden lg:block text-center">{title}</span> {icon}
+      <div className="flex items-center justify-end gap-2 ">
+        <span className="hidden lg:block text-center ">{title}</span>
+        <span>{icon}</span>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const UpdateProduct = ({ productCategoryList }) => {
   const { id: productParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -68,13 +68,24 @@ const UpdateProduct = ({ productCategoryList }) => {
         if (docSnap.exists()) {
           const data = docSnap.data();
           console.log("data", data);
+
+          // check if the category no longer exist
+          let categoryId = productCategoryList.map((data) => data.id)[0];
+
+          productCategoryList.forEach((element) => {
+            if (element.id === data.categoryId) {
+              categoryId = data.categoryId;
+              return;
+            }
+          });
+
           setProduct({
             name: data.name,
             description: data.description,
             detail: data.detail,
             price: data.price,
             isActive: data.isActive,
-            categoryId: data.categoryId,
+            categoryId: categoryId,
             imageId: data.imageId,
             // no need to get image
             image: null,
@@ -331,9 +342,9 @@ const UpdateProduct = ({ productCategoryList }) => {
 
         {/* toast alert */}
         <Toast />
-        
-            {/* button back */}
-            <ButtonBack link="/product"/>
+
+        {/* button back */}
+        <ButtonBack link="/product" />
       </div>
     </Layout>
   );

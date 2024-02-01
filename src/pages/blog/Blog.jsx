@@ -99,15 +99,21 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
                     className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
                   >
                     <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3 ">{blog.title}</td>
+                    <td className="px-4 py-3 min-w-[250px]">{blog.title}</td>
 
                     <td className="px-4 py-3">
                       {blogCategoryList &&
-                        blogCategoryList.map((data) => {
-                          if (data.id == blog.categoryId) {
-                            return data.categoryName;
-                          }
-                        })}
+                      blogCategoryList
+                        .map((data) =>
+                          data.id === blog.categoryId ? data.categoryName : null
+                        )
+                        .filter((category) => category !== null).length > 0 ? (
+                        blogCategoryList.map((data) =>
+                          data.id === blog.categoryId ? data.categoryName : null
+                        )
+                      ) : (
+                        <p className="truncate">No Category⚠️</p>
+                      )}
                     </td>
                     <td className="px-4 py-3">
                       {blog.authorId.toLowerCase() === "default"
@@ -123,7 +129,7 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
                       {blog.publicationDate}
                     </td>
                     <td className="px-4 py-3">
-                      {blog.isActive ? "Enable" : "Disable"}
+                      {blog.isActive ? "Enable" : "Disable⚠️"}
                     </td>
                     <td className="px-4 py-3">
                       {blog.coverImage ? (

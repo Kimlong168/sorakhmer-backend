@@ -107,7 +107,7 @@ const Admin = ({ adminList }) => {
         link="/createAdmin"
       />
 
-      <mark className="my-4 block p-2 bg-yellow-500 rounded">
+      <mark className="my-4 block p-2 bg-yellow-500 rounded font-semibold">
         You logged in with: {userEmail}
       </mark>
 
@@ -142,7 +142,7 @@ const Admin = ({ adminList }) => {
                     className={
                       "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400" +
                       (item.email === userEmail
-                        ? " dark:bg-gray-900 dark:text-white"
+                        ? " dark:bg-yellow-900 dark:text-white"
                         : "")
                     }
                   >
