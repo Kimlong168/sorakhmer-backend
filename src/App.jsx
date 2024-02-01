@@ -6,7 +6,6 @@ import ProductCategory from "./pages/productCategory/ProductCategory";
 import UpdateProductCategory from "./pages/productCategory/UpdateProductCategory";
 import { db } from "./firebase-config";
 import { getDocs, collection } from "firebase/firestore";
-// , query, orderBy, limit for firebase fetching data
 import { UpdateContext } from "./contexts/UpdateContext";
 import Product from "./pages/product/Product";
 import CreateProduct from "./pages/product/CreateProduct";
@@ -42,13 +41,13 @@ import UpdateStore from "./pages/store/UpdateStore";
 import Gallery from "./pages/gallery/Gallery";
 import CreateGallery from "./pages/gallery/CreateGallery";
 import UpdateGallery from "./pages/gallery/UpdateGallery";
-// import { signOut } from "firebase/auth";
 import Login from "./pages/authentication/Login";
 import { AuthContext } from "./contexts/AuthContext";
 import ForgetPassword from "./pages/authentication/ForgetPassword";
 import CreateAdmin from "./pages/authentication/CreateAdmin";
-// import UpdateAdmin from "./pages/authentication/UpdateAdmin";
 import Admin from "./pages/authentication/Admin";
+
+
 function App() {
   // state
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));

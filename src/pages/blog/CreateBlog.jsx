@@ -10,10 +10,10 @@ import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import CKEditor from "../../components/CKeditor";
-import getCurrentDate from "../../utils/getCurrentDataFunction";
-import formatDate from "../../utils/FomatDatafunction";
+import getCurrentDate from "../../utils/getCurrentDateFunction";
+import formatDate from "../../utils/FomatDatefunction";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const CreateBlog = ({ blogCategoryList, authorList }) => {
   //  set default category
   const category = blogCategoryList.map((data) => data.id)[0];
@@ -113,7 +113,6 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
 
   return (
     <Layout>
-
       <div className="text-gray-900  border-gray-700 rounded">
         {/* title */}
         <div className="text-center p-4 pt-0 font-bold text-3xl text-violet-600 underline uppercase">
@@ -126,7 +125,10 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* blog title input */}
             <div className="w-full">
-              <label className="font-bold text-xl">Blog Title<RedStar /></label>
+              <label className="font-bold text-xl">
+                Blog Title
+                <RedStar />
+              </label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="text"
@@ -189,7 +191,10 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
             <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
               {/* blog image url input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Cover Image<RedStar /></label>
+                <label className="font-bold text-xl">
+                  Cover Image
+                  <RedStar />
+                </label>
                 <input
                   className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
                   type="file"
@@ -212,7 +217,10 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
             </div>
 
             {/* description input */}
-            <label className="font-bold text-xl">Description<RedStar /></label>
+            <label className="font-bold text-xl">
+              Description
+              <RedStar />
+            </label>
             <textarea
               placeholder="Write something to describe this blog "
               rows={3}
@@ -224,9 +232,15 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
             />
 
             {/* blog Content or body input */}
-            <label className="font-bold text-xl">Content<RedStar /></label>
+            <label className="font-bold text-xl">
+              Content
+              <RedStar />
+            </label>
             <div>
-              <CKEditor handleEditorChange={handleEditorChange} imageFolderName="blogImages"/>
+              <CKEditor
+                handleEditorChange={handleEditorChange}
+                imageFolderName="blogImages"
+              />
             </div>
 
             {/*create blog button */}
@@ -249,9 +263,9 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
 
         {/* toast alert */}
         <Toast />
-        
-            {/* button back */}
-            <ButtonBack link="/blog"/>
+
+        {/* button back */}
+        <ButtonBack link="/blog" />
       </div>
     </Layout>
   );

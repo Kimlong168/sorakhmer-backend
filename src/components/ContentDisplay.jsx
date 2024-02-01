@@ -4,7 +4,7 @@ const ContentDisplay = ({ htmlString }) => {
   const oembedRegex = /<oembed[^>]*>/g;
   const oembedMatch = htmlString.match(oembedRegex);
 
-  // If an oembed element was found, convert it to an iframe element
+  // convert oembed to iframe (youtube video)
   if (oembedMatch) {
     const oembedUrl = oembedMatch[0].match(/url="([^"]*)"/)[1];
 

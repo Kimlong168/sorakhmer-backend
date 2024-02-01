@@ -8,14 +8,14 @@ import { FaSteamSymbol } from "react-icons/fa";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { PiFactory, PiImage, PiStorefront } from "react-icons/pi";
 
-// all the widgets in the dashboard
-const WidgetGroup = () => {
+// all the CreateItemCards in the dashboard
+const CreateItemCardGroup = () => {
   return (
     <div>
       <div className="grid auto-rows-auto grid-cols-2  lg:grid-cols-4 gap-4 ">
         {/* create product */}
         <Link to="/createProduct">
-          <Widget
+          <CreateItemCard
             title="Product"
             color="bg-red-600"
             icon={<TiShoppingCart />}
@@ -24,7 +24,7 @@ const WidgetGroup = () => {
 
         {/* create prodcut category */}
         <Link to="/createProductCategory">
-          <Widget
+          <CreateItemCard
             title="Product Category"
             color="bg-yellow-400"
             icon={<BiCategoryAlt />}
@@ -33,12 +33,12 @@ const WidgetGroup = () => {
 
         {/* create blog  */}
         <Link to="/createBlog">
-          <Widget title="Blog" color="bg-violet-500" icon={<FaBlog />} />
+          <CreateItemCard title="Blog" color="bg-violet-500" icon={<FaBlog />} />
         </Link>
 
         {/* create blog category */}
         <Link to="/createBlogCategory">
-          <Widget
+          <CreateItemCard
             title="Blog Category"
             color="bg-pink-500"
             icon={<BiCategoryAlt />}
@@ -46,17 +46,17 @@ const WidgetGroup = () => {
         </Link>
         {/* create author for blog post */}
         <Link to="/createAuthor">
-          <Widget title="Author" color="bg-blue-500" icon={<FiUsers />} />
+          <CreateItemCard title="Author" color="bg-blue-500" icon={<FiUsers />} />
         </Link>
 
         {/* create company awards */}
         <Link to="/createAward">
-          <Widget title="Awards" color="bg-purple-400" icon={<FaAward />} />
+          <CreateItemCard title="Awards" color="bg-purple-400" icon={<FaAward />} />
         </Link>
 
         {/* create company partners  */}
         <Link to="/createPartner">
-          <Widget
+          <CreateItemCard
             title="Partners"
             color="bg-green-500"
             icon={<FaSteamSymbol />}
@@ -65,12 +65,12 @@ const WidgetGroup = () => {
 
         {/* create process of producing */}
         <Link to="/createProcess">
-          <Widget title="Process" color="bg-blue-900" icon={<PiFactory />} />
+          <CreateItemCard title="Process" color="bg-blue-900" icon={<PiFactory />} />
         </Link>
 
         {/* create store */}
         <Link to="/createStore">
-          <Widget
+          <CreateItemCard
             title="Store"
             color="bg-orange-900"
             icon={<PiStorefront />}
@@ -79,7 +79,7 @@ const WidgetGroup = () => {
 
         {/* create gallery*/}
         <Link to="/createGallery">
-          <Widget
+          <CreateItemCard
             title="Gallery"
             color="bg-purple-900"
             icon={<PiImage />}
@@ -88,7 +88,7 @@ const WidgetGroup = () => {
 
         {/* create user*/}
         <Link to="/createAdmin">
-          <Widget
+          <CreateItemCard
             title="Admin"
             color="bg-orange-500"
             icon={<FiUser />}
@@ -98,7 +98,8 @@ const WidgetGroup = () => {
     </div>
   );
 };
-const Widget = ({ title, color, icon }) => {
+
+const CreateItemCard = ({ title, color, icon }) => {
   // text-purple-600 hover:text-white border hover:border-0 hover:border-l-[10px] hover:bg-violet-500
   return (
     <div
@@ -113,9 +114,9 @@ const Widget = ({ title, color, icon }) => {
   );
 };
 
-Widget.propTypes = {
+CreateItemCard.propTypes = {
   title: PropTypes.string.isRequired,
   color: PropTypes.string,
   icon: PropTypes.element,
 };
-export default WidgetGroup;
+export default CreateItemCardGroup;

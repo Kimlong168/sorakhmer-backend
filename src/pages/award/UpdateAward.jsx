@@ -13,10 +13,10 @@ import Loading from "../../components/Loading";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
-import formatDate from "../../utils/FomatDatafunction";
+import formatDate from "../../utils/FomatDatefunction";
 import convertDateFormat from "../../utils/ConvertDateFormat";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const UpdateAward = () => {
   const { id: awardParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -184,7 +184,10 @@ const UpdateAward = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* award name input */}
-            <label className="font-bold text-xl">Award Name<RedStar /></label>
+            <label className="font-bold text-xl">
+              Award Name
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -240,18 +243,16 @@ const UpdateAward = () => {
             {/* create partner button */}
             <button
               className="bg-gray-700 text-white font-bold p-2 mt-2 rounded"
-              onClick={
-                award.awardName ? updateAward : notify
-              }
+              onClick={award.awardName ? updateAward : notify}
             >
               Update Award
             </button>
 
             {/* toast alert */}
             <Toast />
-            
+
             {/* button back */}
-            <ButtonBack link="/award"/>
+            <ButtonBack link="/award" />
           </div>
         </div>
       </div>

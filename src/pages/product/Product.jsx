@@ -114,12 +114,12 @@ const Product = ({ productList, productCategoryList }) => {
                           : null
                       )
                     ) : (
-                      <p className="truncate">No Category ⚠️</p>
+                      <p className="truncate">No Category⚠️</p>
                     )}
                   </td>
                   <td className="px-4 py-3">{product.price} $</td>
                   <td className="px-4 py-3">
-                    {product.isActive ? "Enable" : "Disable"}
+                    {product.isActive ? "Enable" : "Disable⚠️"}
                   </td>
                   <td className="px-4 py-3">
                     {product.image ? (

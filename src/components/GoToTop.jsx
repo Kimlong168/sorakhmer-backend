@@ -14,6 +14,7 @@ const GoToTop = () => {
     });
   }, []);
 
+  // this function is used to scroll to the top of the page
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

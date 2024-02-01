@@ -51,6 +51,7 @@ IconSelector.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
+// convert title to icon
 const LinkIcon = ({ title }) => {
   return (
     <>

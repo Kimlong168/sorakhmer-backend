@@ -1,6 +1,8 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+
+// this component is used to show to title of the table and the button to add new record
 const TableHead = ({ color, title, border, link }) => {
   return (
     <div

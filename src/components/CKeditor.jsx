@@ -16,6 +16,7 @@ const CKeditor = ({
     handleEditorChange(content);
   }, [content, handleEditorChange]);
 
+  // this function is used to upload images in the content of each blog post to firebase storage
   function uploadAdapter(loader) {
     return {
       upload: () => {
@@ -29,7 +30,7 @@ const CKeditor = ({
               // Get the download URL for the uploaded image
               getDownloadURL(imageRef)
                 .then((downloadURL) => {
-                  console.log("profile image URL:", downloadURL);
+                  console.log("image URL:", downloadURL);
                   // resolve the promise with the result object
                   resolve({
                     default: downloadURL,

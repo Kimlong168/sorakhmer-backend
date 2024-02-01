@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+// this component is used when we are fetching data to display in each table. it will show loading first
 const LoadingInTable = () => {
   const [time, setTime] = useState(0);
   useEffect(() => {

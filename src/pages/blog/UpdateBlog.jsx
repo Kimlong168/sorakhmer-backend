@@ -14,8 +14,8 @@ import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import CKEditor from "../../components/CKeditor";
-import getCurrentDate from "../../utils/getCurrentDataFunction";
-import formatDate from "../../utils/FomatDatafunction";
+import getCurrentDate from "../../utils/getCurrentDateFunction";
+import formatDate from "../../utils/FomatDatefunction";
 import Loading from "../../components/Loading";
 import convertDateFormat from "../../utils/ConvertDateFormat";
 import RedStar from "../../components/RedStar";
@@ -87,7 +87,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
           });
 
           // check if the category no longer exist
-          let categoryId = blogCategoryList.map((data) => data.id)[0]; //set to default id 
+          let categoryId = blogCategoryList.map((data) => data.id)[0]; //set to default id
 
           blogCategoryList.forEach((element) => {
             if (element.id === data.categoryId) {

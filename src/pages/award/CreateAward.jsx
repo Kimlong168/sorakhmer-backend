@@ -7,10 +7,10 @@ import Layout from "../../layouts/Layout";
 
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
-import formatDate from "../../utils/FomatDatafunction";
+import formatDate from "../../utils/FomatDatefunction";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const CreateAward = () => {
   const { setIsUpdated } = useContext(UpdateContext);
   const [award, setAward] = useState({
@@ -84,7 +84,6 @@ const CreateAward = () => {
 
   return (
     <Layout>
-
       <div className="text-gray-900  border-gray-700 rounded">
         {/* title */}
         <div className="text-center p-4 pt-0 font-bold text-3xl text-purple-400 underline uppercase">
@@ -96,7 +95,10 @@ const CreateAward = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* award name input */}
-            <label className="font-bold text-xl">Award Name<RedStar /></label>
+            <label className="font-bold text-xl">
+              Award Name
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -106,7 +108,10 @@ const CreateAward = () => {
             />
 
             {/* Logo picture input */}
-            <label className="font-bold text-xl">Award Picture<RedStar /></label>
+            <label className="font-bold text-xl">
+              Award Picture
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"
@@ -163,9 +168,9 @@ const CreateAward = () => {
 
             {/* toast alert */}
             <Toast />
-            
+
             {/* button back */}
-            <ButtonBack link="/award"/>
+            <ButtonBack link="/award" />
           </div>
         </div>
       </div>

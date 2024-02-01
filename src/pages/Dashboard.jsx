@@ -1,14 +1,14 @@
 import Layout from "../layouts/Layout";
-import WidgetGroup from "../components/WidgetGroup";
-import Box from "../components/CardGroup";
+import CreateItemCardGroup from "../components/CreateItemCardGroup";
+import CardGroup from "../components/CardGroup";
 
 const Dashboard = () => {
   return (
     <Layout>
       <div>
-        <Box />
+        <CardGroup />
         <p className="text-xl font-semibold my-2">Create new item</p>
-        <WidgetGroup />
+        <CreateItemCardGroup />
       </div>
     </Layout>
   );
