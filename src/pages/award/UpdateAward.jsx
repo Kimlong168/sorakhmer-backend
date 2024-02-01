@@ -72,7 +72,7 @@ const UpdateAward = () => {
 
           // get old image url
           setOldImageUrl(data.awardLogo);
-          console.log("data", data);
+    
         } else {
           console.log("No such document!");
         }

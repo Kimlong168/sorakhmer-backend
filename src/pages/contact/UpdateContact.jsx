@@ -44,7 +44,6 @@ const UpdateContact = () => {
             socialMedia: data.socialMedia,
           });
 
-          console.log("data", data);
         } else {
           console.log("No such document!");
         }

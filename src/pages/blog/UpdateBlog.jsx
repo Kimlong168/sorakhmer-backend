@@ -121,7 +121,7 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
     };
 
     fetchData();
-  }, [blogParams, authorList]);
+  }, [blogParams, authorList, blogCategoryList]);
 
   // --------------------------------
   //   update blog if all required fields are filled
@@ -264,9 +264,9 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
                   onChange={(e) => handleOnChange(e)}
                 >
                   {blogCategoryList.map((data) => (
-                    <>
-                      <option value={data.id}>{data.categoryName}</option>
-                    </>
+                    <option key={data.id} value={data.id}>
+                      {data.categoryName}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -282,9 +282,9 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
                 >
                   <option value={`default`}>Admin</option>
                   {authorList.map((data) => (
-                    <>
-                      <option value={data.id}>{data.fullName}</option>
-                    </>
+                    <option key={data.id} value={data.id}>
+                      {data.fullName}
+                    </option>
                   ))}
                 </select>
               </div>

@@ -63,7 +63,6 @@ const UpdateGallery = () => {
 
           // get old image url
           setOldImageUrl(data.url);
-          console.log("data", data);
         } else {
           console.log("No such document!");
         }

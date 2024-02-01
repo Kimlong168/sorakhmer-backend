@@ -4,17 +4,13 @@ import { storage } from "../firebase-config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import PropTypes from "prop-types";
 import "../App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const CKeditor = ({
   handleEditorChange,
   contentToUpdate,
   imageFolderName = "blogImages",
 }) => {
   const [content, setContent] = useState(contentToUpdate || "");
-
-  useEffect(() => {
-    handleEditorChange(content);
-  }, [content, handleEditorChange]);
 
   // this function is used to upload images in the content of each blog post to firebase storage
   function uploadAdapter(loader) {
@@ -70,6 +66,7 @@ const CKeditor = ({
         onChange={(event, editor) => {
           const data = editor.getData();
           setContent(data);
+          handleEditorChange(data);
         }}
         onBlur={(event, editor) => {
           console.log("Blur.", editor);
@@ -83,7 +80,7 @@ const CKeditor = ({
 };
 CKeditor.propTypes = {
   handleEditorChange: PropTypes.func.isRequired,
-  contentToUpdate: PropTypes.string.isRequired,
+  contentToUpdate: PropTypes.string,
   imageFolderName: PropTypes.string.isRequired,
 };
 export default CKeditor;

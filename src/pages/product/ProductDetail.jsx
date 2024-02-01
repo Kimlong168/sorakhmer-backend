@@ -10,16 +10,16 @@ import DetailProductCard from "../../components/DetailProductCard";
 const ProductDetail = ({ productCategoryList }) => {
   const { id: productParams } = useParams();
   const [product, setProduct] = useState(null);
-
-  // check if the productParams is update-xxxx (after updating)
-  const match = productParams.match(/update-(.+)/);
-  // Check if there is a match and retrieve the id
-  const newProductParams = match ? match[1] : productParams;
-
+  const [newProductParam, setNewProductParam] = useState(productParams);
   // fetch product base on id or productParams
   useEffect(() => {
-    const docRef = doc(db, "products", newProductParams);
+    // check if the productParams is update-xxxx (after updating)
+    const match = productParams.match(/update-(.+)/);
+    // Check if there is a match and retrieve the id
+    const newProductParams = match ? match[1] : productParams;
+    setNewProductParam(newProductParams);
 
+    const docRef = doc(db, "products", newProductParams);
     const fetchProduct = async () => {
       try {
         // if we view the detail after updating we delay 1000 to make sure data is fetched successfully
@@ -43,7 +43,7 @@ const ProductDetail = ({ productCategoryList }) => {
     };
 
     fetchProduct();
-  }, [newProductParams, match]);
+  }, [productParams]);
 
   // loading if product is null
   if (!product) {
@@ -62,7 +62,7 @@ const ProductDetail = ({ productCategoryList }) => {
         {/* product detail card component */}
         <DetailProductCard
           {...product}
-          productParams={newProductParams}
+          productParams={newProductParam}
           productCategoryList={productCategoryList}
         />
       </div>

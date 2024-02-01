@@ -149,9 +149,9 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
                   onChange={(e) => handleOnChange(e)}
                 >
                   {blogCategoryList.map((data) => (
-                    <>
-                      <option value={data.id}>{data.categoryName}</option>
-                    </>
+                    <option key={data.id} value={data.id}>
+                      {data.categoryName}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -167,9 +167,9 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
                 >
                   <option value={`default`}>Admin</option>
                   {authorList.map((data) => (
-                    <>
-                      <option value={data.id}>{data.fullName}</option>
-                    </>
+                    <option key={data.id} value={data.id}>
+                      {data.fullName}
+                    </option>
                   ))}
                 </select>
               </div>

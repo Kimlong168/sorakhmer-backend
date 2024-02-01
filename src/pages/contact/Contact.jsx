@@ -50,33 +50,35 @@ const Contact = ({ contactList }) => {
             Contact Information
           </legend>
           <table className="text-xl">
-            <tr>
-              <td className="pr-10 pb-3">Phone Number:</td>
-              <td className="pr-10 pb-3">{contact.phoneNumber}</td>
-            </tr>
-            <tr>
-              <td className="pr-10 pb-3">Email:</td>
-              <td className="pr-10 pb-3">{contact.email}</td>
-            </tr>
-            <tr>
-              <td className="pr-10 pb-3">Telegram Username:</td>
-              <td className="pr-10 pb-3 underline text-blue-400">
-                <Link to={contact.telegram}>{contact.telegram}</Link>
-              </td>
-            </tr>
-            <tr>
-              <td className="pr-10 pb-3">Social Media:</td>
-              <td className="pr-10 pb-3">
-                <div className="flex flex-wrap gap-3">
-                  {contact.socialMedia &&
-                    contact.socialMedia.map((item, index) => (
-                      <Link to={item.url} key={index}>
-                        <LinkIcon title={item.title} />
-                      </Link>
-                    ))}
-                </div>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td className="pr-10 pb-3">Phone Number:</td>
+                <td className="pr-10 pb-3">{contact.phoneNumber}</td>
+              </tr>
+              <tr>
+                <td className="pr-10 pb-3">Email:</td>
+                <td className="pr-10 pb-3">{contact.email}</td>
+              </tr>
+              <tr>
+                <td className="pr-10 pb-3">Telegram Username:</td>
+                <td className="pr-10 pb-3 underline text-blue-400">
+                  <Link to={contact.telegram}>{contact.telegram}</Link>
+                </td>
+              </tr>
+              <tr>
+                <td className="pr-10 pb-3">Social Media:</td>
+                <td className="pr-10 pb-3">
+                  <div className="flex flex-wrap gap-3">
+                    {contact.socialMedia &&
+                      contact.socialMedia.map((item, index) => (
+                        <Link to={item.url} key={index}>
+                          <LinkIcon title={item.title} />
+                        </Link>
+                      ))}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
           </table>
           {/* button */}
           {contactList.length > 0 ? (

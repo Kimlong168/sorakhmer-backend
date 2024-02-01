@@ -67,7 +67,7 @@ const UpdatePartner = () => {
 
           // get old image url
           setOldImageUrl(data.partnerLogo);
-          console.log("data", data);
+        
         } else {
           console.log("No such document!");
         }

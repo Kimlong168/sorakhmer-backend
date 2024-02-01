@@ -136,60 +136,58 @@ const Admin = ({ adminList }) => {
               )}
 
               {adminList.map((item, index) => (
-                <>
-                  <tr
-                    key={item.id}
-                    className={
-                      "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400" +
-                      (item.email === userEmail
-                        ? " dark:bg-yellow-900 dark:text-white"
-                        : "")
-                    }
-                  >
-                    <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">
-                      <span className="flex items-center gap-3 cursor-pointer mb-1">
-                        {item.displayName}
-                        <span
-                          onClick={() => {
-                            setNewUsername("");
-                            setIsEditing((prev) => ({
-                              open: !prev.open,
-                              id: item.id,
-                            }));
-                          }}
-                        >
-                          {isEditing.open && isEditing.id === item.id ? (
-                            <FiXSquare />
-                          ) : (
-                            <FiEdit />
-                          )}
-                        </span>
-                      </span>
-
-                      {isEditing.open && isEditing.id === item.id
-                        ? UpdateUsernameForm(
-                            item.id,
-                            item.email,
-                            item.uid,
-                            item.creationTime
-                          )
-                        : null}
-                    </td>
-                    <td className="px-4 py-3">{item.email}</td>
-                    {/* <td className="px-4 py-3">{item.uid}</td> */}
-                    <td className="px-4 py-3">{item.creationTime}</td>
-
-                    <td className="px-4 py-3 text-sm text-center">
-                      <button
-                        onClick={() => handleResetPassword(item.email)}
-                        className="px-4 py-1.5 rounded bg-green-600 text-white"
+                <tr
+                  key={item.id}
+                  className={
+                    "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400" +
+                    (item.email === userEmail
+                      ? " dark:bg-yellow-900 dark:text-white"
+                      : "")
+                  }
+                >
+                  <td className="px-4 py-3">{index + 1}</td>
+                  <td className="px-4 py-3">
+                    <span className="flex items-center gap-3 cursor-pointer mb-1">
+                      {item.displayName}
+                      <span
+                        onClick={() => {
+                          setNewUsername("");
+                          setIsEditing((prev) => ({
+                            open: !prev.open,
+                            id: item.id,
+                          }));
+                        }}
                       >
-                        Reset
-                      </button>
-                    </td>
-                  </tr>
-                </>
+                        {isEditing.open && isEditing.id === item.id ? (
+                          <FiXSquare />
+                        ) : (
+                          <FiEdit />
+                        )}
+                      </span>
+                    </span>
+
+                    {isEditing.open && isEditing.id === item.id
+                      ? UpdateUsernameForm(
+                          item.id,
+                          item.email,
+                          item.uid,
+                          item.creationTime
+                        )
+                      : null}
+                  </td>
+                  <td className="px-4 py-3">{item.email}</td>
+                  {/* <td className="px-4 py-3">{item.uid}</td> */}
+                  <td className="px-4 py-3">{item.creationTime}</td>
+
+                  <td className="px-4 py-3 text-sm text-center">
+                    <button
+                      onClick={() => handleResetPassword(item.email)}
+                      className="px-4 py-1.5 rounded bg-green-600 text-white"
+                    >
+                      Reset
+                    </button>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

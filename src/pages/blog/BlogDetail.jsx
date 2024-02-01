@@ -16,14 +16,15 @@ import GoToTop from "../../components/GoToTop";
 const BlogDetail = ({ blogCategoryList, authorList }) => {
   const { id: blogParams } = useParams();
   const [blog, setblog] = useState(null);
-
-  // check if the blogParams is update-xxxx (after updating)
-  const match = blogParams.match(/update-(.+)/);
-  // Check if there is a match and retrieve the id
-  const newBogParams = match ? match[1] : blogParams;
-
+  const [newBogParam, setNewBogParam] = useState(blogParams);
   // fetch blog base on id or blogParams
   useEffect(() => {
+    // check if the blogParams is update-xxxx (after updating)
+    const match = blogParams.match(/update-(.+)/);
+    // Check if there is a match and retrieve the id
+    const newBogParams = match ? match[1] : blogParams;
+    setNewBogParam(newBogParams);
+    
     const docRef = doc(db, "blogs", newBogParams);
 
     const fetchblog = async () => {
@@ -48,7 +49,7 @@ const BlogDetail = ({ blogCategoryList, authorList }) => {
     };
 
     fetchblog();
-  }, [newBogParams, match]);
+  }, [blogParams]);
 
   // loading if blog is null
   if (!blog) {
@@ -74,7 +75,7 @@ const BlogDetail = ({ blogCategoryList, authorList }) => {
             </Link>
           </div>
           <div>
-            <Link to={`/updateBlog/${blogParams}`}>
+            <Link to={`/updateBlog/${newBogParam}`}>
               <button className="px-4 py-1.5 rounded hover:shadow-xl text-white font-bold bg-green-600 flex gap-3 justify-center items-center">
                 <FiEdit /> Edit
               </button>

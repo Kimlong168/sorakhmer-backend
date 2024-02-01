@@ -10,7 +10,7 @@ import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const CreateProduct = ({ productCategoryList }) => {
   //  set default category
   const category = productCategoryList.map((data) => data.id)[0];
@@ -105,7 +105,6 @@ const CreateProduct = ({ productCategoryList }) => {
 
   return (
     <Layout>
-
       <div className="text-gray-900  border-gray-700 rounded">
         {/* title */}
         <div className="text-center p-4 pt-0 font-bold text-3xl text-red-600 underline uppercase">
@@ -119,7 +118,10 @@ const CreateProduct = ({ productCategoryList }) => {
             <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
               {/* product name input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Product Name<RedStar /></label>
+                <label className="font-bold text-xl">
+                  Product Name
+                  <RedStar />
+                </label>
                 <input
                   className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                   type="text"
@@ -131,7 +133,10 @@ const CreateProduct = ({ productCategoryList }) => {
 
               {/* product image url input */}
               <div className="w-full">
-                <label className="font-bold text-xl">Product Image<RedStar /></label>
+                <label className="font-bold text-xl">
+                  Product Image
+                  <RedStar />
+                </label>
                 <input
                   className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
                   type="file"
@@ -152,9 +157,9 @@ const CreateProduct = ({ productCategoryList }) => {
                   onChange={(e) => handleOnChange(e)}
                 >
                   {productCategoryList.map((data) => (
-                    <>
-                      <option value={data.id}>{data.categoryName}</option>
-                    </>
+                    <option key={data.id} value={data.id}>
+                      {data.categoryName}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -175,7 +180,10 @@ const CreateProduct = ({ productCategoryList }) => {
 
             {/* product price input */}
             <div>
-              <label className="font-bold text-xl">Price ($)<RedStar /></label>
+              <label className="font-bold text-xl">
+                Price ($)
+                <RedStar />
+              </label>
               <input
                 className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
                 type="number"
@@ -186,7 +194,10 @@ const CreateProduct = ({ productCategoryList }) => {
             </div>
 
             {/* description input */}
-            <label className="font-bold text-xl">Description<RedStar /></label>
+            <label className="font-bold text-xl">
+              Description
+              <RedStar />
+            </label>
             <textarea
               placeholder="Write something to describe this product "
               rows={3}
@@ -235,9 +246,9 @@ const CreateProduct = ({ productCategoryList }) => {
 
         {/* toast alert */}
         <Toast />
-        
-            {/* button back */}
-            <ButtonBack link="/product"/>
+
+        {/* button back */}
+        <ButtonBack link="/product" />
       </div>
     </Layout>
   );

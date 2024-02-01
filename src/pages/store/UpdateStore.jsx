@@ -49,7 +49,6 @@ const UpdateStore = () => {
             mapLink: data.mapLink,
           });
 
-          console.log("data", data);
         } else {
           console.log("No such document!");
         }

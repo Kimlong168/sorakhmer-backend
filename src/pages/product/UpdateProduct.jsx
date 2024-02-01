@@ -93,7 +93,6 @@ const UpdateProduct = ({ productCategoryList }) => {
 
           // get old image url
           setOldImageUrl(data.image);
-          console.log("data", data);
         } else {
           console.log("No such document!");
         }
@@ -103,7 +102,7 @@ const UpdateProduct = ({ productCategoryList }) => {
     };
 
     fetchData();
-  }, [productParams]);
+  }, [productParams, productCategoryList]);
 
   //   update product if all required fields are filled
   async function updateProduct() {
@@ -257,9 +256,9 @@ const UpdateProduct = ({ productCategoryList }) => {
                 >
                   {productCategoryList &&
                     productCategoryList.map((data) => (
-                      <>
-                        <option value={data.id}>{data.categoryName}</option>
-                      </>
+                      <option key={data.id} value={data.id}>
+                        {data.categoryName}
+                      </option>
                     ))}
                 </select>
               </div>

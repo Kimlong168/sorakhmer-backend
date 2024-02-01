@@ -101,7 +101,7 @@ const UpdateAuthor = () => {
 
           // get old image url
           setOldImageUrl(data.profilePicture);
-          console.log("data", data);
+
         } else {
           console.log("No such document!");
         }

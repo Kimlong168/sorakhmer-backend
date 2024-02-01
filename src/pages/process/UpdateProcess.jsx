@@ -51,7 +51,7 @@ const UpdateProcess = () => {
             processName: data.processName,
             description: data.description,
           });
-          console.log("data", data);
+       
         } else {
           console.log("No such document!");
         }

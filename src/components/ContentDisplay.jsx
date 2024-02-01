@@ -1,20 +1,18 @@
 import PropTypes from "prop-types";
+import "../App.css";
 const ContentDisplay = ({ htmlString }) => {
   //   Use a regular expression to find the oembed element in the HTML string
   const oembedRegex = /<oembed[^>]*>/g;
-  const oembedMatch = htmlString.match(oembedRegex);
+  const oembedMatches = htmlString.match(oembedRegex);
 
   // convert oembed to iframe (youtube video)
-  if (oembedMatch) {
-    const oembedUrl = oembedMatch[0].match(/url="([^"]*)"/)[1];
-
-    // https://youtu.be/ke70bLeIECo?si=QdqyNLlHbFLjA-O8 this link is not working
-    // https://www.youtube.com/embed/ke70bLeIECo we need to convert it to this
-
-    let rightUrl = oembedUrl.replace("youtu.be", "youtube.com/embed");
-
-    const iframeElement = `<iframe width="100%" height="415"  src="${rightUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    htmlString = htmlString.replace(oembedRegex, iframeElement);
+  if (oembedMatches) {
+    oembedMatches.forEach((oembedMatch) => {
+      const oembedUrl = oembedMatch.match(/url="([^"]*)"/)[1];
+      let rightUrl = oembedUrl.replace("youtu.be", "youtube.com/embed");
+      const iframeElement = `<iframe width="100%" height="370px"  src="${rightUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      htmlString = htmlString.replace(oembedMatch, iframeElement);
+    });
   }
 
   return <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
