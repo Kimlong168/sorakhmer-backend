@@ -10,13 +10,25 @@ import PropTypes from "prop-types";
 import logo from "../assets/images/sorakhmer-logo.png";
 import { PiFactoryBold, PiImage, PiStorefront } from "react-icons/pi";
 import "../App.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
 
 const Layout = (props) => {
   const { setIsAuth, userEmail } = useContext(AuthContext);
+  const [activeTab, setActiveTab] = useState("dashboard");
+
+  useEffect(() => {
+    const tab = localStorage.getItem("activeTab");
+    if (tab) {
+      setActiveTab(tab);
+    }
+  }, []);
+  // handleChange tab
+  const handleChangeTab = (tab) => {
+    localStorage.setItem("activeTab", tab);
+  };
 
   const userName = userEmail.split("@")[0];
   let navigate = useNavigate();
@@ -83,7 +95,10 @@ const Layout = (props) => {
               </li>
 
               {/* dashboad */}
-              <li>
+              <li
+                className={activeTab === "dashboard" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("dashboard")}
+              >
                 <Link
                   to="/"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -98,7 +113,10 @@ const Layout = (props) => {
               </li>
 
               {/* product */}
-              <li>
+              <li
+                className={activeTab === "product" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("product")}
+              >
                 <Link
                   to="/product"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -113,7 +131,12 @@ const Layout = (props) => {
               </li>
 
               {/* product category */}
-              <li>
+              <li
+                className={
+                  activeTab === "productCategory" ? "bg-gray-800" : " "
+                }
+                onClick={() => handleChangeTab("productCategory")}
+              >
                 <Link
                   to="/productCategory"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -128,7 +151,10 @@ const Layout = (props) => {
               </li>
 
               {/* blog */}
-              <li>
+              <li
+                className={activeTab === "blog" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("blog")}
+              >
                 <Link
                   to="/blog"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -143,7 +169,10 @@ const Layout = (props) => {
               </li>
 
               {/* blog category */}
-              <li>
+              <li
+                className={activeTab === "blogCategory" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("blogCategory")}
+              >
                 <Link
                   to="/blogCategory"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -158,7 +187,10 @@ const Layout = (props) => {
               </li>
 
               {/* author */}
-              <li>
+              <li
+                className={activeTab === "author" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("author")}
+              >
                 <Link
                   to="/author"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -173,7 +205,10 @@ const Layout = (props) => {
               </li>
 
               {/* award */}
-              <li>
+              <li
+                className={activeTab === "award" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("award")}
+              >
                 <Link
                   to="/award"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -188,7 +223,10 @@ const Layout = (props) => {
               </li>
 
               {/* partner */}
-              <li>
+              <li
+                className={activeTab === "partner" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("partner")}
+              >
                 <Link
                   to="/partner"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -203,7 +241,10 @@ const Layout = (props) => {
               </li>
 
               {/* process */}
-              <li>
+              <li
+                className={activeTab === "process" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("process")}
+              >
                 <Link
                   to="/process"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -217,7 +258,10 @@ const Layout = (props) => {
                 </Link>
               </li>
               {/* store */}
-              <li>
+              <li
+                className={activeTab === "store" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("store")}
+              >
                 <Link
                   to="/store"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -232,7 +276,10 @@ const Layout = (props) => {
               </li>
 
               {/* gallery */}
-              <li>
+              <li
+                className={activeTab === "gallery" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("gallery")}
+              >
                 <Link
                   to="/gallery"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -248,7 +295,10 @@ const Layout = (props) => {
 
               {/* contact data  */}
 
-              <li>
+              <li
+                className={activeTab === "contact" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("contact")}
+              >
                 <Link
                   to="/contact"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -264,7 +314,10 @@ const Layout = (props) => {
 
               {/* admin */}
 
-              <li>
+              <li
+                className={activeTab === "admin" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("admin")}
+              >
                 <Link
                   to="/admin"
                   className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"

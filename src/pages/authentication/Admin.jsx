@@ -138,7 +138,7 @@ const Admin = ({ adminList }) => {
               {adminList.map((item, index) => (
                 <>
                   <tr
-                    key={index}
+                    key={item.id}
                     className={
                       "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400" +
                       (item.email === userEmail

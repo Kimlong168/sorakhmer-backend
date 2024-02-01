@@ -51,46 +51,47 @@ const Process = ({ processList }) => {
                 <>
                   <tr className=" text-center">
                     <td className="py-8 text-white font-bold" colSpan={8}>
-                    <LoadingInTable />
+                      <LoadingInTable />
                     </td>
                   </tr>
                 </>
               )}
               {processList.map((item, index) => (
-                <>
-                  <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                    <td className="px-4 py-3">{index + 1}</td>
+                <tr
+                  key={item.id}
+                  className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
+                >
+                  <td className="px-4 py-3">{index + 1}</td>
 
-                    <td className="px-4 py-3">{item.processName}</td>
-                    {/* edit button */}
-                    <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/processDetail/${item.id}`}>
-                        <div className="px-2 py-1.5 rounded bg-yellow-500 text-white">
-                          View
-                        </div>
-                      </Link>
-                    </td>
-
-                    {/* edit button */}
-                    <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/updateProcess/${item.id}`}>
-                        <div className="px-2 py-1.5 rounded bg-green-600 text-white">
-                          Edit
-                        </div>
-                      </Link>
-                    </td>
-
-                    {/* delete button */}
-                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                      <div
-                        onClick={() => notifyDeleting(item.id)}
-                        className="px-2 py-1.5 rounded bg-red-600 text-white"
-                      >
-                        Delete
+                  <td className="px-4 py-3">{item.processName}</td>
+                  {/* edit button */}
+                  <td className="px-4 py-3 text-sm text-center">
+                    <Link to={`/processDetail/${item.id}`}>
+                      <div className="px-2 py-1.5 rounded bg-yellow-500 text-white">
+                        View
                       </div>
-                    </td>
-                  </tr>
-                </>
+                    </Link>
+                  </td>
+
+                  {/* edit button */}
+                  <td className="px-4 py-3 text-sm text-center">
+                    <Link to={`/updateProcess/${item.id}`}>
+                      <div className="px-2 py-1.5 rounded bg-green-600 text-white">
+                        Edit
+                      </div>
+                    </Link>
+                  </td>
+
+                  {/* delete button */}
+                  <td className="px-4 py-3 text-sm text-center cursor-pointer">
+                    <div
+                      onClick={() => notifyDeleting(item.id)}
+                      className="px-2 py-1.5 rounded bg-red-600 text-white"
+                    >
+                      Delete
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

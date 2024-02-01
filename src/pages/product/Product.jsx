@@ -92,97 +92,95 @@ const Product = ({ productList, productCategoryList }) => {
               )}
 
               {productList.map((product, index) => (
-                <>
-                  <tr
-                    key={product.id}
-                    className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
-                  >
-                    <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">{product.name}</td>
+                <tr
+                  key={product.id}
+                  className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
+                >
+                  <td className="px-4 py-3">{index + 1}</td>
+                  <td className="px-4 py-3">{product.name}</td>
 
-                    <td className="px-4 py-3">
-                      {productCategoryList &&
-                      productCategoryList
-                        .map((data) =>
-                          data.id === product.categoryId
-                            ? data.categoryName
-                            : null
-                        )
-                        .filter((category) => category !== null).length > 0 ? (
-                        productCategoryList.map((data) =>
-                          data.id === product.categoryId
-                            ? data.categoryName
-                            : null
-                        )
-                      ) : (
-                        <p className="truncate">No Category ⚠️</p>
-                      )}
-                    </td>
-                    <td className="px-4 py-3">{product.price} $</td>
-                    <td className="px-4 py-3">
-                      {product.isActive ? "Enable" : "Disable"}
-                    </td>
-                    <td className="px-4 py-3">
-                      {product.image ? (
-                        <img
-                          className="min-w-[70px] h-[50px] rounded-sm cursor-pointer"
-                          src={product.image}
-                          loading="lazy"
-                          onClick={() => {
-                            setShowImage({
-                              image: product.image,
-                              open: true,
-                            });
-                          }}
-                        />
-                      ) : (
-                        "No Image"
-                      )}
+                  <td className="px-4 py-3">
+                    {productCategoryList &&
+                    productCategoryList
+                      .map((data) =>
+                        data.id === product.categoryId
+                          ? data.categoryName
+                          : null
+                      )
+                      .filter((category) => category !== null).length > 0 ? (
+                      productCategoryList.map((data) =>
+                        data.id === product.categoryId
+                          ? data.categoryName
+                          : null
+                      )
+                    ) : (
+                      <p className="truncate">No Category ⚠️</p>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">{product.price} $</td>
+                  <td className="px-4 py-3">
+                    {product.isActive ? "Enable" : "Disable"}
+                  </td>
+                  <td className="px-4 py-3">
+                    {product.image ? (
+                      <img
+                        className="min-w-[70px] h-[50px] rounded-sm cursor-pointer"
+                        src={product.image}
+                        loading="lazy"
+                        onClick={() => {
+                          setShowImage({
+                            image: product.image,
+                            open: true,
+                          });
+                        }}
+                      />
+                    ) : (
+                      "No Image"
+                    )}
 
-                      {showImage.open && showImage.image == product.image && (
-                        <PopupImage
-                          image={product.image}
-                          setShowImage={(condition) => {
-                            setShowImage({
-                              image: product.image,
-                              open: condition,
-                            });
-                            setShowImage({
-                              image: null,
-                              open: false,
-                            });
-                          }}
-                        />
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                      <Link to={`/productDetail/${product.id}`}>
-                        <div className="px-2 py-1.5 rounded bg-yellow-500 text-white cursor-pointer">
-                          View
-                        </div>
-                      </Link>
-                    </td>
-
-                    <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/updateProduct/${product.id}`}>
-                        <div className="px-2 py-1.5 rounded bg-green-600 text-white">
-                          Edit
-                        </div>
-                      </Link>
-                    </td>
-
-                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                      <div
-                        onClick={() =>
-                          notifyDeleting(product.id, product.imageId)
-                        }
-                        className="px-2 py-1.5 rounded bg-red-600 text-white"
-                      >
-                        Delete
+                    {showImage.open && showImage.image == product.image && (
+                      <PopupImage
+                        image={product.image}
+                        setShowImage={(condition) => {
+                          setShowImage({
+                            image: product.image,
+                            open: condition,
+                          });
+                          setShowImage({
+                            image: null,
+                            open: false,
+                          });
+                        }}
+                      />
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-center cursor-pointer">
+                    <Link to={`/productDetail/${product.id}`}>
+                      <div className="px-2 py-1.5 rounded bg-yellow-500 text-white cursor-pointer">
+                        View
                       </div>
-                    </td>
-                  </tr>
-                </>
+                    </Link>
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-center">
+                    <Link to={`/updateProduct/${product.id}`}>
+                      <div className="px-2 py-1.5 rounded bg-green-600 text-white">
+                        Edit
+                      </div>
+                    </Link>
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-center cursor-pointer">
+                    <div
+                      onClick={() =>
+                        notifyDeleting(product.id, product.imageId)
+                      }
+                      className="px-2 py-1.5 rounded bg-red-600 text-white"
+                    >
+                      Delete
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

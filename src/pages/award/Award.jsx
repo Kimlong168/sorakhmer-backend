@@ -94,69 +94,65 @@ const Award = ({ awardList }) => {
               )}
 
               {awardList.map((item, index) => (
-                <>
-                  <tr
-                    key={index}
-                    className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
-                  >
-                    <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">{item.awardName}</td>
-                    <td className="px-4 py-3">
-                      <img
-                        onClick={() => {
+                <tr
+                  key={item.id}
+                  className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
+                >
+                  <td className="px-4 py-3">{index + 1}</td>
+                  <td className="px-4 py-3">{item.awardName}</td>
+                  <td className="px-4 py-3">
+                    <img
+                      onClick={() => {
+                        setShowImage({
+                          image: item.awardLogo,
+                          open: true,
+                        });
+                      }}
+                      className="w-[100px] cursor-pointer"
+                      src={item.awardLogo}
+                      loading="lazy"
+                    />
+                    {showImage.open && showImage.image == item.awardLogo && (
+                      <PopupImage
+                        image={item.awardLogo}
+                        setShowImage={(condition) => {
                           setShowImage({
                             image: item.awardLogo,
-                            open: true,
+                            open: condition,
+                          });
+                          setShowImage({
+                            image: null,
+                            open: false,
                           });
                         }}
-                        className="w-[100px] cursor-pointer"
-                        src={item.awardLogo}
-                        loading="lazy"
                       />
-                      {showImage.open && showImage.image == item.awardLogo && (
-                        <PopupImage
-                          image={item.awardLogo}
-                          setShowImage={(condition) => {
-                            setShowImage({
-                              image: item.awardLogo,
-                              open: condition,
-                            });
-                            setShowImage({
-                              image: null,
-                              open: false,
-                            });
-                          }}
-                        />
-                      )}
-                    </td>
-                    <td className="px-4 py-3">{item.awardedBy}</td>
-                    <td className="px-4 py-3">{item.recieveDate}</td>
-                    <td className="px-4 py-3">
-                      <div className="line-clamp-1 break-all  hover:line-clamp-none max-w-[300px] cursor-pointer transition-all transition-delay-300">
-                        {item.description}
-                      </div>
-                    </td>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">{item.awardedBy}</td>
+                  <td className="px-4 py-3">{item.recieveDate}</td>
+                  <td className="px-4 py-3">
+                    <div className="line-clamp-1 break-all  hover:line-clamp-none max-w-[300px] cursor-pointer transition-all transition-delay-300">
+                      {item.description}
+                    </div>
+                  </td>
 
-                    <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/updateAward/${item.id}`}>
-                        <div className="px-2 py-1.5 rounded bg-green-600 text-white">
-                          Edit
-                        </div>
-                      </Link>
-                    </td>
-
-                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                      <div
-                        onClick={() =>
-                          notifyDeleting(item.id, item.awardLogoId)
-                        }
-                        className="px-2 py-1.5 rounded bg-red-600 text-white"
-                      >
-                        Delete
+                  <td className="px-4 py-3 text-sm text-center">
+                    <Link to={`/updateAward/${item.id}`}>
+                      <div className="px-2 py-1.5 rounded bg-green-600 text-white">
+                        Edit
                       </div>
-                    </td>
-                  </tr>
-                </>
+                    </Link>
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-center cursor-pointer">
+                    <div
+                      onClick={() => notifyDeleting(item.id, item.awardLogoId)}
+                      className="px-2 py-1.5 rounded bg-red-600 text-white"
+                    >
+                      Delete
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
