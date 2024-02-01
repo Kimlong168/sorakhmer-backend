@@ -71,7 +71,7 @@ const WidgetGroup = () => {
         {/* create store */}
         <Link to="/createStore">
           <Widget
-            title="Create Store"
+            title="Store"
             color="bg-orange-900"
             icon={<PiStorefront />}
           />
@@ -80,7 +80,7 @@ const WidgetGroup = () => {
         {/* create gallery*/}
         <Link to="/createGallery">
           <Widget
-            title="Create Gallery"
+            title="Gallery"
             color="bg-purple-900"
             icon={<PiImage />}
           />
@@ -89,7 +89,7 @@ const WidgetGroup = () => {
         {/* create user*/}
         <Link to="/createAdmin">
           <Widget
-            title="Create Admin"
+            title="Admin"
             color="bg-orange-500"
             icon={<FiUser />}
           />
