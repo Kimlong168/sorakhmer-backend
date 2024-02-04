@@ -33,7 +33,7 @@ const ForgetPassword = () => {
   }
   return (
     <div>
-      <div>
+      <div className="m-4 sm:m-0">
         <div className="flex justify-center">
           <img className="w-[100px] sm:w-[200px]" src={logo} alt="logo" />
         </div>

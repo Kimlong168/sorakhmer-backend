@@ -126,6 +126,7 @@ const CreateUser = () => {
         <div className="text-center p-4 pt-0 font-bold text-3xl text-orange-500 underline uppercase">
           Create Admin
         </div>
+        <small className="text-sm text-center text-gray-500 block">Once you create an admin, you cannot delete the admin.</small>
         <br />
 
         {/* create author categort form */}
