@@ -4,7 +4,6 @@ import { db, storage } from "../../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Layout from "../../layouts/Layout";
-
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ import ButtonBack from "../../components/ButtonBack";
 const CreateBlog = ({ blogCategoryList, authorList }) => {
   //  set default category
   const category = blogCategoryList.map((data) => data.id)[0];
-
+  // const [imageReferences, setImageReferences] = useState({});
   // state
   const [blog, setBlog] = useState({
     title: null,
@@ -78,10 +77,13 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
           ? JSON.parse(blog.isActive.toLowerCase())
           : blog.isActive,
     });
-
-    console.log("Blog created!", blog.categoryName);
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    console.log("Blog created!", blog.categoryName);
+
+    // const imagesInContent = blog.content.match(/<img[^>]+src="[^"]+"[^>]*>/g);
+    // remove the image from storage if the image is removed from the content
+    // handleImageRemove(imagesInContent);
   };
 
   // upload image to firebase storage
@@ -110,6 +112,51 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
       console.log("blog image uploaded");
     });
   };
+
+  // const handleImageRemove = (imagesInContent) => {
+  //   // imagesSrc is an array of URLs of the images being removed
+
+  //   const imageUrls = imagesInContent.map((imgTag) => {
+  //     const match = imgTag.match(/src="([^"]+)"/);
+  //     return match ? match[1] : null;
+  //   });
+
+  //   imageUrls.forEach((imageUrl) => {
+  //     // Get the corresponding image reference from the state
+  //     // const imageRef = imageReferences[imageUrl];
+  //     const imageRef = true;
+
+  //     if (!imageRef) {
+  //       // Delete the image from Firebase Storage
+  //       deleteObject(imageRef)
+  //         .then(() => {
+  //           console.log("Image deleted from storage:", imageUrl);
+  //         })
+  //         .catch((error) => {
+  //           console.error("Error deleting image from storage:", error);
+  //         });
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   // Clean up imageReferences when the component unmounts
+  //   return () => {
+  //     Object.values(imageReferences).forEach((imageRef) => {
+  //       // Delete any remaining images from Firebase Storage
+  //       deleteObject(imageRef)
+  //         .then(() => {
+  //           console.log("Image deleted from storage during cleanup");
+  //         })
+  //         .catch((error) => {
+  //           console.error(
+  //             "Error deleting image from storage during cleanup:",
+  //             error
+  //           );
+  //         });
+  //     });
+  //   };
+  // }, [imageReferences]);
 
   return (
     <Layout>
@@ -240,6 +287,7 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
               <CKEditor
                 handleEditorChange={handleEditorChange}
                 imageFolderName="blogImages"
+                // setImageReferences={setImageReferences}
               />
             </div>
 
@@ -270,8 +318,10 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
     </Layout>
   );
 };
+
 CreateBlog.propTypes = {
   blogCategoryList: PropTypes.array.isRequired,
   authorList: PropTypes.array.isRequired,
 };
+
 export default CreateBlog;

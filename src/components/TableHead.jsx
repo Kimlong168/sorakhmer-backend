@@ -8,7 +8,7 @@ const TableHead = ({ color, title, border, link }) => {
     <div
       className={`w-full pb-1 border-b-2 ${border} flex items-center justify-between gap-3 mb-3 `}
     >
-      <small className="text-3xl uppercase font-bold">{title}</small>
+      <small className="text-xl sm:text-2xl md:text-3xl uppercase font-bold">{title}</small>
 
       <div>
         <Link to={link}>

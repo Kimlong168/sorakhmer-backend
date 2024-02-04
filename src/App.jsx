@@ -47,7 +47,6 @@ import ForgetPassword from "./pages/authentication/ForgetPassword";
 import CreateAdmin from "./pages/authentication/CreateAdmin";
 import Admin from "./pages/authentication/Admin";
 
-
 function App() {
   // state
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -145,9 +144,8 @@ function App() {
 
     // call fetchAllData function
     fetchAllData();
+    console.log("fetch data");
   }, [isUpdated]);
-
-
 
   // if user is not signed in
   if (!isAuth) {

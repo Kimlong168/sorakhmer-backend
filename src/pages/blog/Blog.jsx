@@ -19,6 +19,7 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
     open: false,
     image: null,
   });
+  
   // delete Blog notify
   const notifyDeleting = (id, coverImageId) => {
     toast.error(

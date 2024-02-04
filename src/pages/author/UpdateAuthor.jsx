@@ -16,7 +16,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const UpdateAuthor = () => {
   const { id: authorParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -89,11 +89,15 @@ const UpdateAuthor = () => {
           const data = docSnap.data();
           console.log("data", data);
 
+          // add the link box for user to fill
+          const links =
+            data.links.length == 0 ? [{ title: "", url: "" }] : data.links;
+
           setAuthor({
             fullName: data.fullName,
             bio: data.bio,
             position: data.position,
-            links: data.links,
+            links: links,
             authorImageId: data.authorImageId,
             //no need to get the image from firestore because we already have the image in the storage
             profilePicture: null,
@@ -101,7 +105,6 @@ const UpdateAuthor = () => {
 
           // get old image url
           setOldImageUrl(data.profilePicture);
-
         } else {
           console.log("No such document!");
         }
@@ -119,6 +122,10 @@ const UpdateAuthor = () => {
     navigate("/author");
     // if image is not updated
     if (author.profilePicture === null) {
+      // filter empty link
+      const links = author.links.filter(
+        (item) => !(item.title === "" && item.url === "")
+      );
       const docRef = doc(db, "authors", authorParams);
       await setDoc(
         docRef,
@@ -126,7 +133,7 @@ const UpdateAuthor = () => {
           fullName: author.fullName,
           bio: author.bio,
           position: author.position,
-          links: author.links,
+          links: links,
           authorImageId: author.authorImageId,
           profilePicture: oldImageUrl,
         },
@@ -174,6 +181,10 @@ const UpdateAuthor = () => {
 
   // if the image is updated, update the image url in the firestore. this function is called in updateAuthor function because we need to get the new image url first
   async function updateAuthorAndNewImage(newImageUrl) {
+    // filter empty link
+    const links = author.links.filter(
+      (item) => !(item.title === "" && item.url === "")
+    );
     const docRef = doc(db, "authors", authorParams);
     await setDoc(
       docRef,
@@ -183,7 +194,7 @@ const UpdateAuthor = () => {
         authorImageId: author.authorImageId,
         bio: author.bio,
         position: author.position,
-        links: author.links,
+        links: links,
       },
       { merge: true }
     );
@@ -236,9 +247,7 @@ const UpdateAuthor = () => {
             />
 
             {/* profile picture input */}
-            <label className="font-bold text-xl">
-              Profile Picture
-            </label>
+            <label className="font-bold text-xl">Profile Picture</label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"
@@ -318,9 +327,9 @@ const UpdateAuthor = () => {
 
             {/* toast alert */}
             <Toast />
-            
+
             {/* button back */}
-            <ButtonBack link="/author"/>
+            <ButtonBack link="/author" />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const CreateAuthor = () => {
   const { setIsUpdated } = useContext(UpdateContext);
   const [author, setAuthor] = useState({
@@ -100,13 +100,17 @@ const CreateAuthor = () => {
   const postCollectionRef = collection(db, "authors");
 
   const createAuthor = (imageId, downloadURL) => {
+    // filter the empty link
+    const links = author.links.filter(
+      (item) => !(item.title === "" && item.url === "")
+    );
     // add author to firestore
     addDoc(postCollectionRef, {
       fullName: author.fullName,
       profilePicture: downloadURL,
       bio: author.bio,
       position: author.position,
-      links: author.links,
+      links: links,
       authorImageId: imageId,
     });
     // to update the data in the table
@@ -129,7 +133,7 @@ const CreateAuthor = () => {
             {/* fullname input */}
             <label className="font-bold text-xl">
               Full Name
-            <RedStar />
+              <RedStar />
             </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
@@ -152,7 +156,8 @@ const CreateAuthor = () => {
 
             {/* profile picture input */}
             <label className="font-bold text-xl">
-              Profile Picture<RedStar />
+              Profile Picture
+              <RedStar />
             </label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
@@ -239,7 +244,7 @@ const CreateAuthor = () => {
             <Toast />
 
             {/* button back */}
-            <ButtonBack link="/author"/>
+            <ButtonBack link="/author" />
           </div>
         </div>
       </div>

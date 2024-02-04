@@ -9,9 +9,9 @@ const CKeditor = ({
   handleEditorChange,
   contentToUpdate,
   imageFolderName = "blogImages",
+
 }) => {
   const [content, setContent] = useState(contentToUpdate || "");
-
   // this function is used to upload images in the content of each blog post to firebase storage
   function uploadAdapter(loader) {
     return {
@@ -27,6 +27,13 @@ const CKeditor = ({
               getDownloadURL(imageRef)
                 .then((downloadURL) => {
                   console.log("image URL:", downloadURL);
+
+                  // Save the image reference in the state
+                  // setImageReferences((prevReferences) => ({
+                  //   ...prevReferences,
+                  //   [downloadURL]: imageRef,
+                  // }));
+
                   // resolve the promise with the result object
                   resolve({
                     default: downloadURL,
@@ -53,6 +60,7 @@ const CKeditor = ({
   return (
     <div>
       <CKEditor
+        id="editor"
         className="editor"
         config={{
           extraPlugins: [uploadPlugin],
@@ -67,6 +75,7 @@ const CKeditor = ({
           const data = editor.getData();
           setContent(data);
           handleEditorChange(data);
+          console.log("edior:", { event, editor, data });
         }}
         onBlur={(event, editor) => {
           console.log("Blur.", editor);
@@ -82,5 +91,6 @@ CKeditor.propTypes = {
   handleEditorChange: PropTypes.func.isRequired,
   contentToUpdate: PropTypes.string,
   imageFolderName: PropTypes.string.isRequired,
+ 
 };
 export default CKeditor;

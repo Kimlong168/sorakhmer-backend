@@ -8,15 +8,19 @@ import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { storage } from "../../firebase-config";
 import { deleteObject, ref } from "firebase/storage";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { toastProps } from "../../utils/ToastProps";
 import LoadingInTable from "../../components/LoadingInTable";
+import PopupImage from "../../components/PopupImage";
 const Author = ({ authorList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
-
+  const [showImage, setShowImage] = useState({
+    open: false,
+    image: null,
+  });
   // delete category notify
   const notifyDeleting = (id, authorImageId) => {
     toast.error(
@@ -104,14 +108,36 @@ const Author = ({ authorList }) => {
                   </td>
                   <td className="px-4 py-3">
                     <img
-                      className="w-[40px] h-[40px] rounded-full"
+                      onClick={() => setShowImage({
+                        open: true,
+                        image: item.profilePicture,
+                      })}
+                      className="w-[40px] h-[40px] rounded-full cursor-pointer"
                       src={item.profilePicture}
                       loading="lazy"
                     />
+
+                    {showImage.open &&
+                      showImage.image == item.profilePicture && (
+                        <PopupImage
+                          image={item.profilePicture}
+                          setShowImage={(condition) => {
+                            setShowImage({
+                              image: item.profilePicture,
+                              open: condition,
+                            });
+                            setShowImage({
+                              image: null,
+                              open: false,
+                            });
+                          }}
+                        />
+                      )}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      {item.links.map((link,index) => (
+                      {item.links.length === 0 && <span>No Links</span>}
+                      {item.links.map((link, index) => (
                         <span key={index}>
                           <LinkIcon url={link.link} title={link.title} />
                         </span>
