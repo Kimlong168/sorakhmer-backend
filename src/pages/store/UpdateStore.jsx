@@ -18,6 +18,8 @@ const UpdateStore = () => {
     description: "",
     country: "",
     city: "",
+    address: "",
+    phone: "",
     mapLink: "",
   });
 
@@ -45,10 +47,11 @@ const UpdateStore = () => {
             storeName: data.storeName,
             country: data.country,
             city: data.city,
+            address: data.address,
+            phone: data.phone,
             description: data.description,
             mapLink: data.mapLink,
           });
-
         } else {
           console.log("No such document!");
         }
@@ -69,6 +72,8 @@ const UpdateStore = () => {
         storeName: store.storeName,
         country: store.country,
         city: store.city,
+        address: store.address,
+        phone: store.phone,
         description: store.description,
         mapLink: store.mapLink,
       },
@@ -139,6 +144,27 @@ const UpdateStore = () => {
             value={store.city}
             onChange={(e) => handleOnChange(e)}
           />
+
+          {/* address */}
+          <label className="font-bold text-xl">Address</label>
+          <input
+            className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+            type="text"
+            name="address"
+            value={store.address}
+            onChange={(e) => handleOnChange(e)}
+          />
+
+          {/* phone */}
+          <label className="font-bold text-xl">Phone</label>
+          <input
+            className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+            type="tel"
+            name="phone"
+            value={store.phone}
+            onChange={(e) => handleOnChange(e)}
+          />
+
           {/* map */}
           <label className="font-bold text-xl">Google Map</label>
           <input

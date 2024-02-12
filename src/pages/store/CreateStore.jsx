@@ -7,13 +7,15 @@ import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const CreateStore = () => {
   const [store, setStore] = useState({
     storeName: null,
     description: "",
     country: "",
     city: "",
+    address: "",
+    phone: "",
     mapLink: "",
   });
   let navigate = useNavigate();
@@ -36,6 +38,8 @@ const CreateStore = () => {
       storeName: store.storeName,
       country: store.country,
       city: store.city,
+      address: store.address,
+      phone: store.phone,
       description: store.description,
       mapLink: store.mapLink,
     });
@@ -59,7 +63,10 @@ const CreateStore = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* store name input */}
-            <label className="font-bold text-xl">Store Name<RedStar /></label>
+            <label className="font-bold text-xl">
+              Store Name
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               placeholder="example: Bayon Market"
@@ -70,7 +77,10 @@ const CreateStore = () => {
             />
 
             {/* country */}
-            <label className="font-bold text-xl">Country<RedStar /></label>
+            <label className="font-bold text-xl">
+              Country
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               placeholder="example: Japan"
@@ -81,13 +91,36 @@ const CreateStore = () => {
             />
 
             {/* city */}
-            <label className="font-bold text-xl">City<RedStar /></label>
+            <label className="font-bold text-xl">
+              City
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               placeholder="example: Tokyo"
               type="text"
               name="city"
               value={store.city}
+              onChange={(e) => handleOnChange(e)}
+            />
+
+            {/* address */}
+            <label className="font-bold text-xl">Address</label>
+            <input
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              type="text"
+              name="address"
+              value={store.address}
+              onChange={(e) => handleOnChange(e)}
+            />
+
+            {/* phone */}
+            <label className="font-bold text-xl">Phone</label>
+            <input
+              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+              type="tel"
+              name="phone"
+              value={store.phone}
               onChange={(e) => handleOnChange(e)}
             />
 
@@ -129,9 +162,9 @@ const CreateStore = () => {
 
         {/* toast alert */}
         <Toast />
-        
-            {/* button back */}
-            <ButtonBack link="/store"/>
+
+        {/* button back */}
+        <ButtonBack link="/store" />
       </div>
     </Layout>
   );

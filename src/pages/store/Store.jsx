@@ -44,6 +44,8 @@ const Store = ({ storeList }) => {
                 <th className="px-4 py-3">Store Name</th>
                 <th className="px-4 py-3">Country</th>
                 <th className="px-4 py-3">City</th>
+                <th className="px-4 py-3">Address</th>
+                <th className="px-4 py-3">Phone</th>
                 <th className="px-4 py-3">Map</th>
                 <th className="px-4 py-3">Description</th>
                 <th className="px-4 py-3">Edit</th>
@@ -54,7 +56,7 @@ const Store = ({ storeList }) => {
               {storeList.length == 0 && (
                 <>
                   <tr className=" text-center">
-                    <td className="py-8 text-white font-bold" colSpan={8}>
+                    <td className="py-8 text-white font-bold" colSpan={10}>
                       <LoadingInTable />
                     </td>
                   </tr>
@@ -70,6 +72,10 @@ const Store = ({ storeList }) => {
                   <td className="px-4 py-3">{item.storeName}</td>
                   <td className="px-4 py-3">{item.country}</td>
                   <td className="px-4 py-3">{item.city}</td>
+                  <td className="px-4 py-3  line-clamp-3 hover:line-clamp-none">
+                    {item.address}
+                  </td>
+                  <td className="px-4 py-3">{item.phone}</td>
                   <td className="px-4 py-3 ">
                     {item.mapLink.trim() !== "" ? (
                       <span

@@ -15,6 +15,7 @@ import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { toastProps } from "../../utils/ToastProps";
 import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
+
 const Author = ({ authorList }) => {
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
