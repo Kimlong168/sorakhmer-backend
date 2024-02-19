@@ -14,7 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
-
+import ToggleLightDarkMode from "../components/ToggleLightDarkMode";
 const Layout = (props) => {
   const { setIsAuth, userEmail } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -62,6 +62,9 @@ const Layout = (props) => {
           </div>
 
           <div className="flex justify-end items-center gap-5 h-14 bg-gray-800  header-right w-full px-5">
+            {/* dark mode and light mode  */}
+            <ToggleLightDarkMode />
+
             {/* logout */}
             <div className="flex items-center gap-2 text-yellow-500">
               <span className="hidden sm:block text-white">Login as: </span>
@@ -81,7 +84,7 @@ const Layout = (props) => {
         </div>
 
         <div
-          className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-[900] sidebar"
+          className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-gray-900 h-full text-white transition-all duration-300 border-none z-[900] sidebar"
           id="sidebar"
         >
           <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
@@ -101,7 +104,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <RxDashboard />
@@ -119,7 +122,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/product"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <TiShoppingCart />
@@ -139,7 +142,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/productCategory"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <BiCategoryAlt />
@@ -157,7 +160,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/blog"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <FaBlog />
@@ -175,7 +178,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/blogCategory"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <BiCategoryAlt />
@@ -193,7 +196,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/author"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <FiUsers />
@@ -211,7 +214,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/award"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <FaAward />
@@ -229,7 +232,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/partner"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <FaSteamSymbol />
@@ -247,7 +250,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/process"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <PiFactoryBold />
@@ -264,7 +267,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/store"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <PiStorefront />
@@ -282,7 +285,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/gallery"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <PiImage />
@@ -301,7 +304,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/contact"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <FiMail />
@@ -320,7 +323,7 @@ const Layout = (props) => {
               >
                 <Link
                   to="/admin"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     <FiUser />
@@ -337,7 +340,7 @@ const Layout = (props) => {
           </div>
         </div>
 
-        <div className="h-full ml-14 mt-14 mb-10 md:ml-64 p-2 md:p-4 lg:p-10 pt-5 relative">
+        <div className="h-full ml-14 mt-14 mb-10 md:ml-64 p-2 md:p-4 lg:p-10 pt-5 relative ">
           {props.children}
         </div>
       </div>

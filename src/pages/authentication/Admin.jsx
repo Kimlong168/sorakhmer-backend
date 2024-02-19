@@ -139,9 +139,9 @@ const Admin = ({ adminList }) => {
                 <tr
                   key={item.id}
                   className={
-                    "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400" +
+                    " dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400" +
                     (item.email === userEmail
-                      ? " dark:bg-yellow-900 dark:text-white"
+                      ? " bg-gray-400 hover:bg-gray-500 dark:bg-yellow-900 dark:text-white"
                       : "")
                   }
                 >

@@ -16,12 +16,16 @@ const LoadingInTable = () => {
         <div className=" flex items-center justify-center gap-2">
           <div
             style={{ borderTopColor: "transparent" }}
-            className="w-5 h-5 border-4 border-white rounded-full animate-spin"
+            className="w-5 h-5 border-4 border-gray-800 dark:border-white rounded-full animate-spin"
           ></div>
-          <span className="text-bold text-white text-lg">Loading...</span>
+          <span className="text-bold  text-gray-800 dark:text-white text-lg">
+            Loading...
+          </span>
         </div>
       ) : (
-        <div className="text-bold text-white text-lg">No data</div>
+        <div className="text-bold text-gray-800 dark:text-white text-lg">
+          No data
+        </div>
       )}
     </>
   );
