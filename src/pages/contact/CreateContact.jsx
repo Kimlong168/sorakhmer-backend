@@ -8,9 +8,9 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import { BsTrash } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import validateEmail from "../../utils/ValidateEmailFunction";
+import validateEmail from "../../utils/validateEmailFunction";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const CreateContact = () => {
   const { setIsUpdated } = useContext(UpdateContext);
   const [contact, setContact] = useState({
@@ -211,9 +211,9 @@ const CreateContact = () => {
 
             {/* toast alert */}
             <Toast />
-            
+
             {/* button back */}
-            <ButtonBack link="/contact"/>
+            <ButtonBack link="/contact" />
           </div>
         </div>
       </div>

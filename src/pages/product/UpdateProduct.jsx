@@ -9,7 +9,6 @@ import Toast from "../../utils/Toast";
 import { useParams } from "react-router-dom";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
-import PropTypes from "prop-types";
 import {
   deleteObject,
   getDownloadURL,
@@ -18,14 +17,17 @@ import {
 } from "firebase/storage";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
-const UpdateProduct = ({ productCategoryList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const UpdateProduct = () => {
   const { id: productParams } = useParams();
+  const { productCategoryList } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [product, setProduct] = useState({
     name: null,
     description: "",
     detail: "",
     price: "",
+    productCode: "",
     image: "",
     imageId: "",
     isActive: "",
@@ -84,6 +86,7 @@ const UpdateProduct = ({ productCategoryList }) => {
             description: data.description,
             detail: data.detail,
             price: data.price,
+            productCode: data.productCode,
             isActive: data.isActive,
             categoryId: categoryId,
             imageId: data.imageId,
@@ -120,6 +123,7 @@ const UpdateProduct = ({ productCategoryList }) => {
           description: product.description,
           detail: product.detail,
           price: product.price,
+          productCode: product.productCode,
           imageId: product.imageId,
           image: oldImageUrl,
           // convert string to boolean
@@ -179,6 +183,7 @@ const UpdateProduct = ({ productCategoryList }) => {
         description: product.description,
         detail: product.detail,
         price: product.price,
+        productCode: product.productCode,
         imageId: product.imageId,
         // new image url
         image: newImageUrl,
@@ -277,19 +282,33 @@ const UpdateProduct = ({ productCategoryList }) => {
               </div>
             </div>
 
-            {/* product price input */}
-            <div>
-              <label className="font-bold text-xl">
-                Price ($)
-                <RedStar />
-              </label>
-              <input
-                className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-                type="number"
-                name="price"
-                value={product.price}
-                onChange={(e) => handleOnChange(e)}
-              />
+            <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
+              {/* product price input */}
+              <div className="w-full">
+                <label className="font-bold text-xl">
+                  Price ($)
+                  <RedStar />
+                </label>
+                <input
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                  type="number"
+                  name="price"
+                  value={product.price}
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </div>
+
+              {/* product code input */}
+              <div className="w-full">
+                <label className="font-bold text-xl">Product Code</label>
+                <input
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                  type="text"
+                  name="productCode"
+                  value={product.productCode}
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </div>
             </div>
 
             {/* description input */}
@@ -348,7 +367,5 @@ const UpdateProduct = ({ productCategoryList }) => {
     </Layout>
   );
 };
-UpdateProduct.propTypes = {
-  productCategoryList: PropTypes.array,
-};
+
 export default UpdateProduct;

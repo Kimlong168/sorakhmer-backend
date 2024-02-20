@@ -4,17 +4,18 @@ import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
 import Toast from "../../utils/Toast";
 import "react-toastify/dist/ReactToastify.css";
-import PropTypes from "prop-types";
 import { storage } from "../../firebase-config";
 import { deleteObject, ref } from "firebase/storage";
 import { useContext, useState } from "react";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
-import { toastProps } from "../../utils/ToastProps";
+import { toastProps } from "../../utils/toastProps";
 import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
-const Gallery = ({ galleryList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const Gallery = () => {
+  const { galleryList }= useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -155,7 +156,5 @@ const Gallery = ({ galleryList }) => {
     </Layout>
   );
 };
-Gallery.propTypes = {
-  galleryList: PropTypes.array.isRequired,
-};
+
 export default Gallery;

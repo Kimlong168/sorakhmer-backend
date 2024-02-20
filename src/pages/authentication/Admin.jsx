@@ -2,7 +2,6 @@ import Layout from "../../layouts/Layout";
 import TableHead from "../../components/TableHead";
 import Toast from "../../utils/Toast";
 import "react-toastify/dist/ReactToastify.css";
-import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 
 import LoadingInTable from "../../components/LoadingInTable";
@@ -12,8 +11,10 @@ import { auth, db } from "../../firebase-config";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import { doc, setDoc } from "firebase/firestore";
 import { FiEdit, FiXSquare } from "react-icons/fi";
+import { DataContext } from "../../contexts/DataContext";
 
-const Admin = ({ adminList }) => {
+const Admin = () => {
+  const { adminList } = useContext(DataContext);
   const { userEmail } = useContext(AuthContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [newUsername, setNewUsername] = useState("");
@@ -201,7 +202,4 @@ const Admin = ({ adminList }) => {
   );
 };
 
-Admin.propTypes = {
-  adminList: PropTypes.array.isRequired,
-};
 export default Admin;

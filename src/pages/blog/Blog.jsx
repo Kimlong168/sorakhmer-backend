@@ -3,9 +3,8 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
-import PropTypes from "prop-types";
 import Toast from "../../utils/Toast";
-import { toastProps } from "../../utils/ToastProps";
+import { toastProps } from "../../utils/toastProps";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { UpdateContext } from "../../contexts/UpdateContext";
@@ -13,13 +12,15 @@ import { deleteObject, ref } from "firebase/storage";
 import { storage } from "../../firebase-config";
 import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
-const Blog = ({ blogList, blogCategoryList, authorList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const Blog = () => {
+  const { blogList, blogCategoryList, authorList } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
     image: null,
   });
-  
+
   // delete Blog notify
   const notifyDeleting = (id, coverImageId) => {
     toast.error(
@@ -201,9 +202,5 @@ const Blog = ({ blogList, blogCategoryList, authorList }) => {
     </Layout>
   );
 };
-Blog.propTypes = {
-  blogList: PropTypes.array.isRequired,
-  blogCategoryList: PropTypes.array.isRequired,
-  authorList: PropTypes.array.isRequired,
-};
+
 export default Blog;

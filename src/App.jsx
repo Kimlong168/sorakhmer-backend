@@ -197,7 +197,21 @@ function App() {
           <AuthContext.Provider value={{ setIsAuth, userEmail }}>
             {/* data context */}
             <DataContext.Provider
-              value={{ handleThemeSwitch, theme }}
+              value={{
+                productCategoryList,
+                productList,
+                blogCategoryList,
+                blogList,
+                authorList,
+                awardList,
+                partnerList,
+                contact,
+                processList,
+                storeList,
+                galleryList,
+                handleThemeSwitch,
+                theme,
+              }}
             >
               {/* -------------router------------- */}
               <Router>
@@ -211,42 +225,19 @@ function App() {
 
                   {/* -------------product route------------- */}
                   {/* product */}
-                  <Route
-                    path="/product"
-                    element={
-                      <Product
-                        productList={productList}
-                        productCategoryList={productCategoryList}
-                      />
-                    }
-                  />
+                  <Route path="/product" element={<Product />} />
                   {/* product detail */}
                   <Route
                     path="/productDetail/:id"
-                    element={
-                      <ProductDetail
-                        productCategoryList={productCategoryList}
-                      />
-                    }
+                    element={<ProductDetail />}
                   />
                   {/* update product */}
                   <Route
                     path="/updateProduct/:id"
-                    element={
-                      <UpdateProduct
-                        productCategoryList={productCategoryList}
-                      />
-                    }
+                    element={<UpdateProduct />}
                   />
                   {/* create product */}
-                  <Route
-                    path="/createProduct"
-                    element={
-                      <CreateProduct
-                        productCategoryList={productCategoryList}
-                      />
-                    }
-                  />
+                  <Route path="/createProduct" element={<CreateProduct />} />
                   {/* update product */}
                   <Route path="/updateProduct" element={<UpdateProduct />} />
 
@@ -254,11 +245,7 @@ function App() {
                   {/* product category */}
                   <Route
                     path="/productCategory"
-                    element={
-                      <ProductCategory
-                        productCategoryList={productCategoryList}
-                      />
-                    }
+                    element={<ProductCategory />}
                   />
                   {/* create product category */}
                   <Route
@@ -272,55 +259,17 @@ function App() {
                   />
                   {/* -------------blog route------------- */}
                   {/* blog */}
-                  <Route
-                    path="/blog"
-                    element={
-                      <Blog
-                        blogList={blogList}
-                        blogCategoryList={blogCategoryList}
-                        authorList={authorList}
-                      />
-                    }
-                  />
+                  <Route path="/blog" element={<Blog />} />
                   {/* blog detail */}
-                  <Route
-                    path="/blogDetail/:id"
-                    element={
-                      <BlogDetail
-                        blogCategoryList={blogCategoryList}
-                        authorList={authorList}
-                      />
-                    }
-                  />
+                  <Route path="/blogDetail/:id" element={<BlogDetail />} />
                   {/* update blog */}
-                  <Route
-                    path="/updateBlog/:id"
-                    element={
-                      <UpdateBlog
-                        blogCategoryList={blogCategoryList}
-                        authorList={authorList}
-                      />
-                    }
-                  />
+                  <Route path="/updateBlog/:id" element={<UpdateBlog />} />
                   {/* create blog */}
-                  <Route
-                    path="/createBlog"
-                    element={
-                      <CreateBlog
-                        blogCategoryList={blogCategoryList}
-                        authorList={authorList}
-                      />
-                    }
-                  />
+                  <Route path="/createBlog" element={<CreateBlog />} />
 
                   {/* -------------blog category route------------- */}
                   {/* blog category */}
-                  <Route
-                    path="/blogCategory"
-                    element={
-                      <BlogCategory blogCategoryList={blogCategoryList} />
-                    }
-                  />
+                  <Route path="/blogCategory" element={<BlogCategory />} />
 
                   {/*create blog category */}
                   <Route
@@ -335,10 +284,7 @@ function App() {
 
                   {/* -------------Author route------------- */}
                   {/* author */}
-                  <Route
-                    path="/author"
-                    element={<Author authorList={authorList} />}
-                  />
+                  <Route path="/author" element={<Author />} />
                   {/* create author */}
                   <Route path="/createAuthor" element={<CreateAuthor />} />
                   {/* update author */}
@@ -346,10 +292,7 @@ function App() {
 
                   {/* -------------Company partners route------------- */}
                   {/* company partners */}
-                  <Route
-                    path="/partner"
-                    element={<Partners partnerList={partnerList} />}
-                  />
+                  <Route path="/partner" element={<Partners />} />
                   {/* create company partners */}
                   <Route path="/createPartner" element={<CreatePartner />} />
                   {/* update company partners */}
@@ -360,10 +303,7 @@ function App() {
 
                   {/* -------------Company award route------------- */}
                   {/* company award */}
-                  <Route
-                    path="/award"
-                    element={<Award awardList={awardList} />}
-                  />
+                  <Route path="/award" element={<Award />} />
                   {/* create company award */}
                   <Route path="/createAward" element={<CreateAward />} />
                   {/* update company award */}
@@ -371,10 +311,7 @@ function App() {
 
                   {/* -------------Company Contact data route------------- */}
                   {/* contact data */}
-                  <Route
-                    path="/contact"
-                    element={<Contact contactList={contact} />}
-                  />
+                  <Route path="/contact" element={<Contact />} />
                   {/* create contact data */}
                   <Route path="/createContact" element={<CreateContact />} />
                   {/* update contact data */}
@@ -387,7 +324,7 @@ function App() {
                   {/* process of producing */}
                   <Route
                     path="/process"
-                    element={<Process processList={processList} />}
+                    element={<Process />}
                   />
                   {/* create process of producing */}
                   <Route path="/createProcess" element={<CreateProcess />} />
@@ -406,7 +343,7 @@ function App() {
                   {/* store */}
                   <Route
                     path="/store"
-                    element={<Store storeList={storeList} />}
+                    element={<Store  />}
                   />
                   {/* create store */}
                   <Route path="/createStore" element={<CreateStore />} />
@@ -417,7 +354,7 @@ function App() {
                   {/*  gallery*/}
                   <Route
                     path="/gallery"
-                    element={<Gallery galleryList={galleryList} />}
+                    element={<Gallery/>}
                   />
                   {/* create gallery */}
                   <Route path="/createGallery" element={<CreateGallery />} />
@@ -431,7 +368,7 @@ function App() {
                   {/* user */}
                   <Route
                     path="/admin"
-                    element={<Admin adminList={adminList} />}
+                    element={<Admin />}
                   />
                   {/* create new user */}
                   <Route path="/createAdmin" element={<CreateAdmin />} />

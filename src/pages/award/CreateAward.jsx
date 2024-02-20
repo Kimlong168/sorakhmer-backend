@@ -7,7 +7,7 @@ import Layout from "../../layouts/Layout";
 
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
-import formatDate from "../../utils/FomatDatefunction";
+import formatDate from "../../utils/fomatDatefunction";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";

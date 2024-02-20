@@ -13,8 +13,8 @@ import Loading from "../../components/Loading";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
-import formatDate from "../../utils/FomatDatefunction";
-import convertDateFormat from "../../utils/ConvertDateFormat";
+import formatDate from "../../utils/fomatDatefunction";
+import convertDateFormat from "../../utils/convertDateFormat";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
 const UpdateAward = () => {
@@ -72,7 +72,6 @@ const UpdateAward = () => {
 
           // get old image url
           setOldImageUrl(data.awardLogo);
-    
         } else {
           console.log("No such document!");
         }

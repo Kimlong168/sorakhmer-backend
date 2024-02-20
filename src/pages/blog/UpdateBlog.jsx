@@ -11,17 +11,18 @@ import {
 import Layout from "../../layouts/Layout";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
-import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import CKEditor from "../../components/CKeditor";
 import getCurrentDate from "../../utils/getCurrentDateFunction";
-import formatDate from "../../utils/FomatDatefunction";
+import formatDate from "../../utils/fomatDatefunction";
 import Loading from "../../components/Loading";
-import convertDateFormat from "../../utils/ConvertDateFormat";
+import convertDateFormat from "../../utils/convertDateFormat";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
-const UpdateBlog = ({ blogCategoryList, authorList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const UpdateBlog = () => {
   const { id: blogParams } = useParams();
+  const { blogCategoryList, authorList } = useContext(DataContext);
 
   // state
   const [blog, setBlog] = useState({
@@ -380,8 +381,5 @@ const UpdateBlog = ({ blogCategoryList, authorList }) => {
     </Layout>
   );
 };
-UpdateBlog.propTypes = {
-  blogCategoryList: PropTypes.array.isRequired,
-  authorList: PropTypes.array.isRequired,
-};
+
 export default UpdateBlog;

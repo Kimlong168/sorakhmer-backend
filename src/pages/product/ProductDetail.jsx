@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Loading from "../../components/Loading";
-import PropTypes from "prop-types";
 import DetailProductCard from "../../components/DetailProductCard";
+import { DataContext } from "../../contexts/DataContext";
 
-const ProductDetail = ({ productCategoryList }) => {
+const ProductDetail = () => {
   const { id: productParams } = useParams();
+  const { productCategoryList } = useContext(DataContext);
+
   const [product, setProduct] = useState(null);
   const [newProductParam, setNewProductParam] = useState(productParams);
   // fetch product base on id or productParams
@@ -68,9 +70,6 @@ const ProductDetail = ({ productCategoryList }) => {
       </div>
     </Layout>
   );
-};
-ProductDetail.propTypes = {
-  productCategoryList: PropTypes.array.isRequired,
 };
 
 export default ProductDetail;

@@ -1,11 +1,12 @@
 import Layout from "../../layouts/Layout";
-import PropTypes from "prop-types";
 import LinkIcon from "../../components/LinkIcon";
 import Loading from "../../components/Loading";
 import { Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
-import { useEffect, useState } from "react";
-const Contact = ({ contactList }) => {
+import { useContext, useEffect, useState } from "react";
+import { DataContext } from "../../contexts/DataContext";
+const Contact = () => {
+  const { contactList } = useContext(DataContext);
   const contact = contactList[0];
   const [time, setTime] = useState(0);
   useEffect(() => {
@@ -97,7 +98,5 @@ const Contact = ({ contactList }) => {
     </Layout>
   );
 };
-Contact.propTypes = {
-  contactList: PropTypes.array.isRequired,
-};
+
 export default Contact;

@@ -8,10 +8,10 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import { BsTrash } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import validateEmail from "../../utils/ValidateEmailFunction";
+import validateEmail from "../../utils/validateEmailFunction";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
 const UpdateContact = () => {
   const { id: contactParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -43,7 +43,6 @@ const UpdateContact = () => {
             telegram: data.telegram,
             socialMedia: data.socialMedia,
           });
-
         } else {
           console.log("No such document!");
         }
@@ -243,9 +242,9 @@ const UpdateContact = () => {
 
             {/* toast alert */}
             <Toast />
-            
+
             {/* button back */}
-            <ButtonBack link="/contact"/>
+            <ButtonBack link="/contact" />
           </div>
         </div>
       </div>

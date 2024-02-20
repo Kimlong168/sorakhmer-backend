@@ -5,12 +5,13 @@ import Layout from "../../layouts/Layout";
 import TableHead from "../../components/TableHead";
 import Toast from "../../utils/Toast";
 import { toast } from "react-toastify";
-import { toastProps } from "../../utils/ToastProps";
-import PropTypes from "prop-types";
+import { toastProps } from "../../utils/toastProps";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import LoadingInTable from "../../components/LoadingInTable";
-const ProductCategory = ({ productCategoryList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const ProductCategory = () => {
+  const { productCategoryList } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
 
   // delete category notify
@@ -98,7 +99,5 @@ const ProductCategory = ({ productCategoryList }) => {
     </Layout>
   );
 };
-ProductCategory.propTypes = {
-  productCategoryList: PropTypes.array.isRequired,
-};
+
 export default ProductCategory;

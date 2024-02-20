@@ -6,14 +6,15 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Layout from "../../layouts/Layout";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
-import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import CKEditor from "../../components/CKeditor";
 import getCurrentDate from "../../utils/getCurrentDateFunction";
-import formatDate from "../../utils/FomatDatefunction";
+import formatDate from "../../utils/fomatDatefunction";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
-const CreateBlog = ({ blogCategoryList, authorList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const CreateBlog = () => {
+  const { blogCategoryList, authorList } = useContext(DataContext);
   //  set default category
   const category = blogCategoryList.map((data) => data.id)[0];
   // const [imageReferences, setImageReferences] = useState({});
@@ -317,11 +318,6 @@ const CreateBlog = ({ blogCategoryList, authorList }) => {
       </div>
     </Layout>
   );
-};
-
-CreateBlog.propTypes = {
-  blogCategoryList: PropTypes.array.isRequired,
-  authorList: PropTypes.array.isRequired,
 };
 
 export default CreateBlog;

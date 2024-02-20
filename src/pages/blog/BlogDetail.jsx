@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
@@ -10,11 +10,12 @@ import { MdDateRange } from "react-icons/md";
 import { TbCategory2 } from "react-icons/tb";
 import Loading from "../../components/Loading";
 import { GrStatusInfo } from "react-icons/gr";
-import PropTypes from "prop-types";
 import ContentDisplay from "../../components/ContentDisplay";
 import GoToTop from "../../components/GoToTop";
-const BlogDetail = ({ blogCategoryList, authorList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const BlogDetail = () => {
   const { id: blogParams } = useParams();
+  const { blogCategoryList, authorList } = useContext(DataContext);
   const [blog, setblog] = useState(null);
   const [newBogParam, setNewBogParam] = useState(blogParams);
   // fetch blog base on id or blogParams
@@ -24,7 +25,7 @@ const BlogDetail = ({ blogCategoryList, authorList }) => {
     // Check if there is a match and retrieve the id
     const newBogParams = match ? match[1] : blogParams;
     setNewBogParam(newBogParams);
-    
+
     const docRef = doc(db, "blogs", newBogParams);
 
     const fetchblog = async () => {
@@ -137,10 +138,6 @@ const BlogDetail = ({ blogCategoryList, authorList }) => {
       <GoToTop />
     </Layout>
   );
-};
-BlogDetail.propTypes = {
-  blogCategoryList: PropTypes.array.isRequired,
-  authorList: PropTypes.array.isRequired,
 };
 
 export default BlogDetail;

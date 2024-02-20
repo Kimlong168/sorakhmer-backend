@@ -12,11 +12,13 @@ import { useContext, useState } from "react";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
-import { toastProps } from "../../utils/ToastProps";
+import { toastProps } from "../../utils/toastProps";
 import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
+import { DataContext } from "../../contexts/DataContext";
 
-const Author = ({ authorList }) => {
+const Author = () => {
+  const { authorList } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -109,10 +111,12 @@ const Author = ({ authorList }) => {
                   </td>
                   <td className="px-4 py-3">
                     <img
-                      onClick={() => setShowImage({
-                        open: true,
-                        image: item.profilePicture,
-                      })}
+                      onClick={() =>
+                        setShowImage({
+                          open: true,
+                          image: item.profilePicture,
+                        })
+                      }
                       className="w-[40px] h-[40px] rounded-full cursor-pointer"
                       src={item.profilePicture}
                       loading="lazy"

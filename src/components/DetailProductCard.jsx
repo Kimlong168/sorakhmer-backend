@@ -8,6 +8,7 @@ import { useState } from "react";
 const DetailProductCard = ({
   name,
   price,
+  productCode,
   image,
   categoryId,
   detail,
@@ -48,6 +49,9 @@ const DetailProductCard = ({
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
               <span className="text-pink-500">Price: </span> {price} $
+            </h4>
+            <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+              <span className="text-pink-500">Product Code: </span> {productCode ? productCode : "No code"}
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
               <span className="text-pink-500">Status: </span>
@@ -108,6 +112,7 @@ const DetailProductCard = ({
 DetailProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
+  productCode: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   categoryId: PropTypes.string.isRequired,
   detail: PropTypes.string.isRequired,

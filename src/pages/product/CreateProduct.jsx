@@ -7,13 +7,15 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Layout from "../../layouts/Layout";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
-import PropTypes from "prop-types";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
-const CreateProduct = ({ productCategoryList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const CreateProduct = () => {
+  const { productCategoryList } = useContext(DataContext);
   //  set default category
   const category = productCategoryList.map((data) => data.id)[0];
+
   // state
   const [product, setProduct] = useState({
     name: null,
@@ -21,6 +23,7 @@ const CreateProduct = ({ productCategoryList }) => {
     detail: "",
     price: "",
     image: "",
+    productCode: "",
     isActive: "true",
     categoryId: category,
   });
@@ -62,8 +65,10 @@ const CreateProduct = ({ productCategoryList }) => {
       description: product.description,
       detail: product.detail,
       price: product.price,
+      productCode: product.productCode,
       image: imageUrl,
       imageId: imageId,
+
       // convert string to boolean because the value we get from the select form is string.
       isActive:
         typeof product.isActive === "string"
@@ -178,19 +183,33 @@ const CreateProduct = ({ productCategoryList }) => {
               </div>
             </div>
 
-            {/* product price input */}
-            <div>
-              <label className="font-bold text-xl">
-                Price ($)
-                <RedStar />
-              </label>
-              <input
-                className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-                type="number"
-                name="price"
-                value={product.price}
-                onChange={(e) => handleOnChange(e)}
-              />
+            <div className="flex flex-col sm:flex-row sm:gap-3 items-center">
+              {/* product price input */}
+              <div className="w-full">
+                <label className="font-bold text-xl">
+                  Price ($)
+                  <RedStar />
+                </label>
+                <input
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                  type="number"
+                  name="price"
+                  value={product.price}
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </div>
+
+              {/* product code input */}
+              <div className="w-full">
+                <label className="font-bold text-xl">Product Code</label>
+                <input
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                  type="text"
+                  name="productCode"
+                  value={product.productCode}
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </div>
             </div>
 
             {/* description input */}
@@ -253,7 +272,5 @@ const CreateProduct = ({ productCategoryList }) => {
     </Layout>
   );
 };
-CreateProduct.propTypes = {
-  productCategoryList: PropTypes.array.isRequired,
-};
+
 export default CreateProduct;

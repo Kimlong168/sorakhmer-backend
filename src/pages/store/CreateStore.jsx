@@ -90,6 +90,7 @@ const CreateStore = () => {
               onChange={(e) => handleOnChange(e)}
             />
 
+
             {/* city */}
             <label className="font-bold text-xl">
               City

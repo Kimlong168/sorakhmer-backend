@@ -3,9 +3,8 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
-import PropTypes from "prop-types";
 import Toast from "../../utils/Toast";
-import { toastProps } from "../../utils/ToastProps";
+import { toastProps } from "../../utils/toastProps";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { UpdateContext } from "../../contexts/UpdateContext";
@@ -13,7 +12,9 @@ import { deleteObject, ref } from "firebase/storage";
 import { storage } from "../../firebase-config";
 import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
-const Product = ({ productList, productCategoryList }) => {
+import { DataContext } from "../../contexts/DataContext";
+const Product = () => {
+  const { productList, productCategoryList } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -73,6 +74,7 @@ const Product = ({ productList, productCategoryList }) => {
                 <th className="px-4 py-3">Name</th>
                 <th className="px-4 py-3">Category</th>
                 <th className="px-4 py-3">Price</th>
+                <th className="px-4 py-3">Code</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Image</th>
                 <th className="px-4 py-3">View</th>
@@ -118,6 +120,9 @@ const Product = ({ productList, productCategoryList }) => {
                     )}
                   </td>
                   <td className="px-4 py-3">{product.price} $</td>
+                  <td className="px-4 py-3">
+                    {product.productCode ? product.productCode : "No code"}
+                  </td>
                   <td className="px-4 py-3">
                     {product.isActive ? "Enable" : "Disable⚠️"}
                   </td>
@@ -193,8 +198,5 @@ const Product = ({ productList, productCategoryList }) => {
     </Layout>
   );
 };
-Product.propTypes = {
-  productList: PropTypes.array.isRequired,
-  productCategoryList: PropTypes.array.isRequired,
-};
+
 export default Product;
