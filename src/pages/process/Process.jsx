@@ -5,7 +5,7 @@ import Layout from "../../layouts/Layout";
 import TableHead from "../../components/TableHead";
 import Toast from "../../utils/Toast";
 import { toast } from "react-toastify";
-import { toastProps } from "../../utils/toastProps";
+import { toastProps } from "../../utils/toastProp";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import LoadingInTable from "../../components/LoadingInTable";

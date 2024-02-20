@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
 import Toast from "../../utils/Toast";
-import { toastProps } from "../../utils/toastProps";
+import { toastProps } from "../../utils/toastProp";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
 import { UpdateContext } from "../../contexts/UpdateContext";

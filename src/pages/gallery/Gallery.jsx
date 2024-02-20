@@ -10,7 +10,7 @@ import { useContext, useState } from "react";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import deleteItemFucntion from "../../lib/deleteItemFunction";
-import { toastProps } from "../../utils/toastProps";
+import { toastProps } from "../../utils/toastProp";
 import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
