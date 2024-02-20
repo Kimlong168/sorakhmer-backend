@@ -9,7 +9,6 @@ const CKeditor = ({
   handleEditorChange,
   contentToUpdate,
   imageFolderName = "blogImages",
-
 }) => {
   const [content, setContent] = useState(contentToUpdate || "");
   // this function is used to upload images in the content of each blog post to firebase storage
@@ -58,7 +57,7 @@ const CKeditor = ({
   }
 
   return (
-    <div>
+    <div className="prose prose-h1:m-0 prose-h2:m-0 prose-h3:m-0 prose-p:m-0 prose-p:mt-2 max-w-full">
       <CKEditor
         id="editor"
         className="editor"
@@ -91,6 +90,5 @@ CKeditor.propTypes = {
   handleEditorChange: PropTypes.func.isRequired,
   contentToUpdate: PropTypes.string,
   imageFolderName: PropTypes.string.isRequired,
- 
 };
 export default CKeditor;
