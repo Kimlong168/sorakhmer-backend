@@ -10,9 +10,13 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import CKeditor from "../../components/CKeditor";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
+import AutoSuggestInput from "../../components/AutoSuggestInput";
 const UpdateProcess = () => {
   const { id: processParams } = useParams();
+  const { productList } = useContext(DataContext);
+  const [productName, setProductName] = useState([]);
   const { setIsUpdated } = useContext(UpdateContext);
   const [process, setProcess] = useState({
     processName: null,
@@ -20,14 +24,6 @@ const UpdateProcess = () => {
   });
 
   let navigate = useNavigate();
-
-  //   handle onChange event for input
-  const handleOnChange = (e) => {
-    setProcess({
-      ...process,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   //   hadle onChange event for CKEditor
   const handleEditorChange = (content) => {
@@ -51,7 +47,6 @@ const UpdateProcess = () => {
             processName: data.processName,
             description: data.description,
           });
-       
         } else {
           console.log("No such document!");
         }
@@ -81,6 +76,16 @@ const UpdateProcess = () => {
     console.log("process of producing updated");
   }
 
+  // get the product name from the productList
+  useEffect(() => {
+    const productNameArr = productList.map((data) => {
+      return {
+        name: data.name,
+      };
+    });
+    setProductName(productNameArr);
+  }, [productList]);
+
   // loading until data is fetched
   if (process.processName === null) {
     return (
@@ -105,13 +110,14 @@ const UpdateProcess = () => {
             Process Name
             <RedStar />
           </label>
-          <input
-            type="text"
+          <AutoSuggestInput
+            data={productName}
             name="processName"
-            placeholder="Title eg(CPL, Laliga, EPL, AFC-Cup,...)"
-            className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+            placeholder="example: Sorakhmer"
             value={process.processName}
-            onChange={(e) => handleOnChange(e)}
+            setValue={(newValue) => {
+              setProcess({ ...process, processName: newValue });
+            }}
           />
 
           {/* description input */}
@@ -141,9 +147,9 @@ const UpdateProcess = () => {
 
           {/* toast alert */}
           <Toast />
-          
-            {/* button back */}
-            <ButtonBack link="/process"/>
+
+          {/* button back */}
+          <ButtonBack link="/process" />
         </section>
       </div>
     </Layout>

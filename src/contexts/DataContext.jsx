@@ -1,3 +1,3 @@
 import { createContext } from "react";
-// this context is used to update the table after adding or deleting a record
+// this context is used store all the data from the database
 export const DataContext = createContext({});

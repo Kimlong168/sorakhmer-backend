@@ -8,6 +8,8 @@ import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
+import AutoSuggestInput from "../../components/AutoSuggestInput";
+import { cities, countries} from "../../utils/cityAndCountryList";
 const CreateStore = () => {
   const [store, setStore] = useState({
     storeName: null,
@@ -36,8 +38,8 @@ const CreateStore = () => {
   const createStore = () => {
     addDoc(postCollectionRef, {
       storeName: store.storeName,
-      country: store.country,
-      city: store.city,
+      country: store.country.trim(),
+      city: store.city.trim(),
       address: store.address,
       phone: store.phone,
       description: store.description,
@@ -81,28 +83,29 @@ const CreateStore = () => {
               Country
               <RedStar />
             </label>
-            <input
-              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-              placeholder="example: Japan"
-              type="text"
+            <AutoSuggestInput
+              data={countries}
               name="country"
+              placeholder="example: Japan"
               value={store.country}
-              onChange={(e) => handleOnChange(e)}
+              setValue={(newValue) => {
+                setStore({ ...store, country: newValue });
+              }}
             />
-
 
             {/* city */}
             <label className="font-bold text-xl">
               City
               <RedStar />
             </label>
-            <input
-              className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-              placeholder="example: Tokyo"
-              type="text"
+            <AutoSuggestInput
+              data={cities}
               name="city"
+              placeholder="example: Tokyo"
               value={store.city}
-              onChange={(e) => handleOnChange(e)}
+              setValue={(newValue) => {
+                setStore({ ...store, city: newValue });
+              }}
             />
 
             {/* address */}
