@@ -13,8 +13,8 @@ import Loading from "../../components/Loading";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
-import formatDate from "../../utils/fomatDatefunction";
-import convertDateFormat from "../../utils/convertDateFormat";
+import formatDate from "../../utils/fomatDate";
+import convertDateFormat from "../../utils/convertDate";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
 const UpdateAward = () => {

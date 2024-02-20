@@ -1,4 +1,4 @@
-function convertDateFormat(inputDate) {
+function convertDate(inputDate) {
   inputDate = inputDate.toUpperCase();
   const months = {
     JAN: "01",
@@ -29,4 +29,4 @@ function convertDateFormat(inputDate) {
   return null;
 }
 
-export default convertDateFormat;
+export default convertDate;

@@ -8,7 +8,7 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import { BsTrash } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import validateEmail from "../../utils/validateEmailFunction";
+import validateEmail from "../../utils/validateEmail";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";

@@ -5,7 +5,6 @@ import LinkIcon from "../../components/LinkIcon";
 import { toast } from "react-toastify";
 import Toast from "../../utils/Toast";
 import "react-toastify/dist/ReactToastify.css";
-import PropTypes from "prop-types";
 import { storage } from "../../firebase-config";
 import { deleteObject, ref } from "firebase/storage";
 import { useContext, useState } from "react";
@@ -181,7 +180,5 @@ const Author = () => {
     </Layout>
   );
 };
-Author.propTypes = {
-  authorList: PropTypes.array.isRequired,
-};
+
 export default Author;

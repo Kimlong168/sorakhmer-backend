@@ -1,17 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Dashboard from "./pages/Dashboard";
-import CreateProductCategory from "./pages/productCategory/CreateProductCategory";
-import ProductCategory from "./pages/productCategory/ProductCategory";
-import UpdateProductCategory from "./pages/productCategory/UpdateProductCategory";
+// firebase
 import { db } from "./firebase-config";
 import { getDocs, collection } from "firebase/firestore";
+// context
 import { UpdateContext } from "./contexts/UpdateContext";
 import { DataContext } from "./contexts/DataContext";
+import { AuthContext } from "./contexts/AuthContext";
+// page elements
+import Dashboard from "./pages/Dashboard";
+import Error404 from "./pages/Error404";
 import Product from "./pages/product/Product";
 import CreateProduct from "./pages/product/CreateProduct";
 import UpdateProduct from "./pages/product/UpdateProduct";
 import ProductDetail from "./pages/product/ProductDetail";
+import CreateProductCategory from "./pages/productCategory/CreateProductCategory";
+import ProductCategory from "./pages/productCategory/ProductCategory";
+import UpdateProductCategory from "./pages/productCategory/UpdateProductCategory";
 import CreateBlogCategory from "./pages/blogCategory/CreateBlogCategory";
 import BlogCategory from "./pages/blogCategory/BlogCategory";
 import UpdateBlogCategory from "./pages/blogCategory/UpdateBlogCategory";
@@ -31,7 +36,6 @@ import UpdateAward from "./pages/award/UpdateAward";
 import Contact from "./pages/contact/Contact";
 import UpdateContact from "./pages/contact/UpdateContact";
 import CreateContact from "./pages/contact/CreateContact";
-import Error404 from "./pages/Error404";
 import UpdateProcess from "./pages/process/UpdateProcess";
 import CreateProcess from "./pages/process/CreateProcess";
 import Process from "./pages/process/Process";
@@ -42,12 +46,10 @@ import UpdateStore from "./pages/store/UpdateStore";
 import Gallery from "./pages/gallery/Gallery";
 import CreateGallery from "./pages/gallery/CreateGallery";
 import UpdateGallery from "./pages/gallery/UpdateGallery";
-import Login from "./pages/authentication/Login";
-import { AuthContext } from "./contexts/AuthContext";
-import ForgetPassword from "./pages/authentication/ForgetPassword";
 import CreateAdmin from "./pages/authentication/CreateAdmin";
 import Admin from "./pages/authentication/Admin";
-
+import Login from "./pages/authentication/Login";
+import ForgetPassword from "./pages/authentication/ForgetPassword";
 function App() {
   // state
   const [theme, setTheme] = useState(
@@ -65,7 +67,7 @@ function App() {
   const [authorList, setAuthorList] = useState([]);
   const [partnerList, setPartnerList] = useState([]);
   const [awardList, setAwardList] = useState([]);
-  const [contact, setContact] = useState([]);
+  const [contactList, setContactList] = useState([]);
   const [processList, setProcessList] = useState([]);
   const [storeList, setStoreList] = useState([]);
   const [galleryList, setGalleryList] = useState([]);
@@ -124,7 +126,7 @@ function App() {
 
       //fetch contact data
       const contact = await getDocs(contactCollectionRef);
-      setContact(contact.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setContactList(contact.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
       //fetch process data
       const process = await getDocs(processCollectionRef);
@@ -205,10 +207,11 @@ function App() {
                 authorList,
                 awardList,
                 partnerList,
-                contact,
+                contactList,
                 processList,
                 storeList,
                 galleryList,
+                adminList,
                 handleThemeSwitch,
                 theme,
               }}
@@ -322,10 +325,7 @@ function App() {
 
                   {/* -------------process of producing route------------- */}
                   {/* process of producing */}
-                  <Route
-                    path="/process"
-                    element={<Process />}
-                  />
+                  <Route path="/process" element={<Process />} />
                   {/* create process of producing */}
                   <Route path="/createProcess" element={<CreateProcess />} />
                   {/* update process of producing */}
@@ -341,10 +341,7 @@ function App() {
 
                   {/* -------------store route------------- */}
                   {/* store */}
-                  <Route
-                    path="/store"
-                    element={<Store  />}
-                  />
+                  <Route path="/store" element={<Store />} />
                   {/* create store */}
                   <Route path="/createStore" element={<CreateStore />} />
                   {/* update store */}
@@ -352,10 +349,7 @@ function App() {
 
                   {/* -------------gallery route------------- */}
                   {/*  gallery*/}
-                  <Route
-                    path="/gallery"
-                    element={<Gallery/>}
-                  />
+                  <Route path="/gallery" element={<Gallery />} />
                   {/* create gallery */}
                   <Route path="/createGallery" element={<CreateGallery />} />
                   {/* update gallery */}
@@ -366,10 +360,7 @@ function App() {
 
                   {/* -------------user route------------- */}
                   {/* user */}
-                  <Route
-                    path="/admin"
-                    element={<Admin />}
-                  />
+                  <Route path="/admin" element={<Admin />} />
                   {/* create new user */}
                   <Route path="/createAdmin" element={<CreateAdmin />} />
                   {/* update user */}
