@@ -293,7 +293,7 @@ const UpdateBlog = () => {
               <div className="w-full">
                 <label className="font-bold mb-2 text-xl">Status</label>
                 <select
-                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5 cursor-pointer"
+                  className="border border-gray-700 p-2 rounded w-full outline-none mb-5 cursor-pointer "
                   name="isActive"
                   value={blog.isActive}
                   onChange={(e) => handleOnChange(e)}
@@ -322,7 +322,7 @@ const UpdateBlog = () => {
                 <input
                   type="date"
                   name="publicationDate"
-                  className="border border-gray-700  uppercase p-2 rounded w-full outline-none mb-5 cursor-pointer "
+                  className="border border-gray-700  uppercase p-2 rounded w-full outline-none mb-5 cursor-pointer block"
                   value={blog.publicationDate}
                   onChange={(e) => handleOnChange(e)}
                 />

@@ -253,11 +253,11 @@ const CreateBlog = () => {
 
               {/* publish date */}
               <div className="w-full">
-                <label className="font-bold text-xl ">Publish Date</label>
+                <label className="font-bold text-xl">Publish Date</label>
                 <input
                   type="date"
                   name="publicationDate"
-                  className="border border-gray-700  uppercase p-2 rounded w-full outline-none mb-5 cursor-pointer "
+                  className="border border-gray-700  uppercase p-2 rounded w-full outline-none mb-5 cursor-pointer block"
                   value={blog.publicationDate}
                   onChange={(e) => handleOnChange(e)}
                 />

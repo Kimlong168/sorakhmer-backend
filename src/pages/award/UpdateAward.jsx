@@ -222,7 +222,7 @@ const UpdateAward = () => {
                 placeholder="(optional)"
                 type="date"
                 name="recieveDate"
-                className="border border-gray-700  uppercase p-2 rounded w-full outline-none mb-5 cursor-pointer "
+                className="border border-gray-700  uppercase p-2 rounded w-full outline-none mb-5 cursor-pointer block"
                 value={award.recieveDate}
                 onChange={(e) => handleOnChange(e)}
               />
