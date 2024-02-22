@@ -68,7 +68,7 @@ const ProcessDetail = () => {
       </div>
       {/* content */}
       <div className="pt-[50px]">
-        <div className="prose lg:prose-xl  prose-a:text-blue-600 rounded mx-auto bg-gray-100 border w-full font-khmer p-2 md:p-5">
+        <div className="prose lg:prose-xl prose-img:w-full lg:prose-img:w-auto lg:prose-img:mx-auto lg:prose-img:block prose-a:text-blue-600 rounded mx-auto bg-gray-100 border w-full font-khmer p-2 md:p-5">
           <h2>
             Process of producing{" "}
             <span className="text-pink-500">{process.processName}</span>
