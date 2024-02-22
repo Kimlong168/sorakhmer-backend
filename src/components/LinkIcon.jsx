@@ -13,6 +13,7 @@ import {
   FaReddit,
   FaTumblr,
   FaTiktok,
+  FaLine,
 } from "react-icons/fa";
 import { SiGoogle } from "react-icons/si";
 import { MdMailOutline } from "react-icons/md";
@@ -23,6 +24,7 @@ const IconSelector = ({ title }) => {
   let lowerCaseTitle = title;
   lowerCaseTitle = lowerCaseTitle.toLowerCase().trim();
   const iconMapping = {
+    line: FaLine,
     twitter: FaTwitter,
     facebook: FaFacebook,
     instagram: FaInstagram,
