@@ -15,7 +15,7 @@ const ContentDisplay = ({ htmlString }) => {
     });
   }
 
-  return <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
+  return <div className="break-all" dangerouslySetInnerHTML={{ __html: htmlString }} />;
 };
 ContentDisplay.propTypes = {
   htmlString: PropTypes.string.isRequired,
