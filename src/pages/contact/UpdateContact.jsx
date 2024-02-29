@@ -12,6 +12,7 @@ import validateEmail from "../../utils/validateEmail";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
+import { FaLock, FaUnlock } from "react-icons/fa6";
 const UpdateContact = () => {
   const { id: contactParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
@@ -30,6 +31,8 @@ const UpdateContact = () => {
     botUrl: "",
     channelUrl: "",
   });
+  const [inputBotIdDisabled, setInputBotIdDisabled] = useState(true);
+  const [inputChatIdDisabled, setInputChatIdDisabled] = useState(true);
 
   useEffect(() => {
     const docRef = doc(db, "contact", contactParams);
@@ -202,14 +205,35 @@ const UpdateContact = () => {
                     Telegram Bot Id (API token)
                     <RedStar />
                   </label>
-                  <input
-                    className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-                    type="text"
-                    name="telegramBotId"
-                    value={contact.telegramBotId}
-                    placeholder="example : 6882060062:AAFvZvxBHu1kqu_n5BgPpsx4V1dGoSqHXBw"
-                    onChange={(e) => handleContactChange(e)}
-                  />
+                  <div className="flex items-center justify-between gap-2 border border-gray-700 p-2 mb-5  rounded ">
+                    <input
+                      disabled={inputBotIdDisabled}
+                      title="click to enable or disable the input field"
+                      className={`border-none w-full outline-none ${
+                        inputBotIdDisabled && "text-red-500"
+                      }`}
+                      type="text"
+                      name="telegramBotId"
+                      value={contact.telegramBotId}
+                      placeholder="example : 6882060062:AAFvZvxBHu1kqu_n5BgPpsx4V1dGoSqHXBw"
+                      onChange={(e) => handleContactChange(e)}
+                    />
+                    {inputBotIdDisabled ? (
+                      <span
+                        className="cursor-pointer hover:text-red-500"
+                        onClick={() => setInputBotIdDisabled(false)}
+                      >
+                        <FaLock />
+                      </span>
+                    ) : (
+                      <span
+                        className="cursor-pointer hover:text-red-500"
+                        onClick={() => setInputBotIdDisabled(true)}
+                      >
+                        <FaUnlock />
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="lg:w-2/5">
                   {/* telegram bot url */}
@@ -233,14 +257,35 @@ const UpdateContact = () => {
                     Chat Id (Telegram Channel Id)
                     <RedStar />
                   </label>
-                  <input
-                    className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
-                    type="text"
-                    name="chatId"
-                    value={contact.chatId}
-                    placeholder="example : -1002126940474"
-                    onChange={(e) => handleContactChange(e)}
-                  />
+                  <div className="flex items-center justify-between gap-2 border border-gray-700 p-2 mb-5  rounded ">
+                    <input
+                      disabled={inputChatIdDisabled}
+                      title="click to enable or disable the input field"
+                      className={`border-none w-full outline-none ${
+                        inputChatIdDisabled && "text-red-500"
+                      }`}
+                      type="text"
+                      name="chatId"
+                      value={contact.chatId}
+                      placeholder="example : -1002126940474"
+                      onChange={(e) => handleContactChange(e)}
+                    />
+                    {inputChatIdDisabled ? (
+                      <span
+                        className="cursor-pointer hover:text-red-500"
+                        onClick={() => setInputChatIdDisabled(false)}
+                      >
+                        <FaLock />
+                      </span>
+                    ) : (
+                      <span
+                        className="cursor-pointer hover:text-red-500"
+                        onClick={() => setInputChatIdDisabled(true)}
+                      >
+                        <FaUnlock />
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="lg:w-2/5">
