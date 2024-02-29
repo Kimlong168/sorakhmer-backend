@@ -60,12 +60,7 @@ const Contact = () => {
                 <td className="pr-10 pb-3">Email:</td>
                 <td className="pr-10 pb-3">{contact.email}</td>
               </tr>
-              <tr>
-                <td className="pr-10 pb-3">Telegram Username:</td>
-                <td className="pr-10 pb-3 underline text-blue-400">
-                  <Link to={contact.telegram}>{contact.telegram}</Link>
-                </td>
-              </tr>
+
               <tr>
                 <td className="pr-10 pb-3">Social Media:</td>
                 <td className="pr-10 pb-3">
@@ -77,6 +72,37 @@ const Contact = () => {
                         </Link>
                       ))}
                   </div>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td className="pr-10 pb-3">Telegram Bot Id (API Token):</td>
+                <td className="pr-10 pb-3">
+                  {contact.telegramBotId}{" "}
+                  {contact.botUrl && (
+                    <Link
+                      to={contact.botUrl}
+                      className="text-blue-500 hover:text-blue-600 hover:underline"
+                    >
+                      (Link)
+                    </Link>
+                  )}
+                </td>
+              </tr>
+
+              <tr>
+                <td className="pr-10 pb-3">Chat Id (Telegram Channel Id):</td>
+                <td className="pr-10 pb-3">
+                  {contact.chatId}{" "}
+                  {contact.channelUrl && (
+                    <Link
+                      to={contact.channelUrl}
+                      className="text-blue-500 hover:text-blue-600 hover:underline"
+                    >
+                      (Link)
+                    </Link>
+                  )}
                 </td>
               </tr>
             </tbody>

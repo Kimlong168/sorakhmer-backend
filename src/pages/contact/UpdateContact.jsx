@@ -25,6 +25,10 @@ const UpdateContact = () => {
         url: "",
       },
     ],
+    telegramBotId: "", //the bot id for telegram bot that we use to send message to the admin (bot API token)
+    chatId: "", // the chat_id here can be user_id or channel_id which allow bot to send message to the user or channel
+    botUrl: "",
+    channelUrl: "",
   });
 
   useEffect(() => {
@@ -42,6 +46,10 @@ const UpdateContact = () => {
             email: data.email,
             telegram: data.telegram,
             socialMedia: data.socialMedia,
+            telegramBotId: data.telegramBotId,
+            chatId: data.chatId,
+            botUrl: data.botUrl,
+            channelUrl: data.channelUrl,
           });
         } else {
           console.log("No such document!");
@@ -95,6 +103,10 @@ const UpdateContact = () => {
   let navigate = useNavigate();
 
   async function updateContact() {
+    // confirm before updating the data because it's important
+    const confirm = window.confirm("Are you sure you want to update?");
+    if (!confirm) return;
+
     const docRef = doc(db, "contact", contactParams);
     if (!validateEmail(contact.email)) {
       alert("Please enter a valid email address");
@@ -111,6 +123,10 @@ const UpdateContact = () => {
         email: contact.email,
         telegram: contact.telegram,
         socialMedia: contact.socialMedia,
+        telegramBotId: contact.telegramBotId,
+        chatId: contact.chatId,
+        botUrl: contact.botUrl,
+        channelUrl: contact.channelUrl,
       },
       { merge: true }
     );
@@ -177,6 +193,70 @@ const UpdateContact = () => {
                 value={contact.telegram}
                 onChange={(e) => handleContactChange(e)}
               />
+
+              {/* bot api token and url */}
+              <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                <div className="lg:w-3/5">
+                  {/* telegram bot id or api token */}
+                  <label className="font-bold text-xl">
+                    Telegram Bot Id (API token)
+                    <RedStar />
+                  </label>
+                  <input
+                    className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                    type="text"
+                    name="telegramBotId"
+                    value={contact.telegramBotId}
+                    placeholder="example : 6882060062:AAFvZvxBHu1kqu_n5BgPpsx4V1dGoSqHXBw"
+                    onChange={(e) => handleContactChange(e)}
+                  />
+                </div>
+                <div className="lg:w-2/5">
+                  {/* telegram bot url */}
+                  <label className="font-bold text-xl">Telegram Bot Url</label>
+                  <input
+                    className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                    type="text"
+                    name="botUrl"
+                    value={contact.botUrl}
+                    placeholder="exmaple: https://t.me/sorakhmer_bot"
+                    onChange={(e) => handleContactChange(e)}
+                  />
+                </div>
+              </div>
+
+              {/* channel id and url */}
+              <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                <div className="lg:w-3/5">
+                  {/* chat id or channel id or user id*/}
+                  <label className="font-bold text-xl">
+                    Chat Id (Telegram Channel Id)
+                    <RedStar />
+                  </label>
+                  <input
+                    className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                    type="text"
+                    name="chatId"
+                    value={contact.chatId}
+                    placeholder="example : -1002126940474"
+                    onChange={(e) => handleContactChange(e)}
+                  />
+                </div>
+
+                <div className="lg:w-2/5">
+                  {/* channel url or where to recieve the message*/}
+                  <label className="font-bold text-xl">Channel Url</label>
+                  <input
+                    className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
+                    type="text"
+                    name="channelUrl"
+                    value={contact.channelUrl}
+                    placeholder="example : https://t.me/+SVs-mS5M-XFhNDk1"
+                    onChange={(e) => handleContactChange(e)}
+                  />
+                </div>
+              </div>
+
               {/* social media input */}
               <h2 className="font-bold text-xl flex items-center justify-between mb-2">
                 <div>
@@ -231,7 +311,9 @@ const UpdateContact = () => {
                   contact.email &&
                   contact.phoneNumber &&
                   contact.telegram &&
-                  contact.socialMedia
+                  contact.socialMedia &&
+                  contact.telegramBotId &&
+                  contact.chatId
                     ? updateContact
                     : notify
                 }
