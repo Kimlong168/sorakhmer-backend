@@ -156,7 +156,7 @@ const CreateContact = () => {
               />
 
               {/* bot api token and url */}
-              <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:gap-4">
                 <div className="lg:w-3/5">
                   {/* telegram bot id or api token */}
                   <label className="font-bold text-xl">
@@ -187,7 +187,7 @@ const CreateContact = () => {
               </div>
 
               {/* channel id and url */}
-              <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:gap-4">
                 <div className="lg:w-3/5">
                   {/* chat id or channel id or user id*/}
                   <label className="font-bold text-xl">
