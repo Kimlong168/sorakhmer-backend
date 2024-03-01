@@ -88,8 +88,8 @@ const CreateContact = () => {
         email: contact.email,
         telegram: contact.telegram,
         socialMedia: contact.socialMedia,
-        telegramBotId: contact.telegramBotId,
-        chatId: contact.chatId,
+        telegramBotId: contact.telegramBotId.trim(),
+        chatId: contact.chatId.trim(),
         botUrl: contact.botUrl,
         channelUrl: contact.channelUrl,
       });
