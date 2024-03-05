@@ -1,5 +1,5 @@
 import Layout from "../../layouts/Layout";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ import { storage } from "../../firebase-config";
 import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
+import { FaSearch } from "react-icons/fa";
 const Blog = () => {
   const { blogList, blogCategoryList, authorList } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
@@ -20,6 +21,44 @@ const Blog = () => {
     open: false,
     image: null,
   });
+
+  const [blogs, setBlogs] = useState(blogList);
+  const [filter, setFilter] = useState("default");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [isSearched, setIsSearched] = useState(false);
+
+  // search blog
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setFilter("default");
+    let searchedBlog = [];
+
+    searchedBlog = blogList.filter((blog) =>
+      blog.title.toLowerCase().includes(searchKeyword.toLowerCase().trim())
+    );
+
+    setBlogs(searchedBlog);
+    setIsSearched(true);
+  };
+
+  //  filter base on category and status
+  useEffect(() => {
+    let filteredBlog = [];
+    if (filter === "default") {
+      setBlogs(blogList);
+    } else if (filter == "enable") {
+      filteredBlog = blogList.filter((blog) => blog.isActive);
+      setBlogs(filteredBlog);
+    } else if (filter == "disable") {
+      filteredBlog = blogList.filter((blog) => !blog.isActive);
+      setBlogs(filteredBlog);
+    } else {
+      filteredBlog = blogList.filter((blog) => blog.categoryId === filter);
+      setBlogs(filteredBlog);
+    }
+
+    setIsSearched(false);
+  }, [filter, blogList]);
 
   // delete Blog notify
   const notifyDeleting = (id, coverImageId) => {
@@ -65,6 +104,69 @@ const Blog = () => {
         border="border-violet-600 text-violet-600"
         link="/createBlog"
       />
+      {/* search, sort and filter component */}
+      <div className="flex flex-col lg:flex-row items-center  gap-6 mb-4">
+        {/* show all blog button */}
+        <button
+          onClick={() => {
+            setBlogs(blogList);
+            setFilter("default");
+            setSearchKeyword("");
+          }}
+          className="px-4 py-2 font-bold border bg-blue-500 text-white hover:bg-blue-600 hover:shadow-xl rounded w-fit"
+        >
+          Show all
+        </button>
+        {/* search bar */}
+        <form className="w-full lg:w-auto " onSubmit={handleSearch}>
+          <div className="flex  items-center gap-3 px-4 py-1.5 border ">
+            {/* search input */}
+            <input
+              className="outline-none border-none p-1 w-full"
+              type="text"
+              placeholder="Search..."
+              name="search"
+              value={searchKeyword}
+              // onBlur={() => setIsSearched(false)}
+              onChange={(e) => {
+                setSearchKeyword(e.target.value);
+                handleSearch(e);
+              }}
+            />
+
+            {/* search icon */}
+            <div onClick={handleSearch}>
+              <FaSearch />
+            </div>
+          </div>
+        </form>
+
+        {/* filter by category */}
+        <select
+          className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="default">All Categories</option>
+          <option value="enable">Enable</option>
+          <option value="disable">Disable</option>
+          {blogCategoryList.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.categoryName}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* result search for text */}
+      {isSearched && searchKeyword.length !== 0 && (
+        <div className="mt-4 mb-2">
+          Search result for{" "}
+          <span className="text-primary font-bold">
+            &quot;{searchKeyword}&ldquo;
+          </span>
+        </div>
+      )}
 
       <div className="w-full overflow-hidden rounded-lg shadow-xs">
         <div className="w-full overflow-x-auto">
@@ -84,7 +186,7 @@ const Blog = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-              {blogList.length == 0 && (
+              {blogList && blogList.length == 0 && (
                 <>
                   <tr className=" text-center">
                     <td className="py-8 text-white font-bold " colSpan={10}>
@@ -94,103 +196,120 @@ const Blog = () => {
                 </>
               )}
 
-              {blogList.map((blog, index) => (
-                <tr
-                  key={blog.id}
-                  className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
-                >
-                  <td className="px-4 py-3">{index + 1}</td>
-                  <td className="px-4 py-3 min-w-[250px]">{blog.title}</td>
+              {blogList &&
+                blogList.length > 0 &&
+                blogs &&
+                blogs.length == 0 && (
+                  <>
+                    <tr className=" text-center">
+                      <td className="py-8 text-white font-bold " colSpan={10}>
+                        {/* loading */}
+                        No blogs found!
+                      </td>
+                    </tr>
+                  </>
+                )}
 
-                  <td className="px-4 py-3">
-                    {blogCategoryList &&
-                    blogCategoryList
-                      .map((data) =>
-                        data.id === blog.categoryId ? data.categoryName : null
-                      )
-                      .filter((category) => category !== null).length > 0 ? (
-                      blogCategoryList.map((data) =>
-                        data.id === blog.categoryId ? data.categoryName : null
-                      )
-                    ) : (
-                      <p className="truncate">No Category⚠️</p>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    {blog.authorId.toLowerCase() === "default"
-                      ? "Admin"
-                      : authorList &&
-                        authorList.map((data) => {
-                          if (data.id == blog.authorId) {
-                            return data.fullName;
-                          }
-                        })}
-                  </td>
-                  <td className="px-4 py-3 whitespace-nowrap">
-                    {blog.publicationDate}
-                  </td>
-                  <td className="px-4 py-3">
-                    {blog.isActive ? "Enable" : "Disable⚠️"}
-                  </td>
-                  <td className="px-4 py-3">
-                    {blog.coverImage ? (
-                      <img
-                        className="min-w-[70px] h-[50px] rounded-sm cursor-pointer"
-                        src={blog.coverImage}
-                        loading="lazy"
-                        onClick={() => {
-                          setShowImage({
-                            image: blog.coverImage,
-                            open: true,
-                          });
-                        }}
-                      />
-                    ) : (
-                      "No Image"
-                    )}
+              {blogs &&
+                blogs.map((blog, index) => (
+                  <tr
+                    key={blog.id}
+                    className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
+                  >
+                    <td className="px-4 py-3">{index + 1}</td>
+                    <td className="px-4 py-3 min-w-[250px]">{blog.title}</td>
 
-                    {showImage.open && showImage.image == blog.coverImage && (
-                      <PopupImage
-                        image={blog.coverImage}
-                        setShowImage={(condition) => {
-                          setShowImage({
-                            image: blog.coverImage,
-                            open: condition,
-                          });
-                          setShowImage({
-                            image: null,
-                            open: false,
-                          });
-                        }}
-                      />
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                    <Link to={`/blogDetail/${blog.id}`}>
-                      <div className="px-2 py-1.5 rounded bg-yellow-500 text-white cursor-pointer">
-                        View
+                    <td className="px-4 py-3">
+                      {blogCategoryList &&
+                      blogCategoryList
+                        .map((data) =>
+                          data.id === blog.categoryId ? data.categoryName : null
+                        )
+                        .filter((category) => category !== null).length > 0 ? (
+                        blogCategoryList.map((data) =>
+                          data.id === blog.categoryId ? data.categoryName : null
+                        )
+                      ) : (
+                        <p className="truncate">No Category⚠️</p>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      {blog.authorId.toLowerCase() === "default"
+                        ? "Admin"
+                        : authorList &&
+                          authorList.map((data) => {
+                            if (data.id == blog.authorId) {
+                              return data.fullName;
+                            }
+                          })}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {blog.publicationDate}
+                    </td>
+                    <td className="px-4 py-3">
+                      {blog.isActive ? "Enable" : "Disable⚠️"}
+                    </td>
+                    <td className="px-4 py-3">
+                      {blog.coverImage ? (
+                        <img
+                          className="min-w-[70px] h-[50px] rounded-sm cursor-pointer"
+                          src={blog.coverImage}
+                          loading="lazy"
+                          onClick={() => {
+                            setShowImage({
+                              image: blog.coverImage,
+                              open: true,
+                            });
+                          }}
+                        />
+                      ) : (
+                        "No Image"
+                      )}
+
+                      {showImage.open && showImage.image == blog.coverImage && (
+                        <PopupImage
+                          image={blog.coverImage}
+                          setShowImage={(condition) => {
+                            setShowImage({
+                              image: blog.coverImage,
+                              open: condition,
+                            });
+                            setShowImage({
+                              image: null,
+                              open: false,
+                            });
+                          }}
+                        />
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
+                      <Link to={`/blogDetail/${blog.id}`}>
+                        <div className="px-2 py-1.5 rounded bg-yellow-500 text-white cursor-pointer">
+                          View
+                        </div>
+                      </Link>
+                    </td>
+
+                    <td className="px-4 py-3 text-sm text-center">
+                      <Link to={`/updateBlog/${blog.id}`}>
+                        <div className="px-2 py-1.5 rounded bg-green-600 text-white">
+                          Edit
+                        </div>
+                      </Link>
+                    </td>
+
+                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
+                      <div
+                        onClick={() =>
+                          notifyDeleting(blog.id, blog.coverImageId)
+                        }
+                        className="px-2 py-1.5 rounded bg-red-600 text-white"
+                      >
+                        Delete
                       </div>
-                    </Link>
-                  </td>
-
-                  <td className="px-4 py-3 text-sm text-center">
-                    <Link to={`/updateBlog/${blog.id}`}>
-                      <div className="px-2 py-1.5 rounded bg-green-600 text-white">
-                        Edit
-                      </div>
-                    </Link>
-                  </td>
-
-                  <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                    <div
-                      onClick={() => notifyDeleting(blog.id, blog.coverImageId)}
-                      className="px-2 py-1.5 rounded bg-red-600 text-white"
-                    >
-                      Delete
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

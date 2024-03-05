@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 // firebase
 import { db } from "./firebase-config";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, orderBy, query } from "firebase/firestore";
 // context
 import { UpdateContext } from "./contexts/UpdateContext";
 import { DataContext } from "./contexts/DataContext";
@@ -89,7 +89,9 @@ function App() {
 
     const fetchAllData = async () => {
       // fetch data of product
-      const products = await getDocs(productCollectionRef);
+      const products = await getDocs(
+        query(productCollectionRef, orderBy("categoryId", "desc"))
+      );
       setProductList(
         products.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
@@ -126,7 +128,9 @@ function App() {
 
       //fetch contact data
       const contact = await getDocs(contactCollectionRef);
-      setContactList(contact.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setContactList(
+        contact.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
 
       //fetch process data
       const process = await getDocs(processCollectionRef);
