@@ -6,6 +6,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { FaSteamSymbol } from "react-icons/fa";
+import { LuShoppingBasket } from "react-icons/lu";
 import { FaBlog } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -16,6 +17,12 @@ const CardGroup = () => {
     <div className="pb-4 ">
       <p className="text-xl font-semibold mb-2">Dashboard</p>
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+        <Card
+          title="Order"
+          subtitle="Manage customer order"
+          href="/order"
+          Icon={LuShoppingBasket}
+        />
         <Card
           title="Product"
           subtitle="Manage product"

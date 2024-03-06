@@ -29,6 +29,7 @@ const CreateBlogCategory = () => {
 
   //   create category fucntion
   const createCategory = () => {
+  
     addDoc(postCollectionRef, {
       categoryName: blogCategory.categoryName,
       description: blogCategory.description,

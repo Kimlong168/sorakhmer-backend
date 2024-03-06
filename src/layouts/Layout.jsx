@@ -4,7 +4,8 @@ import { FaBlog } from "react-icons/fa";
 import { FiUsers, FiMail, FiUser } from "react-icons/fi";
 import { TiShoppingCart } from "react-icons/ti";
 import { HiOutlineLogout } from "react-icons/hi";
-import { FaSteamSymbol, FaAward } from "react-icons/fa";
+import { FaSteamSymbol, FaAward, FaShoppingBasket } from "react-icons/fa";
+
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import logo from "../assets/images/sorakhmer-logo.png";
@@ -111,6 +112,24 @@ const Layout = (props) => {
                   </span>
                   <span className="ml-2 text-sm tracking-wide truncate">
                     Dashboard
+                  </span>
+                </Link>
+              </li>
+
+              {/* order */}
+              <li
+                className={activeTab === "order" ? "bg-gray-800" : " "}
+                onClick={() => handleChangeTab("order")}
+              >
+                <Link
+                  to="/order"
+                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6"
+                >
+                  <span className="inline-flex justify-center items-center ml-4">
+                    <FaShoppingBasket />
+                  </span>
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    Orders
                   </span>
                 </Link>
               </li>

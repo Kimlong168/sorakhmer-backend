@@ -50,6 +50,9 @@ import CreateAdmin from "./pages/authentication/CreateAdmin";
 import Admin from "./pages/authentication/Admin";
 import Login from "./pages/authentication/Login";
 import ForgetPassword from "./pages/authentication/ForgetPassword";
+import Order from "./pages/order/Order";
+import OrderDetail from "./pages/order/OrderDetail";
+import UpdateOrder from "./pages/order/UpdateOrder";
 function App() {
   // state
   const [theme, setTheme] = useState(
@@ -72,6 +75,7 @@ function App() {
   const [storeList, setStoreList] = useState([]);
   const [galleryList, setGalleryList] = useState([]);
   const [adminList, setAdminList] = useState([]);
+  const [orderList, setOrderList] = useState([]);
   // fetch all data from firebase
   useEffect(() => {
     const productCollectionRef = collection(db, "products");
@@ -86,6 +90,7 @@ function App() {
     const storeCollectionRef = collection(db, "stores");
     const galleryCollectionRef = collection(db, "gallery");
     const adminCollectionRef = collection(db, "admin");
+    const orderCollectionRef = collection(db, "orders");
 
     const fetchAllData = async () => {
       // fetch data of product
@@ -154,6 +159,12 @@ function App() {
       //fetch admin data
       const admin = await getDocs(adminCollectionRef);
       setAdminList(admin.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+      // fetch order data
+      const order = await getDocs(
+        query(orderCollectionRef, orderBy("timeStamp", "desc"))
+      );
+      setOrderList(order.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     // call fetchAllData function
@@ -216,6 +227,7 @@ function App() {
                 storeList,
                 galleryList,
                 adminList,
+                orderList,
                 handleThemeSwitch,
                 theme,
               }}
@@ -369,6 +381,14 @@ function App() {
                   <Route path="/createAdmin" element={<CreateAdmin />} />
                   {/* update user */}
                   {/* <Route path="/updateAdmin/:id" element={<UpdateAdmin />} /> */}
+
+                  {/* -------------order route------------- */}
+                  {/* order */}
+                  <Route path="/order" element={<Order />} />
+                  {/* order detail */}
+                  <Route path="/orderDetail/:id" element={<OrderDetail />} />
+                  {/* Update order */}
+                  <Route path="/updateOrder/:id" element={<UpdateOrder />} />
                 </Routes>
               </Router>
             </DataContext.Provider>
