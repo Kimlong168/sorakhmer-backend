@@ -39,6 +39,7 @@ const Product = () => {
       setMaxPrice(maxPrice);
     }
   }, [productList]);
+  
   // delete product notify
   const notifyDeleting = (id, imageId) => {
     toast.error(

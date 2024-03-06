@@ -4,11 +4,11 @@ const getStatusColor = (status) => {
         return "bg-orange-500";
       case "processing":
         return "bg-blue-600";
-      case "shipped":
+      case "paid":
         return "bg-green-600";
       case "delivered":
         return "bg-pink-600";
-      case "canceled":
+      case "cancelled":
         return "bg-red-600";
       default:
         return "bg-gray-700";

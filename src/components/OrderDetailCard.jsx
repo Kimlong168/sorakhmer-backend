@@ -6,7 +6,7 @@ import getStatusColor from "../utils/getStatusColor";
 import { useContext, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { FaPrint } from "react-icons/fa";
-// import logo from "../assets/images/sorakhmer-logo.png";
+import logo from "../assets/images/sorakhmer-logo.png";
 import { DataContext } from "../contexts/DataContext";
 import convertToPhoneNumber from "../utils/convertToPhoneNumber";
 import aba from "../assets/images/aba-us.jpg";
@@ -38,10 +38,10 @@ const OrderDetailCard = ({
 
   return (
     <div
-      className="rounded-lg border bg-card text-card-foreground w-full max-w-3xl mx-auto bg-white shadow-xl"
+      className="rounded-lg border bg-card text-card-foreground w-full max-w-3xl mx-auto bg-white shadow-xl overflow-x-auto"
       data-v0-t="card"
     >
-      <div ref={contentToPrint}>
+      <div ref={contentToPrint} className="min-w-[600px]">
         <div className="p-6 pt-4 grid gap-4">
           <div className={`flex flex-col space-y-1.5 pb-0`}>
             {isPrint ? (
@@ -101,7 +101,9 @@ const OrderDetailCard = ({
                 Phone Number
               </label>
               <p className="font-medium  hover:text-blue-600">
-                <Link to={`tel:${phoneNumber}`}>{convertToPhoneNumber(phoneNumber)}</Link>
+                <Link to={`tel:${phoneNumber}`}>
+                  {convertToPhoneNumber(phoneNumber)}
+                </Link>
               </p>
             </div>
             {!isPrint && (
@@ -126,6 +128,16 @@ const OrderDetailCard = ({
                   Customer Remark
                 </label>
                 <p className="font-medium">{message}</p>
+              </div>
+            )}
+
+            {isPrint && (
+              <div>
+                <img
+                  src={logo}
+                  className="w-[260px] opacity-20 absolute  top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]"
+                  alt=""
+                />
               </div>
             )}
           </div>
@@ -213,13 +225,17 @@ const OrderDetailCard = ({
                   cartItems.length == 5 && "mt-4"
                 }`}
               >
+                {/* <div className="flex flex-col justify-center items-center">
+                  <img src={logo} className="w-[100px]" alt="" />
+                </div> */}
                 <img
                   src={aba}
                   alt="qr-code
               "
                   className="w-40 h-40"
                 />
-                <div className="flex flex-col justify-center gap-3 text-sm text-gray-600">
+                <div className="flex flex-col justify-center items-center gap-3 text-sm text-gray-600">
+                  <div className="font-bold text-center">SORA KHMER</div>
                   <span>
                     📞 {contact && convertToPhoneNumber(contact.phoneNumber)}
                   </span>{" "}
@@ -250,7 +266,7 @@ const OrderDetailCard = ({
             }}
           >
             <FaPrint />
-            {!isPrint ? "Print" : "Loading..."}
+            {!isPrint ? "Print/Save" : "Loading..."}
           </button>
         </div>
       </div>
