@@ -204,7 +204,7 @@ function formatDate(inputDate) {
     const day = dateParts[2];
     
     // Construct the new format
-    const formattedDate = `${day}-${month}-${year}`;
+    const formattedDate = `${day}/${month}/${year}`;
     
     return formattedDate;
   }

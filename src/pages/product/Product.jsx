@@ -308,7 +308,7 @@ const Product = () => {
                     <td className="px-4 py-3">
                       {product.image ? (
                         <img
-                          className="min-w-[70px] h-[50px] rounded-sm cursor-pointer"
+                          className="min-w-[40px] h-[50px] rounded-sm cursor-pointer"
                           src={product.image}
                           loading="lazy"
                           onClick={() => {
@@ -382,7 +382,7 @@ const Product = () => {
 
 // price range filter component
 const PriceRangeFilter = ({
-  maxPrice = 300,
+  maxPrice = 500,
   onChange,
   priceRange,
   setPriceRange,
@@ -399,7 +399,7 @@ const PriceRangeFilter = ({
         <input
           type="range"
           min={1}
-          max={maxPrice}
+          max={maxPrice + 1}
           value={priceRange}
           onChange={handleChange}
           className="slider appearance-none w-24 lg:w-36 h-1 md:h-2 bg-yellow-500 rounded-full outline-none cursor-pointer"

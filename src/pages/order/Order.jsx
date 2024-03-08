@@ -357,7 +357,7 @@ const Order = () => {
 
                     {/* view button */}
                     <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/orderDetail/${item.id}`}>
+                      <Link to={`/orderDetail/${item.orderId}`}>
                         <div className="px-2 py-1.5 rounded bg-yellow-500 text-white">
                           view
                         </div>

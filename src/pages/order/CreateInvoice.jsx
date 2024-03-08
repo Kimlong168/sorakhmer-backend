@@ -437,9 +437,7 @@ const CreateInvoice = () => {
                                 className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
                                 key={index}
                               >
-                                <td className="px-4 py-3 flex items-center gap-4">
-                                  {item.name}
-                                </td>
+                                <td className="px-4 py-3 gap-4">{item.name}</td>
                                 <td className="px-4 py-3">{item.price} $</td>
                                 <td className="px-4 py-3">
                                   {isSelected ? (
