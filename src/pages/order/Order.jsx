@@ -17,6 +17,7 @@ import { doc, setDoc } from "firebase/firestore";
 import getStatusColor from "../../utils/getStatusColor";
 import { FaSearch } from "react-icons/fa";
 import { TbMathEqualLower } from "react-icons/tb";
+
 const Order = () => {
   const { setIsUpdated } = useContext(UpdateContext);
   const { orderList } = useContext(DataContext);
@@ -31,6 +32,7 @@ const Order = () => {
   const [maxTotalPrice, setMaxTotalPrice] = useState(1000);
   const [priceRange, setPriceRange] = useState(maxTotalPrice || 1000);
 
+  // get the max total price
   useEffect(() => {
     if (orderList && orderList.length > 0) {
       let maxPrice = Math.max(
@@ -123,8 +125,10 @@ const Order = () => {
             .includes(searchKeyword.toLowerCase().trim())
       );
     }
-
+    // to display the result
     setOrders(searchedorder);
+
+    // to show the search result text
     setIsSearched(true);
   };
 
@@ -148,6 +152,8 @@ const Order = () => {
     }
 
     setOrders(filteredOrder);
+
+    // reset everything to default when filter is changed
     setIsSearched(false);
     setPriceRange(maxTotalPrice);
   }, [filter, orderList, maxTotalPrice]);
@@ -161,6 +167,8 @@ const Order = () => {
     );
 
     setOrders(filteredOrder);
+    
+    // reset everything to default when filter is changed
     setIsSearched(false);
     setFilter("default");
   }, [priceRange, orderList]);
@@ -206,7 +214,10 @@ const Order = () => {
             />
 
             {/* search icon */}
-            <div onClick={handleSearch} className="cursor-pointer hover:text-yellow-500">
+            <div
+              onClick={handleSearch}
+              className="cursor-pointer hover:text-yellow-500"
+            >
               <FaSearch />
             </div>
           </div>
@@ -221,7 +232,7 @@ const Order = () => {
           <option value="default">All Status</option>
           <option value="pending">Pending</option>
           <option value="processing">Processing</option>
-          <option value="shipped">Shipped</option>
+          <option value="paid">Paid</option>
           <option value="delivered">Delivered</option>
           <option value="cancelled">Cancelled</option>
         </select>
@@ -256,7 +267,7 @@ const Order = () => {
                 <th className="px-4 py-3">Name</th>
                 <th className="px-4 py-3">Address</th>
                 <th className="px-4 py-3">Phone</th>
-                <th className="px-4 py-3">Contact Link</th>
+                <th className="px-4 py-3">Contact</th>
                 {/* <th className="px-4 py-3">Payment Method</th> */}
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Total</th>

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Loading from "../../components/Loading";
-import OrderDetailCard from "../../components/OrderDetailCard";
+import OrderDetailCard from "./OrderDetailCard";
 
 const OrderDetail = () => {
   const { id: orderParams } = useParams();
@@ -48,7 +48,7 @@ const OrderDetail = () => {
     <Layout>
       <div>
         {/* order detail card component */}
-        <OrderDetailCard {...order} />
+        <OrderDetailCard {...order} id={orderParams} />
       </div>
     </Layout>
   );

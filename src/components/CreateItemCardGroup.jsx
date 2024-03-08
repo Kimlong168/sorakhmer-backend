@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BiCategoryAlt } from "react-icons/bi";
 import { FiUser, FiUsers } from "react-icons/fi";
-import { FaAward, FaBlog } from "react-icons/fa";
+import { FaAward, FaBlog, FaFileInvoice } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaSteamSymbol } from "react-icons/fa";
 import { AiFillPlusCircle } from "react-icons/ai";
@@ -13,6 +13,14 @@ const CreateItemCardGroup = () => {
   return (
     <div>
       <div className="grid auto-rows-auto grid-cols-2  lg:grid-cols-4 gap-4 ">
+        {/* create new invoice*/}
+        <Link to="/createInvoice">
+          <CreateItemCard
+            title="Invoice"
+            color="bg-gray-400"
+            icon={<FaFileInvoice />}
+          />
+        </Link>
         {/* create product */}
         <Link to="/createProduct">
           <CreateItemCard
@@ -33,7 +41,11 @@ const CreateItemCardGroup = () => {
 
         {/* create blog  */}
         <Link to="/createBlog">
-          <CreateItemCard title="Blog" color="bg-violet-500" icon={<FaBlog />} />
+          <CreateItemCard
+            title="Blog"
+            color="bg-violet-500"
+            icon={<FaBlog />}
+          />
         </Link>
 
         {/* create blog category */}
@@ -46,12 +58,20 @@ const CreateItemCardGroup = () => {
         </Link>
         {/* create author for blog post */}
         <Link to="/createAuthor">
-          <CreateItemCard title="Author" color="bg-blue-500" icon={<FiUsers />} />
+          <CreateItemCard
+            title="Author"
+            color="bg-blue-500"
+            icon={<FiUsers />}
+          />
         </Link>
 
         {/* create company awards */}
         <Link to="/createAward">
-          <CreateItemCard title="Awards" color="bg-purple-400" icon={<FaAward />} />
+          <CreateItemCard
+            title="Awards"
+            color="bg-purple-400"
+            icon={<FaAward />}
+          />
         </Link>
 
         {/* create company partners  */}
@@ -65,7 +85,11 @@ const CreateItemCardGroup = () => {
 
         {/* create process of producing */}
         <Link to="/createProcess">
-          <CreateItemCard title="Process" color="bg-blue-900" icon={<PiFactory />} />
+          <CreateItemCard
+            title="Process"
+            color="bg-blue-900"
+            icon={<PiFactory />}
+          />
         </Link>
 
         {/* create store */}

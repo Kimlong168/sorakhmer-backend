@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
-import { IoChevronBackOutline } from "react-icons/io5";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase-config";
 import { Link } from "react-router-dom";
-import checkSocialMedia from "../utils/checkSocialMedia";
-import getStatusColor from "../utils/getStatusColor";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
+import logo from "../../assets/images/sorakhmer-logo.png";
+import aba from "../../assets/images/aba-us.jpg";
+import { DataContext } from "../../contexts/DataContext";
+import { UpdateContext } from "../../contexts/UpdateContext";
+import convertToPhoneNumber from "../../utils/convertToPhoneNumber";
+import checkSocialMedia from "../../utils/checkSocialMedia";
+import getStatusColor from "../../utils/getStatusColor";
+import { IoChevronBackOutline } from "react-icons/io5";
 import { FaPrint } from "react-icons/fa";
-import logo from "../assets/images/sorakhmer-logo.png";
-import { DataContext } from "../contexts/DataContext";
-import convertToPhoneNumber from "../utils/convertToPhoneNumber";
-import aba from "../assets/images/aba-us.jpg";
 const OrderDetailCard = ({
+  id,
   orderId,
   fullName,
   phoneNumber,
@@ -21,20 +25,63 @@ const OrderDetailCard = ({
   total,
   status,
   date,
-  //   paymentMethod,
-  //   timeStamp,
+  // paymentMethod,
+  // timeStamp,
 }) => {
+  const { setIsUpdated } = useContext(UpdateContext);
   const { contactList } = useContext(DataContext);
   const contact = contactList[0];
   const contentToPrint = useRef(null);
-
+  const [isStatusUpdated, setIsStatusUpdated] = useState(false);
   const [isPrint, setIsPrint] = useState(false);
+  const [updatedStatus, setUpdatedStatus] = useState(status);
+  // handle print
   const handlePrint = useReactToPrint({
     documentTitle: orderId,
     onBeforePrint: () => setIsPrint(false),
     onAfterPrint: () => setIsPrint(false),
     removeAfterPrint: true,
   });
+
+  //   update Order
+  async function updateOrderStatus(newStatus) {
+    const docRef = doc(db, "orders", id);
+
+    await setDoc(
+      docRef,
+      {
+        status: newStatus,
+      },
+      { merge: true }
+    );
+
+    // to show the updating status
+    setIsStatusUpdated(true);
+    // update status in this page
+    setUpdatedStatus(newStatus);
+    console.log("order status updated");
+  }
+
+  // This effect will trigger whenever isStatusUpdated changes
+  useEffect(() => {
+    if (isStatusUpdated) {
+      // Reset state after 1 second
+      const timeoutId = setTimeout(() => {
+        setIsStatusUpdated(false);
+      }, 2000);
+
+      // Clear the timeout if the component unmounts or isStatusUpdated changes
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isStatusUpdated]);
+
+  //   handle change status
+  const handleChangeStatus = (e) => {
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+    const newStatus = e.target.value;
+    updateOrderStatus(newStatus);
+  };
 
   return (
     <div
@@ -44,6 +91,7 @@ const OrderDetailCard = ({
       <div ref={contentToPrint} className="min-w-[600px]">
         <div className="p-6 pt-4 grid gap-4">
           <div className={`flex flex-col space-y-1.5 pb-0`}>
+            {/* header title */}
             {isPrint ? (
               <>
                 <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight mt-2 text-center">
@@ -52,7 +100,7 @@ const OrderDetailCard = ({
               </>
             ) : (
               <>
-                <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
+                <h3 className="text-2xl mt-2 font-semibold whitespace-nowrap leading-none tracking-tight">
                   Order ID: {orderId}
                 </h3>
                 <p className="text-sm text-muted-foreground">
@@ -63,6 +111,7 @@ const OrderDetailCard = ({
           </div>
           <div className="grid grid-cols-2  gap-4 relative">
             <div className="flex flex-col gap-1">
+              {/* order date */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
                 Order Date
               </label>
@@ -76,36 +125,61 @@ const OrderDetailCard = ({
                 <p className="font-medium">{orderId}</p>
               </div>
             ) : (
-              <div className="flex flex-col gap-1">
-                <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                  Status
-                </label>
-                <p
-                  className={`font-medium w-fit pt-1 px-2 capitalize rounded text-white ${getStatusColor(
-                    status
-                  )}`}
-                >
-                  {status}
-                </p>
-              </div>
+              <>
+                {isStatusUpdated ? (
+                  <div>
+                    {/* status */}
+                    <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
+                      Status
+                    </label>
+                    <div className="rounded flex items-center justify-center w-fit">
+                      updating...
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {/* update status form */}
+                    <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
+                      Status
+                    </label>
+                    <select
+                      id="status"
+                      value={updatedStatus}
+                      onChange={(e) => handleChangeStatus(e)}
+                      className={`${getStatusColor(
+                        updatedStatus
+                      )} text-white block cursor-pointer font-bold  px-2 border-2 rounded-md shadow-sm  w-fit focus:outline-none  sm:text-sm`}
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="processing">Processing</option>
+                      <option value="paid">Paid</option>
+                      <option value="delivered">Delivered</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                  </div>
+                )}
+              </>
             )}
 
             <div className="flex flex-col gap-1">
+              {/* fullname */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
                 Customer
               </label>
               <p className="font-medium">{fullName}</p>
             </div>
             <div className="flex flex-col gap-1">
+              {/* phone number */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
                 Phone Number
               </label>
               <p className="font-medium  hover:text-blue-600">
                 <Link to={`tel:${phoneNumber}`}>
-                  {convertToPhoneNumber(phoneNumber)}
+                  {phoneNumber && convertToPhoneNumber(phoneNumber)}
                 </Link>
               </p>
             </div>
+            {/* contact link */}
             {!isPrint && (
               <div className="flex flex-col gap-1">
                 <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
@@ -116,7 +190,9 @@ const OrderDetailCard = ({
                 </p>
               </div>
             )}
+
             <div className="flex flex-col gap-1">
+              {/* address */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
                 Address
               </label>
@@ -124,6 +200,7 @@ const OrderDetailCard = ({
             </div>
             {message && (
               <div className="flex flex-col gap-1">
+                {/* message */}
                 <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
                   Customer Remark
                 </label>
@@ -133,6 +210,7 @@ const OrderDetailCard = ({
 
             {isPrint && (
               <div>
+                {/* water mark - sorakhmer logo */}
                 <img
                   src={logo}
                   className="w-[260px] opacity-20 absolute  top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]"
@@ -144,7 +222,9 @@ const OrderDetailCard = ({
           <div className="grid gap-4">
             <div className="overflow-auto border">
               <div className="relative w-full overflow-auto">
+                {/* invoice table */}
                 <table className="w-full caption-bottom text-sm">
+                  {/* table header */}
                   <thead className="[&amp;_tr]:border-b">
                     <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                       <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[80px] hidden md:table-cell">
@@ -161,6 +241,8 @@ const OrderDetailCard = ({
                       </th>
                     </tr>
                   </thead>
+
+                  {/* table body */}
                   <tbody className="[&amp;_tr:last-child]:border-0">
                     {cartItems &&
                       cartItems.map((item, index) => (
@@ -168,6 +250,7 @@ const OrderDetailCard = ({
                           key={index}
                           className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
                         >
+                          {/* image */}
                           <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
                             <img
                               src={item.image}
@@ -177,6 +260,7 @@ const OrderDetailCard = ({
                               className="aspect-square rounded-md object-cover"
                             />
                           </td>
+                          {/* product name */}
                           <td
                             className={`p-4 ${
                               isPrint && "py-2 text-sm text-gray-800"
@@ -184,6 +268,7 @@ const OrderDetailCard = ({
                           >
                             {item.name}
                           </td>
+                          {/* quantity */}
                           <td
                             className={`p-4 ${
                               isPrint && "py-2 text-sm text-gray-800"
@@ -191,6 +276,7 @@ const OrderDetailCard = ({
                           >
                             {item.quantity}
                           </td>
+                          {/* price */}
                           <td
                             className={`p-4 ${
                               isPrint && "py-2 text-sm text-gray-800"
@@ -201,6 +287,7 @@ const OrderDetailCard = ({
                         </tr>
                       ))}
 
+                    {/* total price */}
                     <tr>
                       <td className="hidden md:block"></td>
                       <td
@@ -228,12 +315,15 @@ const OrderDetailCard = ({
                 {/* <div className="flex flex-col justify-center items-center">
                   <img src={logo} className="w-[100px]" alt="" />
                 </div> */}
+
+                {/* aba qr code */}
                 <img
                   src={aba}
                   alt="qr-code
               "
                   className="w-40 h-40"
                 />
+                {/* company contact information */}
                 <div className="flex flex-col justify-center items-center gap-3 text-sm text-gray-600">
                   <div className="font-bold text-center">SORA KHMER</div>
                   <span>
@@ -249,6 +339,7 @@ const OrderDetailCard = ({
       </div>
 
       <div className="p-6 flex items-center justify-between gap-2">
+        {/* back button */}
         <Link to="/order">
           <div className="flex items-center gap-2">
             <IoChevronBackOutline className="text-lg" />
@@ -256,6 +347,7 @@ const OrderDetailCard = ({
           </div>
         </Link>
         <div>
+          {/* buuton printing */}
           <button
             className="flex items-center gap-3 bg-blue-500 text-white px-4 py-1.5 rounded hover:bg-blue-600"
             onClick={() => {
@@ -275,6 +367,7 @@ const OrderDetailCard = ({
 };
 
 OrderDetailCard.propTypes = {
+  id: PropTypes.id,
   orderId: PropTypes.string,
   fullName: PropTypes.string,
   phoneNumber: PropTypes.string,

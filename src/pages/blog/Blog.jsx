@@ -45,18 +45,15 @@ const Blog = () => {
   useEffect(() => {
     let filteredBlog = [];
     if (filter === "default") {
-      setBlogs(blogList);
+      filteredBlog = blogList;
     } else if (filter == "enable") {
       filteredBlog = blogList.filter((blog) => blog.isActive);
-      setBlogs(filteredBlog);
     } else if (filter == "disable") {
       filteredBlog = blogList.filter((blog) => !blog.isActive);
-      setBlogs(filteredBlog);
     } else {
       filteredBlog = blogList.filter((blog) => blog.categoryId === filter);
-      setBlogs(filteredBlog);
     }
-
+    setBlogs(filteredBlog);
     setIsSearched(false);
   }, [filter, blogList]);
 

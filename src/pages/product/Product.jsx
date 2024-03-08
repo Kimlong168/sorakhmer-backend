@@ -39,7 +39,7 @@ const Product = () => {
       setMaxPrice(maxPrice);
     }
   }, [productList]);
-  
+
   // delete product notify
   const notifyDeleting = (id, imageId) => {
     toast.error(
@@ -113,20 +113,17 @@ const Product = () => {
   useEffect(() => {
     let filteredProduct = [];
     if (filter === "default") {
-      setProducts(productList);
+      filteredProduct = productList;
     } else if (filter == "enable") {
       filteredProduct = productList.filter((product) => product.isActive);
-      setProducts(filteredProduct);
     } else if (filter == "disable") {
       filteredProduct = productList.filter((product) => !product.isActive);
-      setProducts(filteredProduct);
     } else {
       filteredProduct = productList.filter(
         (product) => product.categoryId === filter
       );
-      setProducts(filteredProduct);
     }
-
+    setProducts(filteredProduct);
     setIsSearched(false);
     setPriceRange(maxPrice);
   }, [filter, productList, maxPrice]);

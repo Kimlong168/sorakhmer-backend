@@ -52,7 +52,7 @@ import Login from "./pages/authentication/Login";
 import ForgetPassword from "./pages/authentication/ForgetPassword";
 import Order from "./pages/order/Order";
 import OrderDetail from "./pages/order/OrderDetail";
-import UpdateOrder from "./pages/order/UpdateOrder";
+import CreateInvoice from "./pages/order/CreateInvoice";
 function App() {
   // state
   const [theme, setTheme] = useState(
@@ -387,8 +387,8 @@ function App() {
                   <Route path="/order" element={<Order />} />
                   {/* order detail */}
                   <Route path="/orderDetail/:id" element={<OrderDetail />} />
-                  {/* Update order */}
-                  <Route path="/updateOrder/:id" element={<UpdateOrder />} />
+                  {/* create invoice */}
+                  <Route path="/createInvoice" element={<CreateInvoice />} />
                 </Routes>
               </Router>
             </DataContext.Provider>

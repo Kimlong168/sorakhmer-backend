@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Loading from "../../components/Loading";
-import DetailProductCard from "../../components/DetailProductCard";
+import ProductDetailCard from "./ProductDetailCard";
 import { DataContext } from "../../contexts/DataContext";
 
 const ProductDetail = () => {
@@ -62,7 +62,7 @@ const ProductDetail = () => {
     <Layout>
       <div>
         {/* product detail card component */}
-        <DetailProductCard
+        <ProductDetailCard
           {...product}
           productParams={newProductParam}
           productCategoryList={productCategoryList}

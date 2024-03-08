@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { MdOutlineOpenWith } from "react-icons/md";
 import { IoChevronBackCircle } from "react-icons/io5";
-import PopupImage from "./PopupImage";
+import PopupImage from "../../components/PopupImage";
 import { useState } from "react";
 const DetailProductCard = ({
   name,
@@ -51,7 +51,8 @@ const DetailProductCard = ({
               <span className="text-pink-500">Price: </span> {price} $
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              <span className="text-pink-500">Product Code: </span> {productCode ? productCode : "No code"}
+              <span className="text-pink-500">Product Code: </span>{" "}
+              {productCode ? productCode : "No code"}
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
               <span className="text-pink-500">Status: </span>
