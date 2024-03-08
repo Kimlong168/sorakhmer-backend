@@ -9,7 +9,8 @@ import OrderDetailCard from "./OrderDetailCard";
 const OrderDetail = () => {
   const { id: orderParams } = useParams();
   const [order, setOrder] = useState(null);
-
+  // to store the document id to update later
+  const [itemId, setItemId] = useState(null);
   // fetch order base on id or orderParams
   useEffect(() => {
     const fetchorder = async () => {
@@ -28,7 +29,10 @@ const OrderDetail = () => {
           // Set the order state
           setOrder(order);
 
-          console.log("order:", order);
+          // Set the item id state
+          setItemId(docSnap.id);
+
+          console.log("item id:", docSnap.id);
         } else {
           console.log("No matching documents.");
         }
@@ -66,7 +70,7 @@ const OrderDetail = () => {
     <Layout>
       <div>
         {/* order detail card component */}
-        <OrderDetailCard {...order} id={orderParams} />
+        <OrderDetailCard {...order} id={itemId} />
       </div>
     </Layout>
   );
