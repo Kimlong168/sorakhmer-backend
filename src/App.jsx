@@ -215,19 +215,19 @@ function App() {
             {/* data context */}
             <DataContext.Provider
               value={{
+                orderList,
                 productCategoryList,
                 productList,
                 blogCategoryList,
                 blogList,
+                contactList,
                 authorList,
                 awardList,
                 partnerList,
-                contactList,
                 processList,
                 storeList,
                 galleryList,
                 adminList,
-                orderList,
                 handleThemeSwitch,
                 theme,
               }}

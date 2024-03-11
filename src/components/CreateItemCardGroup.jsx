@@ -16,7 +16,7 @@ const CreateItemCardGroup = () => {
         {/* create new invoice*/}
         <Link to="/createInvoice">
           <CreateItemCard
-            title="Invoice"
+            title="New Invoice"
             color="bg-gray-400"
             icon={<FaFileInvoice />}
           />

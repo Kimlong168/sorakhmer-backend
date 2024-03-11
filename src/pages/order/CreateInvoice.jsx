@@ -39,7 +39,7 @@ const CreateInvoice = () => {
       ...prev,
       orderId: `${fullNameWithoutSpaces}-${parseInt(Date.now() / 1000)}`,
     }));
-  }, [invoice.customer]);
+  }, [invoice.customer, invoice.phoneNumber]);
 
   // handle print
   const handlePrint = useReactToPrint({
@@ -292,7 +292,7 @@ const CreateInvoice = () => {
                             >
                               <td className="px-4 py-3">{item.name}</td>
                               <td className="px-4 py-3">
-                                <input
+                                {/* <input
                                   type="number"
                                   min={1}
                                   className="border border-gray-700 bg-transparent pl-2 rounded outline-none w-20 "
@@ -301,7 +301,59 @@ const CreateInvoice = () => {
                                     if (e.target.value < 1) return;
                                     handleQuantityChange(index, e.target.value);
                                   }}
-                                />
+                                /> */}
+
+                                <div className="custom-number-input h-10 w-32 mx-auto">
+                                  <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                                    {/* minus button */}
+                                    <button
+                                      onClick={() => {
+                                        if (item.quantity < 2) return;
+
+                                        handleQuantityChange(
+                                          index,
+                                          parseFloat(item.quantity) - 1
+                                        );
+                                      }}
+                                      className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                                    >
+                                      <span className="m-auto text-2xl font-thin">
+                                        −
+                                      </span>
+                                    </button>
+
+                                    {/* input quantity */}
+                                    <input
+                                      type="number"
+                                      className="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                                      name="custom-input-number"
+                                      min={1}
+                                      value={item.quantity}
+                                      onChange={(e) => {
+                                        if (e.target.value < 1) return;
+                                        handleQuantityChange(
+                                          index,
+                                          e.target.value
+                                        );
+                                      }}
+                                    ></input>
+
+                                    {/* plus button */}
+                                    <button
+                                      onClick={() => {
+                                        handleQuantityChange(
+                                          index,
+                                          parseFloat(item.quantity) + 1
+                                        );
+                                      }}
+                                      className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                                    >
+                                      <span className="m-auto text-2xl font-thin">
+                                        +
+                                      </span>
+                                    </button>
+                                  </div>
+                                </div>
                               </td>
                               <td className="px-4 py-3">{item.price}</td>
                               <td className="px-4 py-3">
@@ -517,7 +569,7 @@ const CreateInvoice = () => {
         <Toast />
 
         {/* button back */}
-        <ButtonBack link="/dashboard" />
+        <ButtonBack link="/" />
       </div>
     </Layout>
   );

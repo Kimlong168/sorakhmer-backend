@@ -179,7 +179,7 @@ const Order = () => {
         color="rgb(219,39,119)"
         title="Customer Orders"
         border="border-pink-600 text-pink-600"
-        link="#"
+        link="/createInvoice"
       />
 
       {/* search, sort and filter component */}
@@ -293,7 +293,7 @@ const Order = () => {
                 orders.length == 0 && (
                   <>
                     <tr className=" text-center">
-                      <td className="py-8 text-white font-bold " colSpan={11}>
+                      <td className="py-8 dark:text-white font-bold " colSpan={11}>
                         {/* loading */}
                         No result found!
                       </td>
