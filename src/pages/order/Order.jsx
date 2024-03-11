@@ -102,7 +102,7 @@ const Order = () => {
     }
   }, [isStatusUpdated.status]);
 
-  // search order by total price, customer name or order id
+  // search order by total price, customer name, phone or order id
   const handleSearch = (e) => {
     e.preventDefault();
     setFilter("default");
@@ -111,8 +111,12 @@ const Order = () => {
 
     // seach order base on name, orderCode or price
     if (!isNaN(searchKeyword)) {
-      searchedorder = orderList.filter((order) =>
-        order.total.toString().includes(searchKeyword.toLowerCase().trim())
+      searchedorder = orderList.filter(
+        (order) =>
+          order.total.toString().includes(searchKeyword.toLowerCase().trim()) ||
+          order.phoneNumber
+            .toLowerCase()
+            .includes(searchKeyword.toLowerCase().trim())
       );
     } else {
       searchedorder = orderList.filter(
@@ -167,7 +171,7 @@ const Order = () => {
     );
 
     setOrders(filteredOrder);
-    
+
     // reset everything to default when filter is changed
     setIsSearched(false);
     setFilter("default");
@@ -293,7 +297,10 @@ const Order = () => {
                 orders.length == 0 && (
                   <>
                     <tr className=" text-center">
-                      <td className="py-8 dark:text-white font-bold " colSpan={11}>
+                      <td
+                        className="py-8 dark:text-white font-bold "
+                        colSpan={11}
+                      >
                         {/* loading */}
                         No result found!
                       </td>

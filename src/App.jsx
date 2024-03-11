@@ -93,6 +93,12 @@ function App() {
     const orderCollectionRef = collection(db, "orders");
 
     const fetchAllData = async () => {
+      // fetch order data
+      const order = await getDocs(
+        query(orderCollectionRef, orderBy("timeStamp", "desc"))
+      );
+      setOrderList(order.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      
       // fetch data of product
       const products = await getDocs(
         query(productCollectionRef, orderBy("categoryId", "desc"))
@@ -159,12 +165,6 @@ function App() {
       //fetch admin data
       const admin = await getDocs(adminCollectionRef);
       setAdminList(admin.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-
-      // fetch order data
-      const order = await getDocs(
-        query(orderCollectionRef, orderBy("timeStamp", "desc"))
-      );
-      setOrderList(order.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     // call fetchAllData function
