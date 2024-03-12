@@ -10,11 +10,7 @@ const ToggleLightDarkMode = () => {
   const { handleThemeSwitch, theme } = useContext(DataContext);
   const [selectedMode, setSelectedMode] = useState(theme); //dark mode
   return (
-    <div
-      className={`grid  place-content-center transition-colors ${
-        selectedMode === "light" ? "bg-tranparent" : "bg-tranparent"
-      }`}
-    >
+    <div className={`grid  place-content-center transition-colors `}>
       <SliderToggle
         selected={selectedMode}
         setSelected={setSelectedMode}

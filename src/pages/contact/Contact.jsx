@@ -147,7 +147,7 @@ const Contact = () => {
               }
               className="px-2 flex items-center gap-4 mb-4"
             >
-              <span className="bg-yellow-500 px-2 rounded">
+              <span className="bg-yellow-500 px-2 rounded cursor-pointer">
                 1. តើ Bot Id និង Chat Id ជាអ្វី?
               </span>
               <div>
@@ -199,7 +199,7 @@ const Contact = () => {
               }
               className="px-2 flex items-center gap-4 mb-4"
             >
-              <span className="bg-yellow-500 px-2 rounded">
+              <span className="bg-yellow-500 px-2 rounded  cursor-pointer">
                 2. តើយើងទៅយក Bot Id និង Chat Id ដោយរបៀបណាករណី Channel និង Bot
                 ចាស់របស់យើងខូច ឬត្រូវបានគេ Hack?
               </span>
@@ -276,7 +276,7 @@ const Contact = () => {
               }
               className="px-2 flex items-center gap-4 mb-4"
             >
-              <span className="bg-yellow-500 px-2 rounded">
+              <span className="bg-yellow-500 px-2 rounded  cursor-pointer">
                 3. បន្ទាប់ពីទទួលបាន Bot Id និង Chat Id និងបានបញ្ចូលនៅក្នុង
                 system រួចរាល់ តើយើងត្រូវធ្វើអ្វីបន្ទាប់ទៀតដើម្បីអោយ Bot និង
                 Telegram Channel របស់យើងធ្វើការជាមួយគ្នាបាន?

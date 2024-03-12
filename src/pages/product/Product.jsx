@@ -308,7 +308,7 @@ const Product = () => {
                     <td className="px-4 py-3">
                       {product.image ? (
                         <img
-                          className="min-w-[40px] h-[50px] rounded-sm cursor-pointer"
+                          className="min-w-[60px] min-h-[70px] w-[60px] h-[70px] rounded-sm cursor-pointer"
                           src={product.image}
                           loading="lazy"
                           onClick={() => {

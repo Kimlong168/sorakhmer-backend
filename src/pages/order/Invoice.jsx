@@ -41,6 +41,7 @@ const Invoice = ({
               <p className="font-medium">{formatDate(date)}</p>
             </div>
 
+            {/* order id */}
             <div className="flex flex-col gap-1">
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
                 Order ID:
@@ -198,16 +199,16 @@ const Invoice = ({
 };
 
 function formatDate(inputDate) {
-    const dateParts = inputDate.split('-');
-    const year = dateParts[0];
-    const month = dateParts[1];
-    const day = dateParts[2];
-    
-    // Construct the new format
-    const formattedDate = `${day}/${month}/${year}`;
-    
-    return formattedDate;
-  }
+  const dateParts = inputDate.split("-");
+  const year = dateParts[0];
+  const month = dateParts[1];
+  const day = dateParts[2];
+
+  // Construct the new format
+  const formattedDate = `${day}/${month}/${year}`;
+
+  return formattedDate;
+}
 
 Invoice.propTypes = {
   orderId: PropTypes.string,

@@ -144,7 +144,9 @@ const Card = ({ title, subtitle, Icon, href, numberOfItem }) => {
       <Icon className="absolute z-10 -top-12 -right-12 text-9xl text-slate-100 group-hover:text-violet-400 group-hover:rotate-12 transition-transform duration-300" />
       <div className="flex items-center gap-4 mb-2 ">
         <Icon className="text-2xl text-violet-600 group-hover:text-white transition-colors relative z-10 duration-300" />
-        {numberOfItem && <span className="text-red-500 ">{numberOfItem}</span>}
+        {numberOfItem ? (
+          <span className="text-red-500 ">{numberOfItem}</span>
+        ) : null}
       </div>
       <h3 className="font-medium text-lg text-slate-950 group-hover:text-white relative z-10 duration-300">
         {title}
