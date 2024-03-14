@@ -36,7 +36,7 @@ const Invoice = ({
             <div className="flex flex-col gap-1">
               {/* order date */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Order Date
+                Order Date:
               </label>
               <p className="font-medium">{formatDate(date)}</p>
             </div>
@@ -52,14 +52,14 @@ const Invoice = ({
             <div className="flex flex-col gap-1">
               {/* fullname */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Customer
+                Customer:
               </label>
               <p className="font-medium">{customer}</p>
             </div>
             <div className="flex flex-col gap-1">
               {/* phone number */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Phone Number
+                Phone Number:
               </label>
               <p className="font-medium  hover:text-blue-600">
                 <Link to={`tel:${phoneNumber}`}>
@@ -71,7 +71,7 @@ const Invoice = ({
             <div className="flex flex-col gap-1">
               {/* address */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Address
+                Address:
               </label>
               <p className="font-medium">{address}</p>
             </div>

@@ -113,7 +113,7 @@ const OrderDetailCard = ({
             <div className="flex flex-col gap-1">
               {/* order date */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Order Date
+                Order Date:
               </label>
               <p className="font-medium">{date}</p>
             </div>
@@ -130,7 +130,7 @@ const OrderDetailCard = ({
                   <div>
                     {/* status */}
                     <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                      Status
+                      Status:
                     </label>
                     <div className="rounded flex items-center justify-center w-fit">
                       updating...
@@ -140,7 +140,7 @@ const OrderDetailCard = ({
                   <div>
                     {/* update status form */}
                     <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                      Status
+                      Status:
                     </label>
                     <select
                       id="status"
@@ -164,14 +164,14 @@ const OrderDetailCard = ({
             <div className="flex flex-col gap-1">
               {/* fullname */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Customer
+                Customer:
               </label>
               <p className="font-medium">{fullName}</p>
             </div>
             <div className="flex flex-col gap-1">
               {/* phone number */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Phone Number
+                Phone Number:
               </label>
               <p className="font-medium  hover:text-blue-600">
                 <Link to={`tel:${phoneNumber}`}>
@@ -194,7 +194,7 @@ const OrderDetailCard = ({
             <div className="flex flex-col gap-1">
               {/* address */}
               <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                Address
+                Address:
               </label>
               <p className="font-medium">{address}</p>
             </div>
@@ -202,7 +202,7 @@ const OrderDetailCard = ({
               <div className="flex flex-col gap-1">
                 {/* message */}
                 <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
-                  Customer Remark
+                  Customer Remark:
                 </label>
                 <p className="font-medium">{message}</p>
               </div>
