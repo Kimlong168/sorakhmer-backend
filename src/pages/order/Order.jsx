@@ -30,6 +30,7 @@ const Order = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [isSearched, setIsSearched] = useState(false);
   const [maxTotalPrice, setMaxTotalPrice] = useState(1000);
+  const [minTotalPrice, setMinTotalPrice] = useState(1);
   const [priceRange, setPriceRange] = useState(maxTotalPrice || 1000);
 
   // get the max total price
@@ -38,7 +39,12 @@ const Order = () => {
       let maxPrice = Math.max(
         ...orderList.map((item) => parseFloat(item.total))
       );
-      setMaxTotalPrice(maxPrice);
+
+      let minPrice = Math.min(
+        ...orderList.map((item) => parseFloat(item.total))
+      );
+      setMinTotalPrice(parseInt(minPrice+1));
+      setMaxTotalPrice(parseInt(maxPrice+1));
     }
   }, [orderList]);
 
@@ -245,6 +251,7 @@ const Order = () => {
         <div className="px-4 py-2 ">
           <TotalPriceRangeFilter
             maxTotalPrice={maxTotalPrice}
+            minTotalPrice={minTotalPrice}
             priceRange={priceRange}
             setPriceRange={setPriceRange}
           />
@@ -396,13 +403,12 @@ const Order = () => {
 // price range filter component
 const TotalPriceRangeFilter = ({
   maxTotalPrice,
-  onChange,
+  minTotalPrice,
   priceRange,
   setPriceRange,
 }) => {
   const handleChange = (event) => {
-    setPriceRange(event.target.value.split(",").map(Number));
-    onChange(event.target.value.split(",").map(Number));
+    setPriceRange(parseInt(event.target.value));
   };
 
   return (
@@ -413,10 +419,10 @@ const TotalPriceRangeFilter = ({
         </label>
         <input
           type="range"
-          min={1}
-          max={maxTotalPrice + 1}
+          min={minTotalPrice}
+          max={maxTotalPrice}
           value={priceRange}
-          onChange={handleChange}
+          onChange={(event) => handleChange(event)}
           className="slider appearance-none w-24 lg:w-36 h-1 md:h-2 bg-yellow-500 rounded-full outline-none cursor-pointer"
         />
         <span className="ml-2 flex items-center gap-2 whitespace-pre">
@@ -429,7 +435,7 @@ const TotalPriceRangeFilter = ({
 
 TotalPriceRangeFilter.propTypes = {
   maxTotalPrice: PropType.number,
-  onChange: PropType.func,
+  minTotalPrice: PropType.number,
   priceRange: PropType.number,
   setPriceRange: PropType.func,
 };

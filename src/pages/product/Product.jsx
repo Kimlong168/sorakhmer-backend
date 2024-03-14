@@ -29,6 +29,7 @@ const Product = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [isSearched, setIsSearched] = useState(false);
   const [maxPrice, setMaxPrice] = useState(100);
+  const [minPrice, setMinPrice] = useState(1);
   const [priceRange, setPriceRange] = useState(maxPrice || 100);
 
   useEffect(() => {
@@ -36,7 +37,12 @@ const Product = () => {
       let maxPrice = Math.max(
         ...productList.map((product) => parseFloat(product.price))
       );
-      setMaxPrice(maxPrice);
+
+      let minPrice = Math.min(
+        ...productList.map((product) => parseFloat(product.price))
+      );
+      setMinPrice(parseInt(minPrice+1));
+      setMaxPrice(parseInt(maxPrice+1));
     }
   }, [productList]);
 
@@ -209,6 +215,7 @@ const Product = () => {
         <div className="px-4 py-2 ">
           <PriceRangeFilter
             maxPrice={maxPrice}
+            minPrice={minPrice}
             priceRange={priceRange}
             setPriceRange={setPriceRange}
           />
@@ -383,13 +390,12 @@ const Product = () => {
 // price range filter component
 const PriceRangeFilter = ({
   maxPrice = 500,
-  onChange,
+  minPrice = 1,
   priceRange,
   setPriceRange,
 }) => {
   const handleChange = (event) => {
-    setPriceRange(event.target.value.split(",").map(Number));
-    onChange(event.target.value.split(",").map(Number));
+    setPriceRange(parseInt(event.target.value));
   };
 
   return (
@@ -398,10 +404,10 @@ const PriceRangeFilter = ({
         <label className="mr-2 font-bold whitespace-pre">Price Range:</label>
         <input
           type="range"
-          min={1}
-          max={maxPrice + 1}
+          min={minPrice}
+          max={maxPrice}
           value={priceRange}
-          onChange={handleChange}
+          onChange={(event) => handleChange(event)}
           className="slider appearance-none w-24 lg:w-36 h-1 md:h-2 bg-yellow-500 rounded-full outline-none cursor-pointer"
         />
         <span className="ml-2 flex items-center gap-2 whitespace-pre">
@@ -414,7 +420,7 @@ const PriceRangeFilter = ({
 
 PriceRangeFilter.propTypes = {
   maxPrice: PropType.number,
-  onChange: PropType.func,
+  minPrice: PropType.number,
   priceRange: PropType.number,
   setPriceRange: PropType.func,
 };
