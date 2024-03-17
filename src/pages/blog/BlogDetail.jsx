@@ -13,11 +13,14 @@ import { GrStatusInfo } from "react-icons/gr";
 import ContentDisplay from "../../components/ContentDisplay";
 import GoToTop from "../../components/GoToTop";
 import { DataContext } from "../../contexts/DataContext";
+import Notification from "../../components/Notification";
 const BlogDetail = () => {
   const { id: blogParams } = useParams();
-  const { blogCategoryList, authorList } = useContext(DataContext);
+  const { blogCategoryList, authorList, showNotification } =
+    useContext(DataContext);
   const [blog, setblog] = useState(null);
   const [newBogParam, setNewBogParam] = useState(blogParams);
+
   // fetch blog base on id or blogParams
   useEffect(() => {
     // check if the blogParams is update-xxxx (after updating)
@@ -117,7 +120,7 @@ const BlogDetail = () => {
               </div>
               <div className="flex items-center gap-2" title="Status">
                 <GrStatusInfo />
-                {blog.isActive ? "Enable" : "Disable"}
+                {blog.isActive ? "Active" : "Inactive"}
               </div>
             </div>
             <div>
@@ -136,6 +139,13 @@ const BlogDetail = () => {
       </div>
       {/* go to top page */}
       <GoToTop />
+
+      {/* updated successfully notification */}
+      {showNotification.status &&
+        showNotification.item == "blog" &&
+        showNotification.action == "update" && (
+          <Notification text="Blog updated successfully" bg="bg-green-600" />
+        )}
     </Layout>
   );
 };

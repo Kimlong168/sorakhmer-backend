@@ -20,7 +20,7 @@ import ButtonBack from "../../components/ButtonBack";
 import { DataContext } from "../../contexts/DataContext";
 const UpdateProduct = () => {
   const { id: productParams } = useParams();
-  const { productCategoryList } = useContext(DataContext);
+  const { productCategoryList, setShowNotification } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [product, setProduct] = useState({
     name: null,
@@ -137,6 +137,22 @@ const UpdateProduct = () => {
       );
       // to update the data in the table
       setIsUpdated((prev) => !prev);
+
+      // set isAdded to true to display notification
+      setShowNotification({
+        status: true,
+        item: "product",
+        action: "update",
+      });
+
+      // remove notification after 3 seconds
+      setTimeout(() => {
+        setShowNotification({
+          status: false,
+          item: null,
+          action: null,
+        });
+      }, 3000);
     } else {
       // if image is updated
 
@@ -276,8 +292,8 @@ const UpdateProduct = () => {
                   value={product.isActive}
                   onChange={(e) => handleOnChange(e)}
                 >
-                  <option value={true}>Enable</option>
-                  <option value={false}>Disable</option>
+                  <option value={true}>Active</option>
+                  <option value={false}>Inactive</option>
                 </select>
               </div>
             </div>

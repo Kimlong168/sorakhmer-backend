@@ -17,14 +17,17 @@ import { doc, setDoc } from "firebase/firestore";
 import getStatusColor from "../../utils/getStatusColor";
 import { FaSearch } from "react-icons/fa";
 import { TbMathEqualLower } from "react-icons/tb";
+import Notification from "../../components/Notification";
 
 const Order = () => {
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification, showNotification } = useContext(DataContext);
   const { orderList } = useContext(DataContext);
   const [isStatusUpdated, setIsStatusUpdated] = useState({
     status: false,
     id: "1",
   });
+  const [isDeleted, setIsDeleted] = useState(false);
   const [orders, setOrders] = useState(orderList);
   const [filter, setFilter] = useState("default");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -43,8 +46,8 @@ const Order = () => {
       let minPrice = Math.min(
         ...orderList.map((item) => parseFloat(item.total))
       );
-      setMinTotalPrice(parseInt(minPrice+1));
-      setMaxTotalPrice(parseInt(maxPrice+1));
+      setMinTotalPrice(parseInt(minPrice + 1));
+      setMaxTotalPrice(parseInt(maxPrice + 1));
     }
   }, [orderList]);
 
@@ -53,7 +56,18 @@ const Order = () => {
     toast.error(
       <>
         <DeletingAlertBox
-          deleteItemFucntion={() => deleteItemFucntion(id, "orders")}
+          deleteItemFucntion={() => {
+            const confirm = deleteItemFucntion(id, "orders");
+
+            if (confirm) {
+              setIsDeleted(true);
+
+              setTimeout(() => {
+                setIsDeleted(false);
+              }, 2000);
+            }
+          }}
+          // to update the data in the table
           setIsUpdated={setIsUpdated}
         />
       </>,
@@ -87,6 +101,22 @@ const Order = () => {
       status: true,
       id: id,
     });
+
+    // show notification
+    setShowNotification({
+      status: true,
+      item: "order",
+      action: "update",
+    });
+
+    // to remove the notification
+    setTimeout(() => {
+      setShowNotification({
+        status: false,
+        item: "order",
+        action: "update",
+      });
+    }, 2000);
 
     console.log("order status updated");
   }
@@ -394,8 +424,20 @@ const Order = () => {
         </div>
         <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"></div>
       </div>
+      
       {/* toast alert */}
       <Toast />
+      {/* update status successfully notification */}
+      {showNotification.status &&
+        showNotification.item == "order" &&
+        showNotification.action == "update" && (
+          <Notification text="Status updated successfully" bg="bg-green-600" />
+        )}
+
+      {/* delete successfully notification */}
+      {isDeleted && (
+        <Notification text="Order deleted successfully" bg="bg-red-600" />
+      )}
     </Layout>
   );
 };

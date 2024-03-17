@@ -62,6 +62,12 @@ function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const userEmail = localStorage.getItem("userEmail") || "admin@gmail.com";
   const [isUpdated, setIsUpdated] = useState(false);
+  // to show notification after adding
+  const [showNotification, setShowNotification] = useState({
+    item: "",
+    status: false,
+    action: "",
+  });
 
   const [productCategoryList, setProductCategoryList] = useState([]);
   const [productList, setProductList] = useState([]);
@@ -98,7 +104,7 @@ function App() {
         query(orderCollectionRef, orderBy("timeStamp", "desc"))
       );
       setOrderList(order.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      
+
       // fetch data of product
       const products = await getDocs(
         query(productCollectionRef, orderBy("categoryId", "desc"))
@@ -230,6 +236,8 @@ function App() {
                 adminList,
                 handleThemeSwitch,
                 theme,
+                showNotification,
+                setShowNotification,
               }}
             >
               {/* -------------router------------- */}

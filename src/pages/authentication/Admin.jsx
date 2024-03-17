@@ -180,13 +180,17 @@ const Admin = () => {
                   {/* <td className="px-4 py-3">{item.uid}</td> */}
                   <td className="px-4 py-3">{item.creationTime}</td>
 
-                  <td className="px-4 py-3 text-sm text-center">
-                    <button
-                      onClick={() => handleResetPassword(item.email)}
-                      className="px-4 py-1.5 rounded bg-green-600 text-white"
-                    >
-                      Reset
-                    </button>
+                  <td className="px-4 py-3 text-sm text-red-600">
+                    {item.email === userEmail ? (
+                      <button
+                        onClick={() => handleResetPassword(item.email)}
+                        className="px-4 py-1.5 rounded bg-green-600 text-white"
+                      >
+                        Reset
+                      </button>
+                    ) : (
+                      "Unauthorized"
+                    )}
                   </td>
                 </tr>
               ))}

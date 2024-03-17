@@ -14,7 +14,8 @@ import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
 import { DataContext } from "../../contexts/DataContext";
 const CreateBlog = () => {
-  const { blogCategoryList, authorList } = useContext(DataContext);
+  const { blogCategoryList, authorList, setShowNotification } =
+    useContext(DataContext);
   //  set default category
   const category = blogCategoryList.map((data) => data.id)[0];
   // const [imageReferences, setImageReferences] = useState({});
@@ -80,6 +81,23 @@ const CreateBlog = () => {
     });
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+
+    // set isAdded to true to display notification
+    setShowNotification({
+      status: true,
+      item: "blog",
+      action: "add",
+    });
+
+    // remove notification after 3 seconds
+    setTimeout(() => {
+      setShowNotification({
+        status: false,
+        item: null,
+        action: null,
+      });
+    }, 3000);
+
     console.log("Blog created!", blog.categoryName);
 
     // const imagesInContent = blog.content.match(/<img[^>]+src="[^"]+"[^>]*>/g);
@@ -230,8 +248,8 @@ const CreateBlog = () => {
                   value={blog.isActive}
                   onChange={(e) => handleOnChange(e)}
                 >
-                  <option value={true}>Enable</option>
-                  <option value={false}>Disable</option>
+                  <option value={true}>Active</option>
+                  <option value={false}>Inactive</option>
                 </select>
               </div>
             </div>

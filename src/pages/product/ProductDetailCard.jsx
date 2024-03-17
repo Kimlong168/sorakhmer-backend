@@ -54,9 +54,17 @@ const DetailProductCard = ({
               <span className="text-pink-500">Product Code: </span>{" "}
               {productCode ? productCode : "No code"}
             </h4>
-            <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+            <h4 className="mb-2 font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased flex items-center gap-3">
               <span className="text-pink-500">Status: </span>
-              {isActive ? "Enable" : "Disable"}
+              {isActive ? (
+                <span className="p-2 py-0.5 rounded border text-sm border-green-600 text-green-600 bg-green-600/10">
+                  Active
+                </span>
+              ) : (
+                <span className="p-2 py-0.5 rounded border text-sm border-red-600 text-red-600 bg-red-600/10">
+                  Inactive
+                </span>
+              )}
             </h4>
             <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
               <span className="text-pink-500">Description: </span> {description}

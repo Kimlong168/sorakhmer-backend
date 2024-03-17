@@ -12,7 +12,7 @@ import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
 import { DataContext } from "../../contexts/DataContext";
 const CreateProduct = () => {
-  const { productCategoryList } = useContext(DataContext);
+  const { productCategoryList, setShowNotification } = useContext(DataContext);
   //  set default category
   const category = productCategoryList.map((data) => data.id)[0];
 
@@ -80,6 +80,22 @@ const CreateProduct = () => {
     console.log("Product created!", product.categoryName);
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+
+    // set isAdded to true to display notification
+    setShowNotification({
+      status: true,
+      item: "product",
+      action: "add",
+    });
+
+    // remove notification after 3 seconds
+    setTimeout(() => {
+      setShowNotification({
+        status: false,
+        item: null,
+        action: null,
+      });
+    }, 3000);
   };
 
   // upload image to firebase storage
@@ -177,8 +193,8 @@ const CreateProduct = () => {
                   value={product.isActive}
                   onChange={(e) => handleOnChange(e)}
                 >
-                  <option value={true}>Enable</option>
-                  <option value={false}>Disable</option>
+                  <option value={true}>Active</option>
+                  <option value={false}>Inactive</option>
                 </select>
               </div>
             </div>

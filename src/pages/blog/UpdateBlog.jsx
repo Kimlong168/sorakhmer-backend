@@ -22,7 +22,8 @@ import ButtonBack from "../../components/ButtonBack";
 import { DataContext } from "../../contexts/DataContext";
 const UpdateBlog = () => {
   const { id: blogParams } = useParams();
-  const { blogCategoryList, authorList } = useContext(DataContext);
+  const { blogCategoryList, authorList, setShowNotification } =
+    useContext(DataContext);
 
   // state
   const [blog, setBlog] = useState({
@@ -189,6 +190,21 @@ const UpdateBlog = () => {
       });
     }
 
+    // set isAdded to true to display notification
+    setShowNotification({
+      status: true,
+      item: "blog",
+      action: "update",
+    });
+
+    // remove notification after 3 seconds
+    setTimeout(() => {
+      setShowNotification({
+        status: false,
+        item: null,
+        action: null,
+      });
+    }, 3000);
     console.log("blog updated");
   }
 
@@ -298,8 +314,8 @@ const UpdateBlog = () => {
                   value={blog.isActive}
                   onChange={(e) => handleOnChange(e)}
                 >
-                  <option value={true}>Enable</option>
-                  <option value={false}>Disable</option>
+                  <option value={true}>Active</option>
+                  <option value={false}>Inactive</option>
                 </select>
               </div>
             </div>

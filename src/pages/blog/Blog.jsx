@@ -14,8 +14,10 @@ import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
 import { FaSearch } from "react-icons/fa";
+import Notification from "../../components/Notification";
 const Blog = () => {
-  const { blogList, blogCategoryList, authorList } = useContext(DataContext);
+  const { blogList, blogCategoryList, authorList, showNotification } =
+    useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -26,7 +28,7 @@ const Blog = () => {
   const [filter, setFilter] = useState("default");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [isSearched, setIsSearched] = useState(false);
-
+  const [isDeleted, setIsDeleted] = useState(false);
   // search blog
   const handleSearch = (e) => {
     e.preventDefault();
@@ -46,9 +48,9 @@ const Blog = () => {
     let filteredBlog = [];
     if (filter === "default") {
       filteredBlog = blogList;
-    } else if (filter == "enable") {
+    } else if (filter == "active") {
       filteredBlog = blogList.filter((blog) => blog.isActive);
-    } else if (filter == "disable") {
+    } else if (filter == "inactive") {
       filteredBlog = blogList.filter((blog) => !blog.isActive);
     } else {
       filteredBlog = blogList.filter((blog) => blog.categoryId === filter);
@@ -68,6 +70,11 @@ const Blog = () => {
                 // call delete image function
                 if (result) {
                   deleteImageFromStorage(coverImageId);
+                  setIsDeleted(true);
+
+                  setTimeout(() => {
+                    setIsDeleted(false);
+                  }, 2000);
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
@@ -145,8 +152,8 @@ const Blog = () => {
           onChange={(e) => setFilter(e.target.value)}
         >
           <option value="default">All Categories</option>
-          <option value="enable">Enable</option>
-          <option value="disable">Disable</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
           {blogCategoryList.map((category) => (
             <option key={category.id} value={category.id}>
               {category.categoryName}
@@ -199,7 +206,7 @@ const Blog = () => {
                 blogs.length == 0 && (
                   <>
                     <tr className=" text-center">
-                      <td className="py-8 text-white font-bold " colSpan={10}>
+                      <td className="py-8 dark:text-white font-bold " colSpan={10}>
                         {/* loading */}
                         No blogs found!
                       </td>
@@ -243,8 +250,16 @@ const Blog = () => {
                     <td className="px-4 py-3 whitespace-nowrap">
                       {blog.publicationDate}
                     </td>
-                    <td className="px-4 py-3">
-                      {blog.isActive ? "Enable" : "Disable⚠️"}
+                    <td className="px-4 py-3 text-xs">
+                      {blog.isActive ? (
+                        <span className="p-2 py-0.5 rounded border border-green-600 text-green-600 bg-green-600/10">
+                          Active
+                        </span>
+                      ) : (
+                        <span className="p-2 py-0.5 rounded border border-red-600 text-red-600 bg-red-600/10">
+                          Inactive
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3">
                       {blog.coverImage ? (
@@ -315,6 +330,18 @@ const Blog = () => {
 
       {/* toast alert */}
       <Toast />
+
+      {/* added successfully notification */}
+      {showNotification.status &&
+        showNotification.item == "blog" &&
+        showNotification.action == "add" && (
+          <Notification text="Blog added successfully" bg="bg-green-600" />
+        )}
+
+      {/* delete successfully notification */}
+      {isDeleted && (
+        <Notification text="Blog deleted successfully" bg="bg-red-600" id="1" />
+      )}
     </Layout>
   );
 };
