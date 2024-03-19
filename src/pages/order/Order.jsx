@@ -35,7 +35,8 @@ const Order = () => {
   const [maxTotalPrice, setMaxTotalPrice] = useState(1000);
   const [minTotalPrice, setMinTotalPrice] = useState(1);
   const [priceRange, setPriceRange] = useState(maxTotalPrice || 1000);
-
+  // filter order base on date
+  const [filterDate, setFilterDate] = useState("");
   // get the max total price
   useEffect(() => {
     if (orderList && orderList.length > 0) {
@@ -170,6 +171,10 @@ const Order = () => {
 
     // to show the search result text
     setIsSearched(true);
+
+    // set everything to default
+    setPriceRange(maxTotalPrice);
+    setFilterDate("");
   };
 
   //  filter base on status
@@ -193,13 +198,14 @@ const Order = () => {
 
     setOrders(filteredOrder);
 
-    // reset everything to default when filter is changed
+    // reset everything to default
     setIsSearched(false);
     setPriceRange(maxTotalPrice);
+    setSearchKeyword("");
+    setFilterDate("");
   }, [filter, orderList, maxTotalPrice]);
 
   // filter order base on total price
-
   useEffect(() => {
     let filteredOrder = orderList.filter(
       (order) =>
@@ -208,10 +214,27 @@ const Order = () => {
 
     setOrders(filteredOrder);
 
-    // reset everything to default when filter is changed
+    // reset everything to default
     setIsSearched(false);
     setFilter("default");
+    setSearchKeyword("");
+    setFilterDate("");
   }, [priceRange, orderList]);
+
+  useEffect(() => {
+    if (filterDate === "") return;
+
+    let filteredOrder = orderList.filter((order) =>
+      order.date.includes(formatDate(filterDate))
+    );
+    setOrders(filteredOrder);
+
+    // reset everything to default
+    setIsSearched(false);
+    setFilter("default");
+    setPriceRange(maxTotalPrice);
+    setSearchKeyword("");
+  }, [filterDate, orderList, maxTotalPrice]);
 
   return (
     <Layout>
@@ -231,6 +254,7 @@ const Order = () => {
             setFilter("default");
             setSearchKeyword("");
             setPriceRange(maxTotalPrice);
+            setFilterDate("");
           }}
           className="px-4 py-2 font-bold border bg-blue-500 text-white hover:bg-blue-600 hover:shadow-xl rounded w-fit"
         >
@@ -263,6 +287,15 @@ const Order = () => {
           </div>
         </form>
 
+        {/* date filter */}
+        <div>
+          <input
+            className="outline-none p-2.5 px-3 cursor-pointer border bg-transparent font-bold"
+            type="date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+          />
+        </div>
         {/* filter by category */}
         <select
           className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold"
@@ -352,7 +385,14 @@ const Order = () => {
                     className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
                   >
                     <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">{item.orderId}</td>
+                    <td className="px-4 py-3">
+                      <Link
+                        className="hover:text-blue-500 hover:underline"
+                        to={item.telegramPostLink}
+                      >
+                        {item.orderId}
+                      </Link>
+                    </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item.fullName}
                     </td>
@@ -363,12 +403,16 @@ const Order = () => {
                       </Link>
                     </td>
                     <td className="px-4 py-3">
-                      <Link
-                        to={item.contactLink}
-                        className="text-blue-600 hover:underline"
-                      >
-                        {checkSocialMedia(item.contactLink)}
-                      </Link>
+                      {item.contactLink ? (
+                        <Link
+                          to={item.contactLink}
+                          className="text-blue-600 hover:underline"
+                        >
+                          {checkSocialMedia(item.contactLink)}
+                        </Link>
+                      ) : (
+                        "No link"
+                      )}
                     </td>
                     {/* <td className="px-4 py-3">{item.paymentMethod}</td> */}
                     <td className="px-4 py-3">{item.date}</td>
@@ -424,7 +468,7 @@ const Order = () => {
         </div>
         <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"></div>
       </div>
-      
+
       {/* toast alert */}
       <Toast />
       {/* update status successfully notification */}
@@ -474,7 +518,17 @@ const TotalPriceRangeFilter = ({
     </div>
   );
 };
+function formatDate(inputDate) {
+  const dateParts = inputDate.split("-");
+  const year = dateParts[0];
+  const month = dateParts[1];
+  const day = dateParts[2];
 
+  // Construct the new format
+  const formattedDate = `${day}/${month}/${year}`;
+
+  return formattedDate;
+}
 TotalPriceRangeFilter.propTypes = {
   maxTotalPrice: PropType.number,
   minTotalPrice: PropType.number,

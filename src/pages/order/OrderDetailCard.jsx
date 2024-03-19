@@ -203,8 +203,17 @@ const OrderDetailCard = ({
                 <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm">
                   {checkSocialMedia(contactLink)}
                 </label>
-                <p className="font-medium text-blue-500 hover:text-blue-600">
-                  <Link to={contactLink}>{contactLink}</Link>
+                <p className="font-medium">
+                  {contactLink ? (
+                    <Link
+                      className=" text-blue-500 hover:text-blue-600"
+                      to={contactLink}
+                    >
+                      {contactLink}
+                    </Link>
+                  ) : (
+                    "No link"
+                  )}
                 </p>
               </div>
             )}

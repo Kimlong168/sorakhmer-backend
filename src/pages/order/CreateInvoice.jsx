@@ -558,7 +558,7 @@ const CreateInvoice = () => {
 
         {/* Invoice */}
         {isPreview && (
-          <div className="mt-5 border overflow-hidden  w-fit mx-auto rounded-lg shadow-xl">
+          <div className="mt-5 border overflow-auto w-full mx-auto rounded-lg shadow-xl">
             <div ref={contentToPrint}>
               <Invoice {...invoice} totalPrice={invoice.totalPrice} />
             </div>
