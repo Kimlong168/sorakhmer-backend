@@ -86,17 +86,8 @@ const CreateBlog = () => {
     setShowNotification({
       status: true,
       item: "blog",
-      action: "add",
+      action: "created",
     });
-
-    // remove notification after 3 seconds
-    setTimeout(() => {
-      setShowNotification({
-        status: false,
-        item: null,
-        action: null,
-      });
-    }, 3000);
 
     console.log("Blog created!", blog.categoryName);
 

@@ -7,7 +7,8 @@ import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const CreateProductCategory = () => {
   const [productCategory, setProductCategory] = useState({
     categoryName: null,
@@ -18,7 +19,8 @@ const CreateProductCategory = () => {
 
   //   update context
   const { setIsUpdated } = useContext(UpdateContext);
-  
+  const { setShowNotification } = useContext(DataContext);
+
   //   handle onChange event for input
   const handleOnChange = (e) => {
     setProductCategory({
@@ -35,8 +37,13 @@ const CreateProductCategory = () => {
     });
 
     console.log("Product category created!", productCategory.categoryName);
-      // to update the data in the table
+    // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "product category",
+      action: "created",
+    });
     navigate("/productCategory");
   };
 
@@ -53,7 +60,10 @@ const CreateProductCategory = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* category name input */}
-            <label className="font-bold text-xl">Category Name<RedStar /></label>
+            <label className="font-bold text-xl">
+              Category Name
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -88,9 +98,9 @@ const CreateProductCategory = () => {
 
         {/* toast alert */}
         <Toast />
-        
-            {/* button back */}
-            <ButtonBack link="/productCategory"/>
+
+        {/* button back */}
+        <ButtonBack link="/productCategory" />
       </div>
     </Layout>
   );

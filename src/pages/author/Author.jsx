@@ -17,7 +17,7 @@ import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
 
 const Author = () => {
-  const { authorList } = useContext(DataContext);
+  const { authorList, setShowNotification } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -34,6 +34,11 @@ const Author = () => {
                 // call delete image function
                 if (result) {
                   deleteImageFromStorage(authorImageId);
+                  setShowNotification({
+                    status: true,
+                    item: "author",
+                    action: "deleted",
+                  });
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
@@ -64,7 +69,7 @@ const Author = () => {
     <Layout>
       <TableHead
         color="rgb(59,130,246)"
-        title="Author"
+        title={`Author (${authorList.length})`}
         border="border-blue-400 text-blue-400"
         link="/createAuthor"
       />

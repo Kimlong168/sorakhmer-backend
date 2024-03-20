@@ -8,9 +8,11 @@ import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const CreatePartner = () => {
   const { setIsUpdated } = useContext(UpdateContext);
+  const {setShowNotification} = useContext(DataContext);
   const [partner, setPartner] = useState({
     partnerName: null,
     partnerLogo: "",
@@ -75,12 +77,16 @@ const CreatePartner = () => {
     });
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "partner",
+      action: "created",
+    });
     console.log("company partner added", partner.partnerName);
   };
 
   return (
     <Layout>
-
       <div className="text-gray-900  border-gray-700 rounded">
         {/* title */}
         <div className="text-center p-4 pt-0 font-bold text-3xl text-green-400 underline uppercase">
@@ -92,7 +98,10 @@ const CreatePartner = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* partner name input */}
-            <label className="font-bold text-xl">Partner Name<RedStar /></label>
+            <label className="font-bold text-xl">
+              Partner Name
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -102,7 +111,10 @@ const CreatePartner = () => {
             />
 
             {/* Logo picture input */}
-            <label className="font-bold text-xl">Logo Picture<RedStar /></label>
+            <label className="font-bold text-xl">
+              Logo Picture
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-1.5 rounded w-full outline-none mb-5"
               type="file"
@@ -146,9 +158,9 @@ const CreatePartner = () => {
 
             {/* toast alert */}
             <Toast />
-            
+
             {/* button back */}
-            <ButtonBack link="/partner"/>
+            <ButtonBack link="/partner" />
           </div>
         </div>
       </div>

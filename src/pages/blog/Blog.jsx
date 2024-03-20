@@ -14,10 +14,14 @@ import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
 import { FaSearch } from "react-icons/fa";
-import Notification from "../../components/Notification";
 const Blog = () => {
-  const { blogList, blogCategoryList, authorList, showNotification } =
-    useContext(DataContext);
+  const {
+    blogList,
+    blogCategoryList,
+    authorList,
+
+    setShowNotification,
+  } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -28,7 +32,6 @@ const Blog = () => {
   const [filter, setFilter] = useState("default");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [isSearched, setIsSearched] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
   // search blog
   const handleSearch = (e) => {
     e.preventDefault();
@@ -57,6 +60,7 @@ const Blog = () => {
     }
     setBlogs(filteredBlog);
     setIsSearched(false);
+    setSearchKeyword("");
   }, [filter, blogList]);
 
   // delete Blog notify
@@ -70,11 +74,13 @@ const Blog = () => {
                 // call delete image function
                 if (result) {
                   deleteImageFromStorage(coverImageId);
-                  setIsDeleted(true);
 
-                  setTimeout(() => {
-                    setIsDeleted(false);
-                  }, 2000);
+                  // show deleted success notification
+                  setShowNotification({
+                    status: true,
+                    item: "blog",
+                    action: "deleted",
+                  });
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
@@ -104,7 +110,7 @@ const Blog = () => {
     <Layout>
       <TableHead
         color="rgb(124,58,237)"
-        title="Blogs"
+        title={`Blogs (${blogList.length})`}
         border="border-violet-600 text-violet-600"
         link="/createBlog"
       />
@@ -147,7 +153,7 @@ const Blog = () => {
 
         {/* filter by category */}
         <select
-          className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold"
+          className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold w-full lg:w-auto"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -206,7 +212,10 @@ const Blog = () => {
                 blogs.length == 0 && (
                   <>
                     <tr className=" text-center">
-                      <td className="py-8 dark:text-white font-bold " colSpan={10}>
+                      <td
+                        className="py-8 dark:text-white font-bold "
+                        colSpan={10}
+                      >
                         {/* loading */}
                         No blogs found!
                       </td>
@@ -330,18 +339,6 @@ const Blog = () => {
 
       {/* toast alert */}
       <Toast />
-
-      {/* added successfully notification */}
-      {showNotification.status &&
-        showNotification.item == "blog" &&
-        showNotification.action == "add" && (
-          <Notification text="Blog added successfully" bg="bg-green-600" />
-        )}
-
-      {/* delete successfully notification */}
-      {isDeleted && (
-        <Notification text="Blog deleted successfully" bg="bg-red-600" id="1" />
-      )}
     </Layout>
   );
 };

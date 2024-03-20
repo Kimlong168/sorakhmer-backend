@@ -13,7 +13,6 @@ import checkSocialMedia from "../../utils/checkSocialMedia";
 import getStatusColor from "../../utils/getStatusColor";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { FaPrint } from "react-icons/fa";
-import Notification from "../../components/Notification";
 const OrderDetailCard = ({
   id,
   orderId,
@@ -30,7 +29,7 @@ const OrderDetailCard = ({
   // timeStamp,
 }) => {
   const { setIsUpdated } = useContext(UpdateContext);
-  const { showNotification, setShowNotification } = useContext(DataContext);
+  const { setShowNotification } = useContext(DataContext);
   const { contactList } = useContext(DataContext);
   const contact = contactList[0];
   const contentToPrint = useRef(null);
@@ -389,13 +388,6 @@ const OrderDetailCard = ({
           </button>
         </div>
       </div>
-
-      {/* update status successfully notification */}
-      {showNotification.status &&
-        showNotification.item == "order" &&
-        showNotification.action == "update" && (
-          <Notification text="Status updated successfully" bg="bg-green-600" />
-        )}
     </div>
   );
 };

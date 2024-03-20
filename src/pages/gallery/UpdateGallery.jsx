@@ -14,10 +14,12 @@ import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const UpdateGallery = () => {
   const { id: galleryParam } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const {setShowNotification} = useContext(DataContext)
   const [oldImageUrl, setOldImageUrl] = useState("");
   const [gallery, setGallery] = useState({
     name: null,
@@ -90,9 +92,6 @@ const UpdateGallery = () => {
         },
         { merge: true }
       );
-
-      // to update the data in the table
-      setIsUpdated((prev) => !prev);
     } else {
       // if image is updated
 
@@ -127,6 +126,14 @@ const UpdateGallery = () => {
       });
     }
 
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "gallery",
+      action: "updated",
+    });
+
     console.log("gallery updated");
   }
 
@@ -142,8 +149,6 @@ const UpdateGallery = () => {
       },
       { merge: true }
     );
-    // to update the data in the table
-    setIsUpdated((prev) => !prev);
   }
 
   // loading until data is fetched
@@ -214,9 +219,9 @@ const UpdateGallery = () => {
 
       {/* toast alert */}
       <Toast />
-      
-            {/* button back */}
-            <ButtonBack link="/gallery"/>
+
+      {/* button back */}
+      <ButtonBack link="/gallery" />
     </Layout>
   );
 };

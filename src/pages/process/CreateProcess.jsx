@@ -13,7 +13,7 @@ import { DataContext } from "../../contexts/DataContext";
 import AutoSuggestInput from "../../components/AutoSuggestInput";
 
 const CreateProcess = () => {
-  const { productList } = useContext(DataContext);
+  const { productList, setShowNotification } = useContext(DataContext);
   const [productName, setProductName] = useState([]);
   const [process, setProcess] = useState({
     processName: "",
@@ -45,6 +45,11 @@ const CreateProcess = () => {
     console.log("process category created!", process.processName);
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "process",
+      action: "created",
+    });
     navigate("/process");
   };
 

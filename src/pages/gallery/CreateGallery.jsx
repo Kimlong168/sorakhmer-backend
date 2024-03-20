@@ -7,11 +7,13 @@ import { addDoc, collection } from "firebase/firestore";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import Toast from "../../utils/Toast";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 function CreateGallery() {
   const [images, setImages] = useState(null);
   // update context
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
   let navigate = useNavigate();
 
   const uploadFiles = async () => {
@@ -53,6 +55,11 @@ function CreateGallery() {
 
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "gallery",
+      action: "created",
+    });
   };
 
   return (
@@ -88,9 +95,9 @@ function CreateGallery() {
         </fieldset>
         {/* toast alert */}
         <Toast />
-        
-            {/* button back */}
-            <ButtonBack link="/gallery"/>
+
+        {/* button back */}
+        <ButtonBack link="/gallery" />
       </div>
     </Layout>
   );

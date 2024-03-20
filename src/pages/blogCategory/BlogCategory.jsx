@@ -12,13 +12,23 @@ import LoadingInTable from "../../components/LoadingInTable";
 import { DataContext } from "../../contexts/DataContext";
 const BlogCategory = () => {
   const { setIsUpdated } = useContext(UpdateContext);
-  const { blogCategoryList } = useContext(DataContext);
+  const { blogCategoryList, setShowNotification } = useContext(DataContext);
   // delete category notify
   const notifyDeleting = (id) => {
     toast.error(
       <>
         <DeletingAlertBox
-          deleteItemFucntion={() => deleteItemFucntion(id, "blog_category")}
+          deleteItemFucntion={() => {
+            const confirm = deleteItemFucntion(id, "blog_category");
+
+            if (confirm) {
+              setShowNotification({
+                status: true,
+                item: "blog category",
+                action: "deleted",
+              });
+            }
+          }}
           setIsUpdated={setIsUpdated}
         />
       </>,
@@ -30,7 +40,7 @@ const BlogCategory = () => {
     <Layout>
       <TableHead
         color="rgb(219,39,119)"
-        title="Blog Category"
+        title={`Blog Category (${blogCategoryList.length})`}
         border="border-pink-600 text-pink-600"
         link="/createBlogCategory"
       />

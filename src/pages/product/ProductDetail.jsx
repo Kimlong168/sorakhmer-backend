@@ -6,13 +6,13 @@ import { db } from "../../firebase-config";
 import Loading from "../../components/Loading";
 import ProductDetailCard from "./ProductDetailCard";
 import { DataContext } from "../../contexts/DataContext";
-import Notification from "../../components/Notification";
 
 const ProductDetail = () => {
   const { id: productParams } = useParams();
-  const { productCategoryList, showNotification } = useContext(DataContext);
+  const { productCategoryList } = useContext(DataContext);
 
   const [product, setProduct] = useState(null);
+  // to store id without update- text after updating 
   const [newProductParam, setNewProductParam] = useState(productParams);
 
   // fetch product base on id or productParams
@@ -71,12 +71,7 @@ const ProductDetail = () => {
         />
       </div>
 
-      {/* updated successfully notification */}
-      {showNotification.status &&
-        showNotification.item == "product" &&
-        showNotification.action == "update" && (
-          <Notification text="Product updated successfully" bg="bg-green-600" />
-        )}
+  
     </Layout>
   );
 };

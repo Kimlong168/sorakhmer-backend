@@ -17,9 +17,11 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const UpdateAuthor = () => {
   const { id: authorParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
   const [oldImageUrl, setOldImageUrl] = useState("");
   const [author, setAuthor] = useState({
     fullName: null,
@@ -139,9 +141,6 @@ const UpdateAuthor = () => {
         },
         { merge: true }
       );
-
-      // to update the data in the table
-      setIsUpdated((prev) => !prev);
     } else {
       // if image is updated
 
@@ -175,6 +174,14 @@ const UpdateAuthor = () => {
         console.log("new author image uploaded");
       });
     }
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+
+    setShowNotification({
+      status: true,
+      item: "author",
+      action: "updated",
+    });
 
     console.log("author updated");
   }
@@ -198,8 +205,7 @@ const UpdateAuthor = () => {
       },
       { merge: true }
     );
-    // to update the data in the table
-    setIsUpdated((prev) => !prev);
+ 
   }
 
   // loading until data is fetched

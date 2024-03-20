@@ -16,11 +16,13 @@ import { DataContext } from "../../contexts/DataContext";
 import { FaSearch } from "react-icons/fa";
 import { TbMathEqualLower } from "react-icons/tb";
 import PropType from "prop-types";
-import Notification from "../../components/Notification";
 
 const Product = () => {
-  const { productList, productCategoryList, showNotification } =
-    useContext(DataContext);
+  const {
+    productList,
+    productCategoryList,
+    setShowNotification,
+  } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -33,9 +35,6 @@ const Product = () => {
   const [maxPrice, setMaxPrice] = useState(100);
   const [minPrice, setMinPrice] = useState(1);
   const [priceRange, setPriceRange] = useState(maxPrice || 100);
-
-  const [isDeleted, setIsDeleted] = useState(false);
-  // const [showNotification, setshowNotification] = useState(false);
 
   useEffect(() => {
     if (productList && productList.length > 0) {
@@ -62,11 +61,11 @@ const Product = () => {
                 // call delete image function
                 if (result) {
                   deleteImageFromStorage(imageId);
-                  setIsDeleted(true);
-
-                  setTimeout(() => {
-                    setIsDeleted(false);
-                  }, 2000);
+                  setShowNotification({
+                    status: true,
+                    action: "deleted",
+                    item: "product",
+                  });
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
@@ -141,7 +140,7 @@ const Product = () => {
     }
     setProducts(filteredProduct);
     setIsSearched(false);
-    setPriceRange(maxPrice);
+    // setPriceRange(maxPrice);
   }, [filter, productList, maxPrice]);
 
   // filter product base on price
@@ -162,7 +161,7 @@ const Product = () => {
     <Layout>
       <TableHead
         color="red"
-        title="Products"
+        title={`Products (${productList.length})`}
         border="border-red-600 text-red-600"
         link="/createProduct"
       />
@@ -276,7 +275,10 @@ const Product = () => {
                 products.length == 0 && (
                   <>
                     <tr className=" text-center">
-                      <td className="py-8 dark:text-white font-bold " colSpan={10}>
+                      <td
+                        className="py-8 dark:text-white font-bold "
+                        colSpan={10}
+                      >
                         {/* loading */}
                         No products found!
                       </td>
@@ -402,18 +404,6 @@ const Product = () => {
 
       {/* toast alert */}
       <Toast />
-
-      {/* added successfully notification */}
-      {showNotification.status &&
-        showNotification.item == "product" &&
-        showNotification.action == "add" && (
-          <Notification text="Product added successfully" bg="bg-green-600" />
-        )}
-
-      {/* delete successfully notification */}
-      {isDeleted && (
-        <Notification text="Product deleted successfully" bg="bg-red-600" />
-      )}
     </Layout>
   );
 };

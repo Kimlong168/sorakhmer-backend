@@ -14,7 +14,7 @@ import { FiEdit, FiXSquare } from "react-icons/fi";
 import { DataContext } from "../../contexts/DataContext";
 
 const Admin = () => {
-  const { adminList } = useContext(DataContext);
+  const { adminList, setShowNotification } = useContext(DataContext);
   const { userEmail } = useContext(AuthContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [newUsername, setNewUsername] = useState("");
@@ -71,6 +71,12 @@ const Admin = () => {
 
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "admin",
+      action: "updated",
+    });
+
     console.log("username updated");
   }
 
@@ -103,7 +109,7 @@ const Admin = () => {
     <Layout>
       <TableHead
         color="rgb(249,115,22)"
-        title="Admin"
+        title={`Admin (${adminList.length})`}
         border="border-orange-600 text-orange-500"
         link="/createAdmin"
       />

@@ -10,8 +10,10 @@ import formatDate from "../../utils/fomatDate";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const CreateAward = () => {
   const { setIsUpdated } = useContext(UpdateContext);
+  const {setShowNotification} = useContext(DataContext);
   const [award, setAward] = useState({
     awardName: null,
     awardLogo: "",
@@ -78,6 +80,11 @@ const CreateAward = () => {
     });
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "award",
+      action: "created",
+    });
     console.log("company award added", award.awardName);
   };
 

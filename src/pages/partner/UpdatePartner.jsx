@@ -14,10 +14,12 @@ import Toast from "../../utils/Toast";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const UpdatePartner = () => {
   const { id: partnerParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const {setShowNotification} = useContext(DataContext)
   const [oldImageUrl, setOldImageUrl] = useState("");
   const [partner, setPartner] = useState({
     partnerName: null,
@@ -67,7 +69,6 @@ const UpdatePartner = () => {
 
           // get old image url
           setOldImageUrl(data.partnerLogo);
-        
         } else {
           console.log("No such document!");
         }
@@ -97,9 +98,6 @@ const UpdatePartner = () => {
         },
         { merge: true }
       );
-
-      // to update the data in the table
-      setIsUpdated((prev) => !prev);
     } else {
       // if image is updated
 
@@ -136,7 +134,13 @@ const UpdatePartner = () => {
         console.log("new partner logo image uploaded");
       });
     }
-
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "partner",
+      action: "updated",
+    });
     console.log("partner updated");
   }
 
@@ -154,8 +158,6 @@ const UpdatePartner = () => {
       },
       { merge: true }
     );
-    // to update the data in the table
-    setIsUpdated((prev) => !prev);
   }
 
   // loading until data is fetched
@@ -180,7 +182,10 @@ const UpdatePartner = () => {
         <div className="bg-errorPage bg-no-repeat bg-cover bg-fixed bg-bottom  ">
           <div className="w-full flex flex-col  border border-white/50 rounded-3xl ">
             {/* partner name input */}
-            <label className="font-bold text-xl">Partner Name<RedStar /></label>
+            <label className="font-bold text-xl">
+              Partner Name
+              <RedStar />
+            </label>
             <input
               className="border border-gray-700 p-2 rounded w-full outline-none mb-5"
               type="text"
@@ -223,20 +228,16 @@ const UpdatePartner = () => {
             {/* create partner button */}
             <button
               className="bg-gray-700 text-white font-bold p-2 mt-2 rounded"
-              onClick={
-                partner.partnerName
-                  ? updatePartner
-                  : notify
-              }
+              onClick={partner.partnerName ? updatePartner : notify}
             >
               Update Partner
             </button>
 
             {/* toast alert */}
             <Toast />
-            
+
             {/* button back */}
-            <ButtonBack link="/partner"/>
+            <ButtonBack link="/partner" />
           </div>
         </div>
       </div>

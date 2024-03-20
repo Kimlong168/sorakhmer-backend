@@ -11,14 +11,25 @@ import DeletingAlertBox from "../../components/DeletingAlertBox";
 import LoadingInTable from "../../components/LoadingInTable";
 import { DataContext } from "../../contexts/DataContext";
 const Process = () => {
-  const { processList } = useContext(DataContext);
+  const { processList, setShowNotification } =
+    useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   // delete category notify
   const notifyDeleting = (id) => {
     toast.error(
       <>
         <DeletingAlertBox
-          deleteItemFucntion={() => deleteItemFucntion(id, "process")}
+          deleteItemFucntion={() => {
+            const confirm = deleteItemFucntion(id, "process");
+
+            if (confirm) {
+              setShowNotification({
+                status: true,
+                item: "process",
+                action: "deleted",
+              });
+            }
+          }}
           setIsUpdated={setIsUpdated}
         />
       </>,
@@ -30,7 +41,7 @@ const Process = () => {
     <Layout>
       <TableHead
         color="rgb(30,58,138)"
-        title="Process"
+        title={`Process (${processList.length})`}
         border="border-blue-900 text-blue-900"
         link="/createProcess"
       />
@@ -101,6 +112,8 @@ const Process = () => {
       </div>
       {/* toast alert */}
       <Toast />
+
+
     </Layout>
   );
 };

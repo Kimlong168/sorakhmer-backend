@@ -17,9 +17,11 @@ import formatDate from "../../utils/fomatDate";
 import convertDateFormat from "../../utils/convertDate";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const UpdateAward = () => {
   const { id: awardParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
   const [oldImageUrl, setOldImageUrl] = useState("");
   const [award, setAward] = useState({
     awardName: null,
@@ -102,9 +104,6 @@ const UpdateAward = () => {
         },
         { merge: true }
       );
-
-      // to update the data in the table
-      setIsUpdated((prev) => !prev);
     } else {
       // if image is updated
 
@@ -139,6 +138,15 @@ const UpdateAward = () => {
       });
     }
 
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+    // show update success notification
+    setShowNotification({
+      status: true,
+      item: "award",
+      action: "updated",
+    });
+
     console.log("award updated");
   }
 
@@ -157,8 +165,6 @@ const UpdateAward = () => {
       },
       { merge: true }
     );
-    // to update the data in the table
-    setIsUpdated((prev) => !prev);
   }
 
   // loading until data is fetched

@@ -9,8 +9,12 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
 import AutoSuggestInput from "../../components/AutoSuggestInput";
-import { cities, countries} from "../../utils/cityAndCountryList";
+import { cities, countries } from "../../utils/cityAndCountryList";
+import { DataContext } from "../../contexts/DataContext";
 const CreateStore = () => {
+  const { setShowNotification } = useContext(DataContext);
+  //   update context
+  const { setIsUpdated } = useContext(UpdateContext);
   const [store, setStore] = useState({
     storeName: null,
     description: "",
@@ -22,9 +26,6 @@ const CreateStore = () => {
   });
   let navigate = useNavigate();
   const postCollectionRef = collection(db, "stores");
-
-  //   update context
-  const { setIsUpdated } = useContext(UpdateContext);
 
   //   handle onChange event for input
   const handleOnChange = (e) => {
@@ -49,6 +50,11 @@ const CreateStore = () => {
     console.log(" store created!", store.storeName);
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "store",
+      action: "deleted",
+    });
     navigate("/store");
   };
 

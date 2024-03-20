@@ -10,9 +10,12 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack"
+import { DataContext } from "../../contexts/DataContext";
 const UpdateBlogCategory = () => {
   const { id: categoryParam } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
+  setShowNotification
   const [blogCategory, setBlogCategory] = useState({
     categoryName: null,
     description: "",
@@ -68,6 +71,11 @@ const UpdateBlogCategory = () => {
 
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "blog category",
+      action: "updated",
+    });
     navigate("/blogCategory");
     console.log("blog category updated");
   }

@@ -14,7 +14,7 @@ const Notification = ({ text, bg }) => {
         className={`p-2 flex items-start rounded gap-2 text-xs font-medium shadow-lg text-white pointer-events-auto ${bg}`}
       >
         <FiCheckSquare className=" mt-0.5" />
-        <span>{text}</span>
+        <span className="capitalize">{text}</span>
       </motion.div>
     </div>
   );

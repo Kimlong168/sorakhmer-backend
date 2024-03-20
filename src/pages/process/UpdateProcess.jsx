@@ -15,7 +15,7 @@ import { DataContext } from "../../contexts/DataContext";
 import AutoSuggestInput from "../../components/AutoSuggestInput";
 const UpdateProcess = () => {
   const { id: processParams } = useParams();
-  const { productList } = useContext(DataContext);
+  const { productList, setShowNotification } = useContext(DataContext);
   const [productName, setProductName] = useState([]);
   const { setIsUpdated } = useContext(UpdateContext);
   const [process, setProcess] = useState({
@@ -72,6 +72,11 @@ const UpdateProcess = () => {
 
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "process",
+      action: "updated",
+    });
     navigate("/process");
     console.log("process of producing updated");
   }

@@ -9,10 +9,12 @@ import { useParams } from "react-router-dom";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
-import ButtonBack from "../../components/ButtonBack"
+import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const UpdateProductCategory = () => {
   const { id: categoryParam } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
   const [productCategory, setProductCategory] = useState({
     categoryName: null,
     description: "",
@@ -42,7 +44,6 @@ const UpdateProductCategory = () => {
             categoryName: data.categoryName,
             description: data.description,
           });
-
         } else {
           console.log("No such document!");
         }
@@ -69,6 +70,11 @@ const UpdateProductCategory = () => {
     // to update the data in the table
     setIsUpdated((prev) => !prev);
     navigate("/productCategory");
+    setShowNotification({
+      status: true,
+      item: "product category",
+      action: "updated",
+    });
     console.log("product category updated");
   }
 
@@ -92,7 +98,10 @@ const UpdateProductCategory = () => {
         {/* update form */}
         <section className="pt-0">
           {/* category name */}
-          <label className="font-bold text-xl">Category Name<RedStar /></label>
+          <label className="font-bold text-xl">
+            Category Name
+            <RedStar />
+          </label>
           <input
             type="text"
             name="categoryName"
@@ -128,9 +137,9 @@ const UpdateProductCategory = () => {
 
           {/* toast alert */}
           <Toast />
-          
-            {/* button back */}
-            <ButtonBack link="/productCategory"/>
+
+          {/* button back */}
+          <ButtonBack link="/productCategory" />
         </section>
       </div>
     </Layout>

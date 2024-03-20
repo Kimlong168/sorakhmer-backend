@@ -12,9 +12,11 @@ import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
 import AutoSuggestInput from "../../components/AutoSuggestInput";
 import { cities, countries } from "../../utils/cityAndCountryList";
+import { DataContext } from "../../contexts/DataContext";
 const UpdateStore = () => {
   const { id: storeParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
   const [store, setStore] = useState({
     storeName: null,
     description: "",
@@ -84,6 +86,11 @@ const UpdateStore = () => {
 
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "store",
+      action: "updated",
+    });
     navigate("/store");
     console.log("store updated");
   }

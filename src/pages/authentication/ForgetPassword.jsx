@@ -6,6 +6,7 @@ const ForgetPassword = () => {
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   //   let navigate = useNavigate();
   // continue url after verify email
   var actionCodeSettings = {
@@ -15,6 +16,15 @@ const ForgetPassword = () => {
 
   const handleForgetPassword = (e) => {
     e.preventDefault();
+    if (!email) {
+      alert("please fill email");
+      return;
+    }
+
+    // set signingin to true to show loading
+    setIsSubmitting(true);
+
+    // send password reset email
     sendPasswordResetEmail(auth, email, actionCodeSettings)
       .then(() => {
         // Password reset email sent!
@@ -24,6 +34,7 @@ const ForgetPassword = () => {
       })
       .catch((error) => {
         console.log(error);
+        setIsSubmitting(false);
         alert("something went wrong");
       });
   };
@@ -78,7 +89,15 @@ const ForgetPassword = () => {
                   />
                 </svg>
 
-                <span>Reset password</span>
+                <span className="flex items-center gap-3">
+                  Reset password
+                  {isSubmitting && (
+                    <div
+                      style={{ borderTopColor: "transparent" }}
+                      className="w-4 h-4 border-2 border-white rounded-full animate-spin"
+                    ></div>
+                  )}
+                </span>
               </button>
               <p className="text-center">
                 <Link

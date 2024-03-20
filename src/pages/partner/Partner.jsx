@@ -17,7 +17,8 @@ import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
 const Partner = () => {
   const { setIsUpdated } = useContext(UpdateContext);
-  const { partnerList } = useContext(DataContext);
+  const { partnerList, setShowNotification } =
+    useContext(DataContext);
   const [showImage, setShowImage] = useState({
     open: false,
     image: null,
@@ -34,6 +35,12 @@ const Partner = () => {
                 // call delete image function
                 if (result) {
                   deleteImageFromStorage(partnerLogoId);
+                  setIsUpdated(true);
+                  setShowNotification({
+                    status: true,
+                    item: "partner",
+                    action: "deleted",
+                  });
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
@@ -64,7 +71,7 @@ const Partner = () => {
     <Layout>
       <TableHead
         color="green"
-        title="Partner"
+        title={`Partner (${partnerList.length})`}
         border="border-green-400 text-green-400"
         link="/createPartner"
       />
@@ -172,6 +179,7 @@ const Partner = () => {
 
       {/* Toast alert */}
       <Toast />
+ 
     </Layout>
   );
 };

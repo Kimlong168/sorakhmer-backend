@@ -15,7 +15,8 @@ import LoadingInTable from "../../components/LoadingInTable";
 import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
 const Gallery = () => {
-  const { galleryList }= useContext(DataContext);
+  const { galleryList, setShowNotification } =
+    useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
   const [showImage, setShowImage] = useState({
     open: false,
@@ -33,6 +34,11 @@ const Gallery = () => {
                 // call delete image function
                 if (result) {
                   deleteImageFromStorage(imageId);
+                  setShowNotification({
+                    status: true,
+                    item: "gallery",
+                    action: "deleted",
+                  });
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
@@ -64,7 +70,7 @@ const Gallery = () => {
     <Layout>
       <TableHead
         color="rgb(88,28,135)"
-        title="Gallery"
+        title={`Gallery (${galleryList.length})`}
         border="border-purple-800 text-purple-900"
         link="/createGallery"
       />
@@ -153,6 +159,7 @@ const Gallery = () => {
 
       {/* Toast alert */}
       <Toast />
+
     </Layout>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
@@ -7,9 +7,12 @@ import Loading from "../../components/Loading";
 import ContentDisplay from "../../components/ContentDisplay";
 import { IoChevronBack } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
+import Notification from "../../components/Notification";
+import { DataContext } from "../../contexts/DataContext";
 
 const ProcessDetail = () => {
   const { id: processParams } = useParams();
+  const {showNotification} = useContext(DataContext)
   const [process, setProcess] = useState(null);
 
   // fetch product base on id or processParams
@@ -79,6 +82,14 @@ const ProcessDetail = () => {
           <ContentDisplay htmlString={process.description} />
         </div>
       </div>
+
+      {/* update ,create and delete successfully notification */}
+      {showNotification.status && showNotification.item == "process" && (
+        <Notification
+          text={`Process ${showNotification.action} successfully`}
+          bg="bg-green-600"
+        />
+      )}
     </Layout>
   );
 };

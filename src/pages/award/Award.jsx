@@ -16,7 +16,7 @@ import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
 const Award = () => {
   const { setIsUpdated } = useContext(UpdateContext);
-  const { awardList } = useContext(DataContext);
+  const { awardList, setShowNotification } = useContext(DataContext);
   const [showImage, setShowImage] = useState({
     open: false,
     image: null,
@@ -33,6 +33,11 @@ const Award = () => {
                 // call delete image function
                 if (result) {
                   deleteImageFromStorage(awardLogoId);
+                  setShowNotification({
+                    status: true,
+                    item: "award",
+                    action: "deleted",
+                  });
                 }
               }) // This will log true if the item was deleted successfully
               .catch((error) => console.error(error));
@@ -63,7 +68,7 @@ const Award = () => {
     <Layout>
       <TableHead
         color="purple"
-        title="Award"
+        title={`Award (${awardList.length})`}
         border="border-purple-400 text-purple-400"
         link="/createAward"
       />

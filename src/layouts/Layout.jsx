@@ -16,8 +16,11 @@ import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
 import ToggleLightDarkMode from "../components/ToggleLightDarkMode";
+import Notification from "../components/Notification";
+import { DataContext } from "../contexts/DataContext";
 const Layout = (props) => {
   const { setIsAuth, userEmail } = useContext(AuthContext);
+  const {showNotification} = useContext(DataContext)
   const [activeTab, setActiveTab] = useState("dashboard");
 
   useEffect(() => {
@@ -361,6 +364,14 @@ const Layout = (props) => {
 
         <div className="h-full ml-14 mt-14 mb-10 md:ml-64 p-2 md:p-4 lg:p-10 pt-5 relative ">
           {props.children}
+
+          {/* update ,create and delete successfully notification */}
+          {showNotification.status && (
+            <Notification
+              text={`${showNotification.item} ${showNotification.action} successfully`}
+              bg="bg-green-600"
+            />
+          )}
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ const Login = ({ setIsAuth }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isSigningIn, setIsSigningIn] = useState(false);
   let navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -30,6 +31,8 @@ const Login = ({ setIsAuth }) => {
       alert("please fill all fields");
       return;
     }
+    // set signingin to true to show loading
+    setIsSigningIn(true);
 
     signInWithEmailAndPassword(auth, email.trim(), password.trim())
       .then((userCredential) => {
@@ -43,12 +46,12 @@ const Login = ({ setIsAuth }) => {
         // setItemWithExpiry("isAuth", true, 4); //3 days
         setIsAuth(true);
         navigate("/");
-        // window.location.href = "/";
       })
       .catch((error) => {
         setIsAuth(false);
         console.log(error.message);
         console.log(error.code);
+        setIsSigningIn(false);
         alert("login fail: wrong email or password");
       });
   };
@@ -144,8 +147,16 @@ const Login = ({ setIsAuth }) => {
               </div>
               <button
                 type="submit"
-                className="block w-full bg-indigo-600 mt-5 py-2 rounded-lg hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
+                className="flex items-center justify-center gap-3 w-full bg-indigo-600 mt-5 py-2 rounded-lg hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
               >
+                {isSigningIn && (
+                  <span>
+                    <div
+                      style={{ borderTopColor: "transparent" }}
+                      className="w-4 h-4 border-2 border-white rounded-full animate-spin"
+                    ></div>
+                  </span>
+                )}
                 Login
               </button>
               <div className="flex justify-between mt-4">

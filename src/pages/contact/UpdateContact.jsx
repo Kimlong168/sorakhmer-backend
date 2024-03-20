@@ -13,9 +13,11 @@ import Loading from "../../components/Loading";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
 import { FaLock, FaUnlock } from "react-icons/fa6";
+import { DataContext } from "../../contexts/DataContext";
 const UpdateContact = () => {
   const { id: contactParams } = useParams();
   const { setIsUpdated } = useContext(UpdateContext);
+  const {setShowNotification} = useContext(DataContext);
   const [contact, setContact] = useState({
     phoneNumber: null,
     email: "",
@@ -135,6 +137,12 @@ const UpdateContact = () => {
     );
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "contact",
+      action: "updated",
+    });
+
     navigate("/contact");
   }
   if (contact.phoneNumber === null) {

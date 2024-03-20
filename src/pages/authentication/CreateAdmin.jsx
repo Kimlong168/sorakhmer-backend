@@ -14,8 +14,10 @@ import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { addDoc, collection } from "firebase/firestore";
 import { UpdateContext } from "../../contexts/UpdateContext";
+import { DataContext } from "../../contexts/DataContext";
 const CreateUser = () => {
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -25,7 +27,6 @@ const CreateUser = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showCfPassword, setShowCfPassword] = useState(false);
   let navigate = useNavigate();
-
 
   // handle input change
   const handleOnChange = (e) => {
@@ -79,6 +80,12 @@ const CreateUser = () => {
         sendEmailVerification(newUser, actionCodeSettings)
           .then(() => {
             alert("Email verification sent. Check your email to verify.");
+            // show create success notification
+            setShowNotification({
+              status: true,
+              item: "admin",
+              action: "created",
+            });
           })
           .catch((error) => {
             console.log(error);
@@ -126,7 +133,9 @@ const CreateUser = () => {
         <div className="text-center p-4 pt-0 font-bold text-3xl text-orange-500 underline uppercase">
           Create Admin
         </div>
-        <small className="text-sm text-center text-gray-500 block">Once you create an admin, you cannot delete the admin.</small>
+        <small className="text-sm text-center text-gray-500 block">
+          Once you create an admin, you cannot delete the admin.
+        </small>
         <br />
 
         {/* create author categort form */}

@@ -120,7 +120,9 @@ function App() {
       );
 
       //fetch data of blog
-      const blogs = await getDocs(blogCollectionRef);
+      const blogs = await getDocs(
+        query(blogCollectionRef, orderBy("categoryId", "desc"))
+      );
       setBlogList(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
       //fetch data of blog category
@@ -177,6 +179,15 @@ function App() {
     fetchAllData();
     console.log("fetch data");
   }, [isUpdated]);
+
+  // remove notification after 2s
+  useEffect(() => {
+    if (showNotification.status) {
+      setTimeout(() => {
+        setShowNotification({ item: "", action: "", status: false });
+      }, 2000);
+    }
+  }, [showNotification]);
 
   // dark mode and light mode
 

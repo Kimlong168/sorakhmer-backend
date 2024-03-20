@@ -17,17 +17,16 @@ import { doc, setDoc } from "firebase/firestore";
 import getStatusColor from "../../utils/getStatusColor";
 import { FaSearch } from "react-icons/fa";
 import { TbMathEqualLower } from "react-icons/tb";
-import Notification from "../../components/Notification";
 
 const Order = () => {
   const { setIsUpdated } = useContext(UpdateContext);
-  const { setShowNotification, showNotification } = useContext(DataContext);
+  const { setShowNotification } = useContext(DataContext);
   const { orderList } = useContext(DataContext);
   const [isStatusUpdated, setIsStatusUpdated] = useState({
     status: false,
     id: "1",
   });
-  const [isDeleted, setIsDeleted] = useState(false);
+
   const [orders, setOrders] = useState(orderList);
   const [filter, setFilter] = useState("default");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -36,7 +35,19 @@ const Order = () => {
   const [minTotalPrice, setMinTotalPrice] = useState(1);
   const [priceRange, setPriceRange] = useState(maxTotalPrice || 1000);
   // filter order base on date
+  const [orderExistDate, setOrderExistDate] = useState([]);
   const [filterDate, setFilterDate] = useState("");
+
+  // get order exist date to filter
+  useEffect(() => {
+    if (orderList && orderList.length > 0) {
+      let existDate = orderList.map((order) => order.date.slice(0, 10));
+      // remove duplicate date
+      existDate = [...new Set(existDate)];
+      setOrderExistDate(existDate);
+    }
+  }, [orderList]);
+
   // get the max total price
   useEffect(() => {
     if (orderList && orderList.length > 0) {
@@ -61,11 +72,11 @@ const Order = () => {
             const confirm = deleteItemFucntion(id, "orders");
 
             if (confirm) {
-              setIsDeleted(true);
-
-              setTimeout(() => {
-                setIsDeleted(false);
-              }, 2000);
+              setShowNotification({
+                status: true,
+                item: "order",
+                action: "deleted",
+              });
             }
           }}
           // to update the data in the table
@@ -174,7 +185,6 @@ const Order = () => {
 
     // set everything to default
     setPriceRange(maxTotalPrice);
-    setFilterDate("");
   };
 
   //  filter base on status
@@ -200,10 +210,25 @@ const Order = () => {
 
     // reset everything to default
     setIsSearched(false);
-    setPriceRange(maxTotalPrice);
     setSearchKeyword("");
-    setFilterDate("");
   }, [filter, orderList, maxTotalPrice]);
+
+  useEffect(() => {
+    let filteredOrder = [];
+    if (filterDate === "default") {
+      filteredOrder = orderList;
+    } else {
+      filteredOrder = orderList.filter((order) =>
+        order.date.includes(filterDate)
+      );
+    }
+
+    setOrders(filteredOrder);
+
+    // reset everything to default
+    setIsSearched(false);
+    setSearchKeyword("");
+  }, [filterDate, orderList]);
 
   // filter order base on total price
   useEffect(() => {
@@ -216,37 +241,22 @@ const Order = () => {
 
     // reset everything to default
     setIsSearched(false);
+    setFilterDate("default");
     setFilter("default");
     setSearchKeyword("");
-    setFilterDate("");
   }, [priceRange, orderList]);
-
-  useEffect(() => {
-    if (filterDate === "") return;
-
-    let filteredOrder = orderList.filter((order) =>
-      order.date.includes(formatDate(filterDate))
-    );
-    setOrders(filteredOrder);
-
-    // reset everything to default
-    setIsSearched(false);
-    setFilter("default");
-    setPriceRange(maxTotalPrice);
-    setSearchKeyword("");
-  }, [filterDate, orderList, maxTotalPrice]);
 
   return (
     <Layout>
       <TableHead
         color="rgb(219,39,119)"
-        title="Customer Orders"
+        title={`Customer Order (${orderList.length})`}
         border="border-pink-600 text-pink-600"
         link="/createInvoice"
       />
 
       {/* search, sort and filter component */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 mb-4">
         {/* show all order button */}
         <button
           onClick={() => {
@@ -254,7 +264,7 @@ const Order = () => {
             setFilter("default");
             setSearchKeyword("");
             setPriceRange(maxTotalPrice);
-            setFilterDate("");
+            setFilterDate("default");
           }}
           className="px-4 py-2 font-bold border bg-blue-500 text-white hover:bg-blue-600 hover:shadow-xl rounded w-fit"
         >
@@ -288,14 +298,21 @@ const Order = () => {
         </form>
 
         {/* date filter */}
-        <div>
-          <input
-            className="outline-none p-2.5 px-3 cursor-pointer border bg-transparent font-bold"
-            type="date"
-            value={filterDate}
-            onChange={(e) => setFilterDate(e.target.value)}
-          />
-        </div>
+
+        <select
+          className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold"
+          value={filterDate}
+          onChange={(e) => setFilterDate(e.target.value)}
+        >
+          <option value="default">All Date</option>
+          {orderExistDate &&
+            orderExistDate.map((date, index) => (
+              <option key={index} value={date}>
+                {date}
+              </option>
+            ))}
+        </select>
+
         {/* filter by category */}
         <select
           className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold"
@@ -385,14 +402,7 @@ const Order = () => {
                     className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
                   >
                     <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">
-                      <Link
-                        className="hover:text-blue-500 hover:underline"
-                        to={item.telegramPostLink}
-                      >
-                        {item.orderId}
-                      </Link>
-                    </td>
+                    <td className="px-4 py-3">{item.orderId}</td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item.fullName}
                     </td>
@@ -471,17 +481,7 @@ const Order = () => {
 
       {/* toast alert */}
       <Toast />
-      {/* update status successfully notification */}
-      {showNotification.status &&
-        showNotification.item == "order" &&
-        showNotification.action == "update" && (
-          <Notification text="Status updated successfully" bg="bg-green-600" />
-        )}
 
-      {/* delete successfully notification */}
-      {isDeleted && (
-        <Notification text="Order deleted successfully" bg="bg-red-600" />
-      )}
     </Layout>
   );
 };
@@ -518,17 +518,7 @@ const TotalPriceRangeFilter = ({
     </div>
   );
 };
-function formatDate(inputDate) {
-  const dateParts = inputDate.split("-");
-  const year = dateParts[0];
-  const month = dateParts[1];
-  const day = dateParts[2];
 
-  // Construct the new format
-  const formattedDate = `${day}/${month}/${year}`;
-
-  return formattedDate;
-}
 TotalPriceRangeFilter.propTypes = {
   maxTotalPrice: PropType.number,
   minTotalPrice: PropType.number,

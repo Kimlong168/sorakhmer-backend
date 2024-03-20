@@ -85,17 +85,9 @@ const CreateProduct = () => {
     setShowNotification({
       status: true,
       item: "product",
-      action: "add",
+      action: "created",
     });
 
-    // remove notification after 3 seconds
-    setTimeout(() => {
-      setShowNotification({
-        status: false,
-        item: null,
-        action: null,
-      });
-    }, 3000);
   };
 
   // upload image to firebase storage

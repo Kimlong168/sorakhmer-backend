@@ -11,8 +11,10 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import notify from "../../utils/Notify";
 import RedStar from "../../components/RedStar";
 import ButtonBack from "../../components/ButtonBack";
+import { DataContext } from "../../contexts/DataContext";
 const CreateAuthor = () => {
   const { setIsUpdated } = useContext(UpdateContext);
+  const { setShowNotification } = useContext(DataContext);
   const [author, setAuthor] = useState({
     fullName: "",
     profilePicture: null,
@@ -115,6 +117,11 @@ const CreateAuthor = () => {
     });
     // to update the data in the table
     setIsUpdated((prev) => !prev);
+    setShowNotification({
+      status: true,
+      item: "author",
+      action: "created",
+    });
     console.log("author added", author.fullName);
   };
 

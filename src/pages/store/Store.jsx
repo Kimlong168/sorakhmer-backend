@@ -11,7 +11,8 @@ import DeletingAlertBox from "../../components/DeletingAlertBox";
 import LoadingInTable from "../../components/LoadingInTable";
 import { DataContext } from "../../contexts/DataContext";
 const Store = () => {
-  const { storeList } = useContext(DataContext);
+  const { storeList, setShowNotification } =
+    useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
 
   // delete category notify
@@ -19,7 +20,17 @@ const Store = () => {
     toast.error(
       <>
         <DeletingAlertBox
-          deleteItemFucntion={() => deleteItemFucntion(id, "stores")}
+          deleteItemFucntion={() => {
+            const confirm = deleteItemFucntion(id, "stores");
+
+            if (confirm) {
+              setShowNotification({
+                status: true,
+                item: "store",
+                action: "deleted",
+              });
+            }
+          }}
           setIsUpdated={setIsUpdated}
         />
       </>,
@@ -31,7 +42,7 @@ const Store = () => {
     <Layout>
       <TableHead
         color="rgb(124,45,18)"
-        title="Store"
+        title={`Stores (${storeList.length})`}
         border="border-orange-900 text-orange-900"
         link="/createStore"
       />
@@ -120,6 +131,7 @@ const Store = () => {
       </div>
       {/* toast alert */}
       <Toast />
+
     </Layout>
   );
 };

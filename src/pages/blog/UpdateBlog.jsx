@@ -194,17 +194,9 @@ const UpdateBlog = () => {
     setShowNotification({
       status: true,
       item: "blog",
-      action: "update",
+      action: "updated",
     });
 
-    // remove notification after 3 seconds
-    setTimeout(() => {
-      setShowNotification({
-        status: false,
-        item: null,
-        action: null,
-      });
-    }, 3000);
     console.log("blog updated");
   }
 

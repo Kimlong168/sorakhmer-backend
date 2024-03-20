@@ -10,6 +10,7 @@ import deleteItemFucntion from "../../lib/deleteItemFunction";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import LoadingInTable from "../../components/LoadingInTable";
 import { DataContext } from "../../contexts/DataContext";
+
 const ProductCategory = () => {
   const { productCategoryList } = useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
@@ -31,7 +32,7 @@ const ProductCategory = () => {
     <Layout>
       <TableHead
         color="rgb(251,204,21)"
-        title="Product Category"
+        title={`Product Category (${productCategoryList.length})`}
         border="border-yellow-400 text-yellow-400"
         link="/createProductCategory"
       />
@@ -96,6 +97,7 @@ const ProductCategory = () => {
       </div>
       {/* toast alert */}
       <Toast />
+
     </Layout>
   );
 };

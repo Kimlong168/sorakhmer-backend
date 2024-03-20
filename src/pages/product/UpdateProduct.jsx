@@ -60,6 +60,7 @@ const UpdateProduct = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   useEffect(() => {
     const docRef = doc(db, "products", productParams);
 
@@ -135,24 +136,6 @@ const UpdateProduct = () => {
         },
         { merge: true }
       );
-      // to update the data in the table
-      setIsUpdated((prev) => !prev);
-
-      // set isAdded to true to display notification
-      setShowNotification({
-        status: true,
-        item: "product",
-        action: "update",
-      });
-
-      // remove notification after 3 seconds
-      setTimeout(() => {
-        setShowNotification({
-          status: false,
-          item: null,
-          action: null,
-        });
-      }, 3000);
     } else {
       // if image is updated
 
@@ -185,6 +168,14 @@ const UpdateProduct = () => {
         console.log("new product image uploaded");
       });
     }
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
+    // set isAdded to true to display notification
+    setShowNotification({
+      status: true,
+      item: "product",
+      action: "updated",
+    });
 
     console.log("product updated");
   }
@@ -212,8 +203,6 @@ const UpdateProduct = () => {
       },
       { merge: true }
     );
-    // to update the data in the table
-    setIsUpdated((prev) => !prev);
   }
 
   // loading until data is fetched
