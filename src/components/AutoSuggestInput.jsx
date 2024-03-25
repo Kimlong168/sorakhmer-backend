@@ -10,14 +10,13 @@ const AutoSuggestInput = ({
   setValue,
 }) => {
   const [suggestions, setSuggestions] = useState([]);
-
   // Teach Autosuggest how to calculate suggestions for any given input value.
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-
+  
     return inputLength === 0
-      ? []
+      ? data
       : data.filter(
           (lang) => lang.name.toLowerCase().slice(0, inputLength) === inputValue
         );
@@ -52,8 +51,11 @@ const AutoSuggestInput = ({
   const renderSuggestionsContainer = ({ containerProps, children }) => (
     <div
       {...containerProps}
-      className="z-10 bg-gray-500 rounded w-full mb-5  overflow-hidden"
+      className={`z-10 bg-gray-500 rounded w-full mb-5 ${
+        children && "h-auto"
+      } overflow-hidden overflow-y-auto`}
     >
+    
       {children}
     </div>
   );

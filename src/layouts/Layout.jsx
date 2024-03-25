@@ -5,7 +5,6 @@ import { FiUsers, FiMail, FiUser } from "react-icons/fi";
 import { TiShoppingCart } from "react-icons/ti";
 import { HiOutlineLogout } from "react-icons/hi";
 import { FaSteamSymbol, FaAward, FaShoppingBasket } from "react-icons/fa";
-
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import logo from "../assets/images/sorakhmer-logo.png";
@@ -20,7 +19,7 @@ import Notification from "../components/Notification";
 import { DataContext } from "../contexts/DataContext";
 const Layout = (props) => {
   const { setIsAuth, userEmail } = useContext(AuthContext);
-  const {showNotification} = useContext(DataContext)
+  const { showNotification, countNewOrder } = useContext(DataContext);
   const [activeTab, setActiveTab] = useState("dashboard");
 
   useEffect(() => {
@@ -29,7 +28,7 @@ const Layout = (props) => {
       setActiveTab(tab);
     }
   }, []);
-  // handleChange tab
+  // handleChange active tab
   const handleChangeTab = (tab) => {
     localStorage.setItem("activeTab", tab);
   };
@@ -44,7 +43,6 @@ const Layout = (props) => {
     if (confirmSignOut) {
       signOut(auth).then(() => {
         navigate("/login");
-        //  window.location.href = "/";
         localStorage.clear();
         console.log("Signed Out");
         setIsAuth(false);
@@ -131,8 +129,13 @@ const Layout = (props) => {
                   <span className="inline-flex justify-center items-center ml-4">
                     <FaShoppingBasket />
                   </span>
-                  <span className="ml-2 text-sm tracking-wide truncate">
+                  <span className="ml-2 text-sm tracking-wide truncate flex items-center gap-3">
                     Orders
+                    {countNewOrder > 0 && (
+                      <span className="p-3 py-1 rounded bg-green-500/20 text-green-500 border-green-600 border text-xs">
+                        <>Today: +{countNewOrder}</>
+                      </span>
+                    )}
                   </span>
                 </Link>
               </li>

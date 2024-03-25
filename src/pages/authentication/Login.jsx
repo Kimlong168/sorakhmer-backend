@@ -14,12 +14,22 @@ const Login = ({ setIsAuth }) => {
   let navigate = useNavigate();
 
   const handleLogin = (e) => {
+    const salt = "sorakhmer@2024thisisthesalttomaketheloginsecure";
     // default admin account
     if (
       email.trim() === "admin@gmail.com" &&
       password.trim() === "sorakhmerJ$2pR&8aL9qF@5sG"
     ) {
-      localStorage.setItem("isAuth", true);
+      // Storing salted and hashed value
+
+      // Storing salted and status
+      const authData = {
+        status: true,
+        salt: salt,
+      };
+
+      localStorage.setItem("isUserAuth", JSON.stringify(authData));
+
       localStorage.setItem("userEmail", email);
       setIsAuth(true);
       navigate("/");
@@ -39,7 +49,15 @@ const Login = ({ setIsAuth }) => {
         const user = userCredential.user;
         console.log("login successfully", user);
         // alert("login successfully");
-        localStorage.setItem("isAuth", true);
+
+        // Storing salted and status
+        const authData = {
+          status: true,
+          salt: salt,
+        };
+
+        localStorage.setItem("isUserAuth", JSON.stringify(authData));
+
         localStorage.setItem("userEmail", email);
         localStorage.setItem("userUid", user.uid);
         console.log("displayname", user.displayName);

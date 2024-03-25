@@ -55,7 +55,8 @@ const OrderDetailCard = ({
       },
       { merge: true }
     );
-
+    // to update the data in the table
+    setIsUpdated((prev) => !prev);
     // to show the updating status
     setIsStatusUpdated(true);
     // update status in this page
@@ -78,8 +79,6 @@ const OrderDetailCard = ({
 
   //   handle change status
   const handleChangeStatus = (e) => {
-    // to update the data in the table
-    setIsUpdated((prev) => !prev);
     const newStatus = e.target.value;
     updateOrderStatus(newStatus);
 

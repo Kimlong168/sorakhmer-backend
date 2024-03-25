@@ -1,6 +1,5 @@
 import Layout from "../../layouts/Layout";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import TableHead from "../../components/TableHead";
 import { toast } from "react-toastify";
 import Toast from "../../utils/Toast";
@@ -11,23 +10,17 @@ import { UpdateContext } from "../../contexts/UpdateContext";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "../../firebase-config";
 import LoadingInTable from "../../components/LoadingInTable";
-import PopupImage from "../../components/PopupImage";
 import { DataContext } from "../../contexts/DataContext";
 import { FaSearch } from "react-icons/fa";
 import { TbMathEqualLower } from "react-icons/tb";
 import PropType from "prop-types";
+import Pagination from "./Pagination";
 
 const Product = () => {
-  const {
-    productList,
-    productCategoryList,
-    setShowNotification,
-  } = useContext(DataContext);
+  const { productList, productCategoryList, setShowNotification } =
+    useContext(DataContext);
   const { setIsUpdated } = useContext(UpdateContext);
-  const [showImage, setShowImage] = useState({
-    open: false,
-    image: null,
-  });
+
   const [products, setProducts] = useState(productList);
   const [filter, setFilter] = useState("default");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -35,7 +28,7 @@ const Product = () => {
   const [maxPrice, setMaxPrice] = useState(100);
   const [minPrice, setMinPrice] = useState(1);
   const [priceRange, setPriceRange] = useState(maxPrice || 100);
-
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
   useEffect(() => {
     if (productList && productList.length > 0) {
       let maxPrice = Math.max(
@@ -229,6 +222,31 @@ const Product = () => {
             setPriceRange={setPriceRange}
           />
         </div>
+
+        {/* update record per page */}
+        {productList && productList.length > 5 && (
+          <select
+            onChange={(e) => setRecordsPerPage(e.target.value)}
+            name="recordsPerPage"
+            className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold w-full lg:w-auto"
+          >
+            <option value="5">5 per page</option>
+            <option value="10">10 per page</option>
+            {productList.length >= 25 && (
+              <option value="25">25 per page</option>
+            )}
+            {productList.length >= 50 && (
+              <option value="50">50 per page</option>
+            )}
+            {productList.length >= 75 && (
+              <option value="75">75 per page</option>
+            )}
+            {productList.length >= 100 && (
+              <option value="100">100 per page</option>
+            )}
+            <option value={productList.length}>All per page</option>
+          </select>
+        )}
       </div>
 
       {/* result search for text */}
@@ -259,6 +277,7 @@ const Product = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              {/* loading */}
               {productList && productList.length == 0 && (
                 <>
                   <tr className=" text-center">
@@ -269,6 +288,7 @@ const Product = () => {
                 </>
               )}
 
+              {/* not found */}
               {productList &&
                 productList.length > 0 &&
                 products &&
@@ -286,116 +306,12 @@ const Product = () => {
                   </>
                 )}
 
-              {products &&
-                products.map((product, index) => (
-                  <tr
-                    key={product.id}
-                    className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
-                  >
-                    <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">{product.name}</td>
-                    {/* category */}
-                    <td className="px-4 py-3">
-                      {productCategoryList &&
-                      productCategoryList
-                        .map((data) =>
-                          data.id === product.categoryId
-                            ? data.categoryName
-                            : null
-                        )
-                        .filter((category) => category !== null).length > 0 ? (
-                        productCategoryList.map((data) =>
-                          data.id === product.categoryId
-                            ? data.categoryName
-                            : null
-                        )
-                      ) : (
-                        <p className="truncate">No Category⚠️</p>
-                      )}
-                    </td>
-                    {/* price */}
-                    <td className="px-4 py-3">{product.price} $</td>
-                    {/* product code */}
-                    <td className="px-4 py-3">
-                      {product.productCode ? product.productCode : "No code"}
-                    </td>
-                    {/* status */}
-                    <td className="px-4 py-3 text-xs">
-                      {product.isActive ? (
-                        <span className="p-2 py-0.5 rounded border border-green-600 text-green-600 bg-green-600/10">
-                          Active
-                        </span>
-                      ) : (
-                        <span className="p-2 py-0.5 rounded border border-red-600 text-red-600 bg-red-600/10">
-                          Inactive
-                        </span>
-                      )}
-                    </td>
-
-                    {/* product image */}
-                    <td className="px-4 py-3">
-                      {product.image ? (
-                        <img
-                          className="min-w-[60px] min-h-[70px] w-[60px] h-[70px] rounded-sm cursor-pointer"
-                          src={product.image}
-                          loading="lazy"
-                          onClick={() => {
-                            setShowImage({
-                              image: product.image,
-                              open: true,
-                            });
-                          }}
-                        />
-                      ) : (
-                        "No Image"
-                      )}
-
-                      {/* pop up image */}
-                      {showImage.open && showImage.image == product.image && (
-                        <PopupImage
-                          image={product.image}
-                          setShowImage={(condition) => {
-                            setShowImage({
-                              image: product.image,
-                              open: condition,
-                            });
-                            setShowImage({
-                              image: null,
-                              open: false,
-                            });
-                          }}
-                        />
-                      )}
-                    </td>
-                    {/* view button */}
-                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                      <Link to={`/productDetail/${product.id}`}>
-                        <div className="px-2 py-1.5 rounded bg-yellow-500 text-white cursor-pointer">
-                          View
-                        </div>
-                      </Link>
-                    </td>
-                    {/* edit button */}
-                    <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/updateProduct/${product.id}`}>
-                        <div className="px-2 py-1.5 rounded bg-green-600 text-white">
-                          Edit
-                        </div>
-                      </Link>
-                    </td>
-                    {/* delete button */}
-                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                      <div
-                        onClick={() =>
-                          notifyDeleting(product.id, product.imageId)
-                        }
-                        className="px-2 py-1.5 rounded bg-red-600 text-white"
-                      >
-                        Delete
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+              {/* display data with pagination */}
+              <Pagination
+                products={products}
+                notifyDeleting={notifyDeleting}
+                numberOfRecordsPerPage={recordsPerPage}
+              />
             </tbody>
           </table>
         </div>

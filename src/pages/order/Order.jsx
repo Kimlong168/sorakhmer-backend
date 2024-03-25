@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UpdateContext } from "../../contexts/UpdateContext";
 import PropType from "prop-types";
@@ -11,12 +10,11 @@ import deleteItemFucntion from "../../lib/deleteItemFunction";
 import DeletingAlertBox from "../../components/DeletingAlertBox";
 import LoadingInTable from "../../components/LoadingInTable";
 import { DataContext } from "../../contexts/DataContext";
-import checkSocialMedia from "../../utils/checkSocialMedia";
 import { db } from "../../firebase-config";
 import { doc, setDoc } from "firebase/firestore";
-import getStatusColor from "../../utils/getStatusColor";
 import { FaSearch } from "react-icons/fa";
 import { TbMathEqualLower } from "react-icons/tb";
+import Pagination from "./Pagination";
 
 const Order = () => {
   const { setIsUpdated } = useContext(UpdateContext);
@@ -33,11 +31,11 @@ const Order = () => {
   const [isSearched, setIsSearched] = useState(false);
   const [maxTotalPrice, setMaxTotalPrice] = useState(1000);
   const [minTotalPrice, setMinTotalPrice] = useState(1);
-  const [priceRange, setPriceRange] = useState(maxTotalPrice || 1000);
+  const [priceRange, setPriceRange] = useState(maxTotalPrice);
   // filter order base on date
   const [orderExistDate, setOrderExistDate] = useState([]);
   const [filterDate, setFilterDate] = useState("");
-
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
   // get order exist date to filter
   useEffect(() => {
     if (orderList && orderList.length > 0) {
@@ -60,6 +58,7 @@ const Order = () => {
       );
       setMinTotalPrice(parseInt(minPrice + 1));
       setMaxTotalPrice(parseInt(maxPrice + 1));
+      setPriceRange(parseInt(maxPrice + 1));
     }
   }, [orderList]);
 
@@ -308,7 +307,10 @@ const Order = () => {
           {orderExistDate &&
             orderExistDate.map((date, index) => (
               <option key={index} value={date}>
-                {date}
+                {date.slice(0, 10) ==
+                new Date().toLocaleString("en-GB").slice(0, 10)
+                  ? "Today"
+                  : date}
               </option>
             ))}
         </select>
@@ -336,6 +338,26 @@ const Order = () => {
             setPriceRange={setPriceRange}
           />
         </div>
+
+        {/* update record per page */}
+
+        {orderList && orderList.length > 5 && (
+          <select
+            onChange={(e) => setRecordsPerPage(e.target.value)}
+            name="recordsPerPage"
+            className="outline-none p-2 px-3 cursor-pointer border bg-transparent font-bold w-full lg:w-auto"
+          >
+            <option value="5">5 per page</option>
+            <option value="10">10 per page</option>
+            {orderList.length >= 25 && <option value="25">25 per page</option>}
+            {orderList.length >= 50 && <option value="50">50 per page</option>}
+            {orderList.length >= 75 && <option value="75">75 per page</option>}
+            {orderList.length >= 100 && (
+              <option value="100">100 per page</option>
+            )}
+            <option value={orderList.length}>All per page</option>
+          </select>
+        )}
       </div>
 
       {/* result search for text */}
@@ -368,6 +390,7 @@ const Order = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              {/* loading */}
               {orderList && orderList.length == 0 && (
                 <>
                   <tr className=" text-center">
@@ -377,7 +400,7 @@ const Order = () => {
                   </tr>
                 </>
               )}
-
+              {/* not found */}
               {orderList &&
                 orderList.length > 0 &&
                 orders &&
@@ -395,84 +418,14 @@ const Order = () => {
                   </>
                 )}
 
-              {orders &&
-                orders.map((item, index) => (
-                  <tr
-                    key={item.id}
-                    className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"
-                  >
-                    <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">{item.orderId}</td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {item.fullName}
-                    </td>
-                    <td className="px-4 py-3">{item.address}</td>
-                    <td className="px-4 py-3">
-                      <Link to={`tel:${item.phoneNumber}`}>
-                        {item.phoneNumber}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3">
-                      {item.contactLink ? (
-                        <Link
-                          to={item.contactLink}
-                          className="text-blue-600 hover:underline"
-                        >
-                          {checkSocialMedia(item.contactLink)}
-                        </Link>
-                      ) : (
-                        "No link"
-                      )}
-                    </td>
-                    {/* <td className="px-4 py-3">{item.paymentMethod}</td> */}
-                    <td className="px-4 py-3">{item.date}</td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {item.total} $
-                    </td>
-                    <td className="px-4 py-3">
-                      {isStatusUpdated.status &&
-                      isStatusUpdated.id === item.id ? (
-                        <div className="px-2 py-1.5 rounded  dark:text-white flex items-center justify-center">
-                          updating...
-                        </div>
-                      ) : (
-                        <select
-                          id="status"
-                          value={item.status}
-                          onChange={(e) => handleChangeStatus(e, item.id)}
-                          className={`${getStatusColor(
-                            item.status
-                          )} text-white block cursor-pointer font-bold py-1 px-2 border-2 rounded-md shadow-sm   focus:outline-none  sm:text-sm`}
-                        >
-                          <option value="pending">Pending</option>
-                          <option value="processing">Processing</option>
-                          <option value="paid">Paid</option>
-                          <option value="delivered">Delivered</option>
-                          <option value="cancelled">Cancelled</option>
-                        </select>
-                      )}
-                    </td>
-
-                    {/* view button */}
-                    <td className="px-4 py-3 text-sm text-center">
-                      <Link to={`/orderDetail/${item.orderId}`}>
-                        <div className="px-2 py-1.5 rounded bg-yellow-500 text-white">
-                          view
-                        </div>
-                      </Link>
-                    </td>
-
-                    {/* delete button */}
-                    <td className="px-4 py-3 text-sm text-center cursor-pointer">
-                      <div
-                        onClick={() => notifyDeleting(item.id)}
-                        className="px-2 py-1.5 rounded bg-red-600 text-white"
-                      >
-                        Delete
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+              {/* display data with pagination */}
+              <Pagination
+                orders={orders}
+                notifyDeleting={notifyDeleting}
+                numberOfRecordsPerPage={recordsPerPage}
+                handleChangeStatus={handleChangeStatus}
+                isStatusUpdated={isStatusUpdated}
+              />
             </tbody>
           </table>
         </div>
@@ -481,7 +434,6 @@ const Order = () => {
 
       {/* toast alert */}
       <Toast />
-
     </Layout>
   );
 };

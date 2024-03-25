@@ -59,7 +59,16 @@ function App() {
     localStorage.getItem("mode") ? localStorage.getItem("mode") : "dark"
   );
 
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  //  user authentication state
+  const [isAuth, setIsAuth] = useState(() => {
+    const storedData = localStorage.getItem("isUserAuth");
+    if (storedData) {
+      const rightSalt = "sorakhmer@2024thisisthesalttomaketheloginsecure";
+      const { status, salt } = JSON.parse(storedData);
+      if (salt === rightSalt) return status;
+    }
+    return false; // Default value if data doesn't exist or salt doesn't match
+  });
   const userEmail = localStorage.getItem("userEmail") || "admin@gmail.com";
   const [isUpdated, setIsUpdated] = useState(false);
   // to show notification after adding
@@ -82,7 +91,9 @@ function App() {
   const [galleryList, setGalleryList] = useState([]);
   const [adminList, setAdminList] = useState([]);
   const [orderList, setOrderList] = useState([]);
-  // fetch all data from firebase
+  const [countNewOrder, setCountNewOrder] = useState([]);
+  const [numberOfEachOrderStatus, setNumberOfEachOrderStatus] = useState({});
+  // fetch all data from firebas
   useEffect(() => {
     const productCollectionRef = collection(db, "products");
     const productCategoryCollectionRef = collection(db, "product_category");
@@ -104,6 +115,27 @@ function App() {
         query(orderCollectionRef, orderBy("timeStamp", "desc"))
       );
       setOrderList(order.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+      // counter number of order that have beeen order today
+      const newOrder = order.docs.filter((doc) => {
+        const today = new Date().toLocaleString("en-GB");
+        return doc.data().date.slice(0, 10) == today.slice(0, 10);
+      });
+      setCountNewOrder(newOrder.length);
+
+      // counter number of each order status
+      const orderStatus = order.docs.map((doc) => doc.data().status);
+      let statusCount = {
+        pending: orderStatus.filter((status) => status === "pending").length,
+        processing: orderStatus.filter((status) => status === "processing")
+          .length,
+        paid: orderStatus.filter((status) => status === "paid").length,
+        delivered: orderStatus.filter((status) => status === "delivered")
+          .length,
+        cancelled: orderStatus.filter((status) => status === "cancelled")
+          .length,
+      };
+      setNumberOfEachOrderStatus(statusCount);
 
       // fetch data of product
       const products = await getDocs(
@@ -209,7 +241,7 @@ function App() {
     }
   };
 
-  // if user is not signed in
+  // if user is not signed in - private route
   if (!isAuth) {
     return (
       <Router>
@@ -249,6 +281,8 @@ function App() {
                 theme,
                 showNotification,
                 setShowNotification,
+                countNewOrder,
+                numberOfEachOrderStatus,
               }}
             >
               {/* -------------router------------- */}
